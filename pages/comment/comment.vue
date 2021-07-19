@@ -71,7 +71,7 @@
 							item.author_avatar_urls = {
 								"24": this.$store.state.authStore.userInfo.avatarUrl
 							};
-							item.author_name = this.$store.state.authStore.userInfo.nickName;
+							item.author_name = this.$store.state.authStore.userInfo.nickname;
 							item.content = {
 								rendered: item.comment_content
 							};

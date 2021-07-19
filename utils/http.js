@@ -1,6 +1,6 @@
 /*
  * UniApp Wordpress 小程序
- * Author: XiaoSaGe
+ * Author: SuperTylerX
  * 开源协议：MIT
  * Copyright (c) 2021 https://uni.supertyler.com
  */
@@ -77,13 +77,30 @@ function getComments(queryObj) {
 
 // 微信用户登录
 function wxUserLogin(queryObj) {
+
+	let url = "";
+	// #ifdef MP-WEIXIN
+	url = API.WECHAT_USER_LOGIN;
+	// #endif
+	// #ifdef MP-QQ
+	url = API.QQ_MINIAPP_USER_LOGIN;
+	// #endif
+
 	return unip.request({
-		url: API.WECHAT_USER_LOGIN,
+		url,
 		method: "POST",
 		data: queryObj
 	});
 }
-
+// QQ APP用户登录
+function qqAppUserLogin(queryObj) {
+	const url = API.QQ_APP_USER_LOGIN;
+	return unip.request({
+		url,
+		method: "POST",
+		data: queryObj
+	});
+}
 // 点赞
 function postLike(queryObj, token) {
 	return unip.request({
@@ -223,5 +240,6 @@ export default {
 	postMyComment,
 	deleteMyComment,
 	getLikePosts,
-	getPageDetail
+	getPageDetail,
+	qqAppUserLogin
 };

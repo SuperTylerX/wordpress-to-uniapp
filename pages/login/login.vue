@@ -20,24 +20,27 @@
 			</view>
 
 			<view class="more-options">
-				<view class="forgot-pass"><text class="color" @tap="redirect({
-					type: 'webpage',
-					url: lostpasswordUrl
-				})">忘记密码</text></view>
-				<view class="register">没有账号？<text class="color" @tap="redirect({
-					type: 'webpage',
-					url: registerUrl
-				})">注册</text></view>
+				<view class="forgot-pass"><text class="color" @tap="forgetPassOrRegister(1)">忘记密码</text></view>
+				<view class="register">没有账号？<text class="color" @tap="forgetPassOrRegister(2)">注册</text></view>
 			</view>
 
 			<button class="button" type="primary" form-type="submit">登录</button>
 		</form>
 
-
-		<view class="wechat" @tap="wechatLogin">
+		<!-- #ifdef MP-WEIXIN-->
+		<view class="thrid-login" @tap="miniAppLogin">
 			<u-icon class="icon" size="60" name="weixin-fill" color="#62b900"></u-icon>
 			<text class="disc"> 微信登录 </text>
 		</view>
+		<!-- #endif -->
+
+		<!-- #ifdef MP-QQ || H5 || APP -->
+		<button type="default" plain="true" class="thrid-login" open-type="getUserInfo" @getuserinfo="miniAppLogin"
+			@tap="qqlogin">
+			<u-icon class="icon" size="60" name="qq-fill" color="#4BC1E8"></u-icon>
+			<text class="disc"> QQ登录 </text>
+		</button>
+		<!-- #endif -->
 
 		<view class="footer">
 			<app-footer></app-footer>
@@ -47,6 +50,7 @@
 
 <script>
 	import config from "../../utils/config.js";
+	import utils from "../../utils/utils.js";
 
 	export default {
 		data() {
@@ -67,13 +71,14 @@
 			}
 		},
 		methods: {
-			wechatLogin() {
+			// 小程序端登录
+			miniAppLogin() {
 				let userinfoP = this.$store.dispatch("authStore/wxGetUserInfo");
 				let loginP = this.$store.dispatch("authStore/wxLogin");
 
 				Promise.all([userinfoP, loginP]).then(async () => {
 					// 如果userInfo 获取不到，说明用户拒绝登录授权，那么取消登录
-					if (this.$store.state.authStore.userInfo.nickName === undefined) return;
+					if (this.$store.state.authStore.userInfo.nickname === undefined) return;
 					try {
 						uni.showToast({
 							title: "登录中",
@@ -95,6 +100,8 @@
 
 				});
 			},
+
+			// 普通用户名密码登录
 			async login(e) {
 				if (this.loginInput.username === "") {
 					uni.showToast({
@@ -129,10 +136,59 @@
 				} catch (e) {
 					console.log(e);
 				}
+			},
 
+			// QQ在APP端登录
+			async qqlogin() {
+				// #ifdef APP
+				try {
+					uni.showToast({
+						title: "登录中",
+						icon: "loading"
+					});
+					await this.$store.dispatch("authStore/qqAppLogin")
+					// 加入本地存储用于二次登录
+					uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
+					uni.setStorageSync("token", this.$store.state.authStore.token);
+					uni.setStorageSync("login_type", "APP-QQ");
+
+					uni.hideToast();
+					uni.navigateBack();
+				} catch (e) {
+					console.log(e);
+				}
+				// #endif
+
+			},
+
+			forgetPassOrRegister(option) {
+				if ((utils.getPlatform() == "MP-WEIXIN" &&
+						this.$store.state.configStore.wf_weixin_enterprise_minapp == "0") ||
+					(utils.getPlatform() == "MP-QQ" &&
+						this.$store.state.configStore.wf_qq_enterprise_minapp == "0")
+				) {
+					uni.showToast({
+						title: "尚不支持此功能",
+						icon: "none",
+						duration: 3000
+					})
+					return;
+				}
+
+				if (option == 1) {
+					this.redirect({
+						type: 'webpage',
+						url: this.lostpasswordUrl
+					})
+				} else if (option == 2) {
+					this.redirect({
+						type: 'webpage',
+						url: this.registerUrl
+					})
+				}
 			}
 		}
-	};
+	}
 </script>
 
 <style scoped lang="scss">
@@ -192,7 +248,7 @@
 			background-color: #007AFF;
 		}
 
-		.wechat {
+		.thrid-login {
 			margin-top: 80rpx;
 			display: flex;
 			justify-content: center;
@@ -206,9 +262,16 @@
 			}
 
 			.disc {
-				margin-top: 15rpx;
+				margin-top: 10rpx;
 				color: #BCBCBC;
+				font-size: 28rpx;
 			}
+
+
+		}
+
+		button.thrid-login {
+			border: transparent;
 		}
 
 		.footer {

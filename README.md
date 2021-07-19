@@ -6,9 +6,9 @@
 
 ## 平台兼容性
 
-| Uni-APP | Uni-APP(NVUE) | 微信小程序 | 支付宝小程序 | 百度小程序 | 字节小程序 | QQ小程序 | 快应用 |  H5  |
-| :-----: | :-----------: | :--------: | :----------: | :--------: | :--------: | :------: | :----: | :--: |
-|    √    |       ×       |     √      |      ×       |     ×      |     ×      |    ×     |   ×    |  √   |
+| Uni-APP | 微信小程序 | QQ小程序 | 百度小程序 | 字节小程序 | 支付宝小程序 | 快应用 |  H5  |
+| :-----: | :--------: | :------: | :--------: | :--------: | :----------: | :----: | :--: |
+|    √    |     √      |    √     |     ×      |     ×      |      ×       |   ×    |  √   |
 
 
 
@@ -32,6 +32,32 @@
 
 
 
+## QQ登录特别说明（QQ小程序与APP）
+
+一般来说，用户体系存在`openid`和`unionid`两种用户标识，其中`openid`是同一个小程序、APP、网站下用户的唯一标识，而`unionid`是同一开发者下的所有应用的用户的唯一标识，这意味着使用`unionid`可以让你的网站、APP、小程序共享一套用户体系。
+
+因为QQ的`unionid`非常易于获取 ，所以本程序在QQ登录体系下会优先会使用`unionid`来注册用户。
+
+**注意：**`unionid`默认状态下是暂不可获取的，需要你到[QQ互联](https://connect.qq.com/)去手动点击申请。
+
+**QQ小程序：**使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，在 `应用管理` - `小程序`下找到你的小程序，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。
+
+**APP：**使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，并创建一个移动应用，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。接着去Uniapp程序源码里找到manifest配置文件，在`App模块配置` - `OAuth登录鉴权` - `QQ登录`前打钩，并填入在QQ互联平台刚刚创建的移动应用的appid即可。
+
+**（以上步骤请务必在程序上线前完成）**
+
+
+
+## TODO
+
+- 小程序list和评论翻页
+- 支持字节跳动小程序
+- H5 QQ登录
+- 页面分享功能
+- 二维码分享功能
+- 完善错误处理
+- Q&A
+
 
 
 ## 特别感谢
@@ -39,4 +65,5 @@
 - [微慕小程序开源版 by jianbo](https://github.com/iamxjb/winxin-app-watch-life.net)
 - [WordpPress rest api 定制化插件 by jianbo](https://github.com/iamxjb/rest-api-to-miniprogram)
 - [JWT Authentication for WP-API](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)
+- [uView UI](https://www.uviewui.com/)
 

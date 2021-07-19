@@ -43,6 +43,7 @@ export default ({
 		}
 	},
 	actions: {
+		// 小程序获取js_code
 		async wxLogin({ commit }) {
 			try {
 				let res = await unip.login();
@@ -52,15 +53,22 @@ export default ({
 				});
 			} catch (e) {
 				console.log(e);
+				uni.showToast({
+					title: "获取js_coded失败"
+				});
 			}
 		},
+		// 小程序获取用户信息
 		async wxGetUserInfo({ commit }) {
 			try {
 				const res = await unip.getUserProfile({
 					desc: "获取您的头像和昵称信息用于登录",
 				});
 				commit("update_userInfo", {
-					userInfo: res.userInfo,
+					userInfo: {
+						...res.userInfo,
+						nickname: res.userInfo.nickName
+					},
 					login_type: "WECHAT"
 				});
 			} catch (e) {
@@ -68,12 +76,13 @@ export default ({
 				console.log("用户取消登录");
 			}
 		},
+		// 小程序发送请求获取token
 		async wxUserLoginRequest({ commit, state }) {
 			try {
 				const res = await http.wxUserLogin({
 					avatarUrl: state.userInfo.avatarUrl,
 					js_code: state.js_code,
-					nickname: state.userInfo.nickName
+					nickname: state.userInfo.nickname
 				}).then(data => data.data);
 
 				commit("update_userLoginInfo", {
@@ -87,6 +96,7 @@ export default ({
 				console.log(e);
 			}
 		},
+		// 普通使用token进行登录
 		async login({ commit, dispatch }, payloads) {
 			try {
 				const res = await http.getJWT({
@@ -110,12 +120,13 @@ export default ({
 				console.log(e);
 			}
 		},
+		// 普通使用token获取用户信息
 		async getUserInfo({ commit, state }, payloads) {
 			const res = await http.getUserInfo(state.token).then(data => data.data);
 			const avatarUrl = res.avatar || res.avatar_urls[24];
 			const userInfo = {
 				avatarUrl,
-				nickName: res.nickname,
+				nickname: res.nickname,
 				levelName: config.ROLES[res.roles[0]],
 				userId: res.id
 			};
@@ -125,6 +136,7 @@ export default ({
 				isLogin: true
 			});
 		},
+		// 验证Token可用性
 		async validateToken({ commit, dispatch, state }, payloads) {
 			const res = await http.validateJWT(state.token).then(data => data.data);
 			if (res.data.status === 200) {
@@ -132,7 +144,58 @@ export default ({
 			} else {
 				uni.removeStorageSync("token");
 			}
-		}
+		},
+		async qqAppLogin({ commit, dispatch, state }, payloads) {
 
+			try {
+				const authResult = await unip.login({
+					"provider": "qq"
+				});
+
+				if (authResult.errMsg != "login:ok") {
+					uni.showToast({
+						title: "获取登录权限失败",
+						icon: "none"
+					});
+					return;
+				}
+
+				const access_token = authResult.authResult.access_token;
+
+				const userInfoRes = await unip.getUserProfile({
+					provider: "qq"
+				});
+
+				if (userInfoRes.errMsg != "getUserProfile:ok") {
+					uni.showToast({
+						title: "获取用户信息失败",
+						icon: "none"
+					});
+					return;
+				}
+
+				const userInfo = {
+					avatarUrl: userInfoRes.userInfo.figureurl_2,
+					nickname: userInfoRes.userInfo.nickname,
+					access_token
+				};
+				commit("update_userInfo", { userInfo });
+
+				const res = await http.qqAppUserLogin(userInfo).then(data => data.data);
+
+				commit("update_userLoginInfo", {
+					openid: res.openid,
+					userId: res.userId,
+					levelName: res.userLevel.levelName,
+					token: res.token
+				});
+
+			} catch (e) {
+				console.log(e);
+			}
+
+
+
+		}
 	}
 });

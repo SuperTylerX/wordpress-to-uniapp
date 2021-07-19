@@ -71,6 +71,10 @@ const DELETE_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/delete`;
 
 // 微信用户登录
 const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/userlogin`;
+// QQ小程序用户登录
+const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
+// QQAPP用户登录
+const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
 // JWT登录
 const JWT_TOKEN_URL = `${JWT_REST_API_URL}/token`;
 // JWT验证Token
@@ -90,6 +94,8 @@ export {
 	POST_TAG_URL,
 	POST_COMMENT_URL,
 	WECHAT_USER_LOGIN,
+	QQ_MINIAPP_USER_LOGIN,
+	QQ_APP_USER_LOGIN,
 	POST_LIKE_URL,
 	JWT_TOKEN_URL,
 	JWT_VALIDATE_URL,

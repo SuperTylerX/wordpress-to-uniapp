@@ -1,2 +1,4 @@
-/unpackage/dist/dev
+/unpackage/dist
+/unpackage/cache
+/unpackage/release
 .hbuilderx

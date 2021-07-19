@@ -6,7 +6,7 @@
 				<u-avatar src="/static/gravatar.png" size="120" v-else></u-avatar>
 			</view>
 			<view class="u-flex-1">
-				<view class="u-font-18 u-p-b-20" v-if="isLogin">{{userInfo.nickName}}</view>
+				<view class="u-font-18 u-p-b-20" v-if="isLogin">{{userInfo.nickname}}</view>
 				<view class="u-font-18 u-p-b-20" v-else>游客</view>
 				<view class="u-font-14 u-tips-color" v-if="isLogin">{{userInfo.levelName}}</view>
 				<view class="u-font-14 u-tips-color" v-else>登录</view>
@@ -77,7 +77,6 @@
 				uni.clearStorageSync("userInfo");
 			},
 			goToLikePage() {
-				console.log(this.$store.state.authStore.isLogin)
 				if (!this.$store.state.authStore.isLogin) {
 					uni.navigateTo({
 						url: "../login/login"
