@@ -9,16 +9,18 @@ import Config from "./config.js";
 
 const BASE_URL = `https://${Config.HOST_DOMAIN}`;
 const WORDPRESS_REST_API_URL = `${BASE_URL}/wp-json/wp/v2`;
-const PLUGIN_REST_API_URL = `${BASE_URL}/wp-json/watch-life-net/v1`;
+const PLUGIN_REST_API_URL = `${BASE_URL}/wp-json/uni-app-rest-enhanced/v1`;
+// const PLUGIN_REST_API_URL = `${BASE_URL}/wp-json/watch-life-net/v1`;
 const JWT_REST_API_URL = `${BASE_URL}/wp-json/jwt-auth/v1`;
+const PLUGIN_PATH_URL = `${BASE_URL}/wp-content/plugins/rest-api-to-miniprogram-enhanced`;
 
-
+const RESIZE_IMG_URL = `${PLUGIN_PATH_URL}/prune.php`;
 
 // 配置文件，首页幻灯与导航
 const HOME_CONFIG_URL = `${PLUGIN_REST_API_URL}/options/homeconfig`;
 
-
-
+// 获取微信页面QRCode
+const WEIXIN_QR_CODE_URL = `${PLUGIN_REST_API_URL}/weixin/qrcodeimg`;
 /* 文章类API*/
 
 // 获取文章列表
@@ -75,6 +77,8 @@ const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/userlogin`;
 const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
 // QQAPP用户登录
 const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
+// QQH5用户登录
+const QQ_H5_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/h5Login`;
 // JWT登录
 const JWT_TOKEN_URL = `${JWT_REST_API_URL}/token`;
 // JWT验证Token
@@ -96,6 +100,7 @@ export {
 	WECHAT_USER_LOGIN,
 	QQ_MINIAPP_USER_LOGIN,
 	QQ_APP_USER_LOGIN,
+	QQ_H5_USER_LOGIN,
 	POST_LIKE_URL,
 	JWT_TOKEN_URL,
 	JWT_VALIDATE_URL,
@@ -106,5 +111,7 @@ export {
 	GET_MY_COMMENTS_URL,
 	DELETE_MY_COMMENTS_URL,
 	GET_MY_LIKE_URL,
-	PAGE_DETAIL_URL
+	PAGE_DETAIL_URL,
+	WEIXIN_QR_CODE_URL,
+	RESIZE_IMG_URL
 };

@@ -163,13 +163,31 @@
 			<image class="loading" src="../../static/loading.gif" mode="aspectFill"></image>
 		</view>
 
+		<view class="fixed-btns">
+			<button class="btn" open-type="share" type="default" plain="true" @tap="shareApp">
+				<u-icon name="share"></u-icon>
+			</button>
+
+			<view class="btn" @tap="sharePoster">
+				<u-icon name="photo"></u-icon>
+			</view>
+
+			<view class="btn" @tap="goToTop">
+				<u-icon name="arrow-up"></u-icon>
+			</view>
+
+
+		</view>
+		<qrcode-poster ref="poster" v-if="!isLoading" :headerImg="article.post_full_image"
+			:title="article.title.rendered" :subTitle="article.content.rendered.replace(/<[^>]+>/g,'')" :abImg="abImg">
+		</qrcode-poster>
 	</view>
 </template>
 
 <script>
 	import http from "../../utils/http.js";
 	import config from "../../utils/config.js";
-
+	import QrcodePoster from '../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue'
 	// 评论页数
 	let page = 1;
 
@@ -246,6 +264,9 @@
 				}
 			};
 		},
+		components: {
+			QrcodePoster
+		},
 		computed: {
 			isLogin() {
 				return this.$store.state.authStore.isLogin;
@@ -259,9 +280,18 @@
 			},
 			isCommentEnabled() {
 				return this.$store.state.configStore.wf_enable_comment_option == "1";
+			},
+			abImg() {
+				return this.$store.state.configStore.postImageUrl;
 			}
 		},
 		async onLoad(option) {
+			// #ifdef MP-QQ
+			qq.showShareMenu({
+				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+			});
+			// #endif
+
 			if (!option.id) return;
 			this.isLoading = true;
 			const postId = option.id;
@@ -336,7 +366,77 @@
 			}
 		},
 		methods: {
+			goToTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				});
+			},
+			shareApp() {
 
+				// #ifdef APP-PLUS
+				// uni.shareWithSystem({
+
+				// 	summary: '这是一个测试分享',
+				// 	href: 'https://uniapp.dcloud.io',
+				// 	success() {
+				// 		// 分享完成，请注意此时不一定是成功分享
+				// 	},
+				// 	fail() {
+				// 		// 分享失败
+				// 	}
+				// })
+				uni.share({
+					provider: "weixin",
+					scene: "WXSenceTimeline",
+					type: 0,
+					href: "http://uniapp.dcloud.io/",
+					title: "uni-app分享",
+					summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+					imageUrl: "https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/d8590190-4f28-11eb-b680-7980c8a877b8.png",
+					success: function(res) {
+						console.log("success:" + JSON.stringify(res));
+					},
+					fail: function(err) {
+						console.log("fail:" + JSON.stringify(err));
+					}
+				});
+				//#endif
+
+
+			},
+			async sharePoster() {
+				try {
+
+					// QQ 小程序使用二维码
+					// #ifdef MP-QQ
+					const url =
+						"https://wenhairu.com/static/api/qr/?size=300&text=https://m.q.qq.com/a/p/1112052934?s=pages/post/post?id=" +
+						this.postId;
+					console.log(url)
+					this.$refs.poster.showCanvas(url);
+					return;
+					// #endif
+
+					const res = await http.getQRCode(this.postId, "pages/post/post?id=" + this.postId)
+						.then(data => data.data);
+					if (res.status == 200) {
+						this.$refs.poster.showCanvas(res.qrcodeimgUrl);
+					} else {
+						uni.showToast({
+							title: "获取二维码失败",
+							icon: "none"
+						})
+					}
+
+				} catch (e) {
+					console.log(e);
+					uni.showToast({
+						title: "获取二维码失败",
+						icon: "none"
+					})
+				}
+			},
 			// 文章加载完毕回调
 			articleReady(args) {
 				this.isLoading = false;
@@ -808,6 +908,29 @@
 
 		.footer {
 			padding-bottom: 80rpx !important;
+		}
+
+
+	}
+
+	.fixed-btns {
+		position: fixed;
+		bottom: 120rpx;
+		right: 30rpx;
+
+		// width: 100rpx;
+		.btn {
+			width: 80rpx;
+			height: 80rpx;
+			border: 1px solid #d9d9d9;
+			box-shadow: 25rpx 25rpx 53rpx #d9d9d9,
+				-25rpx -25rpx 53rpx #ffffff;
+			background-color: rgba($color: #FFF, $alpha: 0.8);
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 30rpx;
 		}
 	}
 </style>

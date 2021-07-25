@@ -17,8 +17,15 @@ const ROLES = {
 	"administrator": "管理员"
 };
 
+// QQ H5登录配置信息
+const QQ_H5_APPID = "101961309";
+const QQ_H5_REDIRECT_URI = "http://h5.uni.supertyler.com/#/pages/login/login";
+
+
 export default {
 	HOST_DOMAIN,
 	WEBSITE_NAME,
-	ROLES
+	ROLES,
+	QQ_H5_APPID,
+	QQ_H5_REDIRECT_URI
 };

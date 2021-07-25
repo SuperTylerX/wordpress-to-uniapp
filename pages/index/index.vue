@@ -66,7 +66,7 @@
 
 <script>
 	import http from "../../utils/http.js";
-
+	import config from "../../utils/config.js";
 	// 非响应式数据
 	let page = 1; // 文章显示页号
 	let Ids = "";
@@ -89,12 +89,46 @@
 			}
 		},
 		async onLoad() {
+			// #ifdef MP-QQ
+			qq.showShareMenu({
+				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+			});
+			// #endif
+			// #ifdef MP-WEIXIN
+			wx.showShareMenu({
+				withShareTicket: true,
+				menus: ['shareAppMessage', 'shareTimeline']
+			})
+			// #endif
 			await this.fetchCategoryIds();
 			this.fetchArticles();
 		},
 		onReachBottom() {
 			if (this.isLastPage) return;
 			this.fetchArticles();
+		},
+		async onPullDownRefresh() {
+			page = 1;
+			this.postsList = [];
+			this.isLastPage = false;
+
+			await this.fetchCategoryIds();
+			await this.fetchArticles();
+
+			uni.stopPullDownRefresh();
+		},
+		onShareAppMessage(res) {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序`,
+				path: "pages/index/index",
+				imageUrl: this.$store.state.configStore.shareImageUrl,
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序`,
+				imageUrl: this.$store.state.configStore.shareImageUrl
+			}
 		},
 		methods: {
 			formSubmit() {

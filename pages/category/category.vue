@@ -27,6 +27,7 @@
 
 <script>
 	import http from "../../utils/http.js";
+	import config from "../../utils/config.js";
 
 	export default {
 		data() {
@@ -37,6 +38,17 @@
 			}
 		},
 		onLoad() {
+			// #ifdef MP-QQ
+			qq.showShareMenu({
+				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+			});
+			// #endif
+			// #ifdef MP-WEIXIN
+			wx.showShareMenu({
+				withShareTicket: true,
+				menus: ['shareAppMessage', 'shareTimeline']
+			})
+			// #endif
 			this.fetchCategory();
 		},
 		methods: {
@@ -75,7 +87,20 @@
 			switchCategory(id) {
 				this.currentParentId = id;
 			}
-		}
+		},
+		onShareAppMessage(res) {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序 - 文章分类`,
+				path: "pages/category/category",
+				imageUrl: this.$store.state.configStore.shareImageUrl,
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序 - 文章分类`,
+				imageUrl: this.$store.state.configStore.shareImageUrl
+			}
+		},
 	}
 </script>
 

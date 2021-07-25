@@ -6,7 +6,15 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "前端茶会"
+				"navigationBarTitleText": "前端茶会",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#118fff",
+						"style": "default"
+					}
+				}
 			}
 		},
 		{
@@ -65,7 +73,19 @@
 			}
 		},
 		{
-			"path": "pages/list/list"
+			"path": "pages/list/list",
+			"style": {
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"support": true,
+						"color": "#118fff",
+						"style": "default"
+					}
+				}
+			}
+
 		},
 		{
 			"path": "pages/comment/comment"

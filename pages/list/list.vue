@@ -108,6 +108,7 @@
 				isHistoryPage: false,
 				isLikePage: false,
 
+				isLastPage: false,
 				postsList: [],
 				cover: "/static/bg-list.jpg",
 
@@ -171,12 +172,33 @@
 				return;
 			} else if (options.like) {
 				this.isLikePage = true;
-				this.getLikePosts();
+				this.fetchLikePosts();
 				return;
 			}
 
 			this.fetchPosts();
 
+		},
+		async onPullDownRefresh() {
+			if (this.isHistoryPage) {
+				uni.stopPullDownRefresh();
+				return;
+			}
+			page = 1;
+			this.postsList = [];
+			this.isLastPage = false;
+			if (this.isLikePage) {
+				await this.fetchLikePosts();
+				uni.stopPullDownRefresh();
+				return;
+			}
+			await this.fetchPosts();
+			uni.stopPullDownRefresh();
+		},
+		onReachBottom() {
+			if (this.isLastPage) return;
+			if (this.isHistoryPage || this.isLikePage) return;
+			this.fetchPosts();
 		},
 		methods: {
 			async fetchPosts() {
@@ -196,9 +218,17 @@
 					queryObj.tags = this.tagID;
 				}
 
-				const postsList = await http.getArticleList(queryObj).then(data => data.data);
-				console.log(postsList);
-				this.postsList = postsList;
+				const res = await http.getArticleList(queryObj);
+				if (res.statusCode == 200) {
+					const postsList = res.data;
+					this.postsList = this.postsList.concat(postsList);
+					page++;
+				} else {
+					if (res.statusCode == 400 && res.data.code == "rest_post_invalid_page_number") {
+						this.isLastPage = true;
+					}
+				}
+
 			},
 			async getCategoryMeta() {
 				http.getCategoryMeta(this.categoryID).then(data => data.data).then(res => {
@@ -226,7 +256,7 @@
 					})
 				})
 			},
-			async getLikePosts() {
+			async fetchLikePosts() {
 				try {
 					const res = await http.getLikePosts(this.$store.state.authStore.token).then(data => data.data);
 					if (res.status == 200) {

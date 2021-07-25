@@ -34,7 +34,7 @@
 		</view>
 		<!-- #endif -->
 
-		<!-- #ifdef MP-QQ || H5 || APP -->
+		<!-- #ifdef MP-QQ || H5 || APP-PLUS -->
 		<button type="default" plain="true" class="thrid-login" open-type="getUserInfo" @getuserinfo="miniAppLogin"
 			@tap="qqlogin">
 			<u-icon class="icon" size="60" name="qq-fill" color="#4BC1E8"></u-icon>
@@ -51,6 +51,7 @@
 <script>
 	import config from "../../utils/config.js";
 	import utils from "../../utils/utils.js";
+	import http from "../../utils/http.js";
 
 	export default {
 		data() {
@@ -69,6 +70,40 @@
 			registerUrl() {
 				return "https://" + config.HOST_DOMAIN + "/wp-login.php?action=register";
 			}
+		},
+		onLoad(option) {
+			// #ifdef H5
+			const regres = location.hash.match(/access_token=([^&]*)/i);
+			if (!regres) return;
+			const access_token = regres[1];
+			console.log(access_token)
+			http.qqH5UserLogin({
+				access_token
+			}).then(data => {
+				if (data.statusCode == 200) {
+					const res = data.data;
+					const token = res.token;
+					this.$store.commit("authStore/update_token", { token })
+					this.$store.dispatch("authStore/getUserInfo", { "login_type": "H5" })
+					// 加入本地存储用于二次登录
+					uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
+					uni.setStorageSync("token", this.$store.state.authStore.token);
+					uni.setStorageSync("login_type", "H5");
+
+					uni.hideToast();
+					uni.switchTab({
+						url: '/pages/index/index'
+					});
+				} else {
+					uni.showToast({
+						title: "登录失败",
+						icon: "none",
+						duration: 3000
+					})
+				}
+			})
+
+			// #endif
 		},
 		methods: {
 			// 小程序端登录
@@ -140,7 +175,7 @@
 
 			// QQ在APP端登录
 			async qqlogin() {
-				// #ifdef APP
+				// #ifdef APP-PLUS
 				try {
 					uni.showToast({
 						title: "登录中",
@@ -157,6 +192,16 @@
 				} catch (e) {
 					console.log(e);
 				}
+				// #endif
+
+				// #ifdef H5
+				// QC.Login.showPopup({
+				// 	"appId": "101961309",
+				// 	"redirectURI": "http://h5.uni.supertyler.com/#/pages/login/login"
+				// });
+				window.location =
+					`https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=${config.QQ_H5_APPID}&daid=383&pt_skey_valid=0&style=35&s_url=https%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=${config.QQ_H5_APPID}&response_type=token&scope=all&redirect_uri=${encodeURIComponent(config.QQ_H5_REDIRECT_URI)}`
+
 				// #endif
 
 			},

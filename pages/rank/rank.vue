@@ -45,6 +45,8 @@
 
 <script>
 	import http from "../../utils/http.js";
+	import config from "../../utils/config.js";
+
 	export default {
 		data() {
 			return {
@@ -66,6 +68,17 @@
 			};
 		},
 		onLoad() {
+			// #ifdef MP-QQ
+			qq.showShareMenu({
+				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+			});
+			// #endif
+			// #ifdef MP-WEIXIN
+			wx.showShareMenu({
+				withShareTicket: true,
+				menus: ['shareAppMessage', 'shareTimeline']
+			})
+			// #endif
 			try {
 				http.getHotViewPosts().then(data => data.data).then(hotViews => {
 					this.hotViews = hotViews.map(item => {
@@ -103,6 +116,19 @@
 
 			} catch (e) {
 				console.log(e)
+			}
+		},
+		onShareAppMessage(res) {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序 - 热门文章`,
+				path: "pages/rank/rank",
+				imageUrl: this.$store.state.configStore.shareImageUrl,
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: `分享「${config.WEBSITE_NAME}」小程序 - 热门文章`,
+				imageUrl: this.$store.state.configStore.shareImageUrl
 			}
 		},
 		methods: {

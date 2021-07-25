@@ -101,6 +101,16 @@ function qqAppUserLogin(queryObj) {
 		data: queryObj
 	});
 }
+// QQ H5用户登录
+function qqH5UserLogin(queryObj) {
+	const url = API.QQ_H5_USER_LOGIN;
+	return unip.request({
+		url,
+		method: "POST",
+		data: queryObj
+	});
+}
+
 // 点赞
 function postLike(queryObj, token) {
 	return unip.request({
@@ -217,6 +227,23 @@ function getPageDetail(pageId) {
 }
 
 
+// 获取二维码
+function getQRCode(postid, path) {
+	let url = API.WEIXIN_QR_CODE_URL;
+
+	return unip.request({
+		url,
+		data: {
+			postid,
+			path
+		},
+		method: "POST",
+		header: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	});
+}
+
 export default {
 	getHomeConfig,
 	getDisplayCategoryIds,
@@ -241,5 +268,7 @@ export default {
 	deleteMyComment,
 	getLikePosts,
 	getPageDetail,
-	qqAppUserLogin
+	qqAppUserLogin,
+	getQRCode,
+	qqH5UserLogin
 };
