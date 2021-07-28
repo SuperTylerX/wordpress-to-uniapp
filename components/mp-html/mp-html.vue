@@ -12,7 +12,7 @@
 
 <script>
 /**
- * mp-html v2.1.3
+ * mp-html v2.1.4
  * @description 富文本组件
  * @tutorial https://github.com/jin-yufeng/mp-html
  * @property {String} container-style 容器的样式
@@ -39,7 +39,7 @@
 // #ifndef APP-PLUS-NVUE
 import node from './node/node'
 // #endif
-const plugins=[]
+const plugins=[require('./markdown/index.js'),require('./audio/index.js'),require('./emoji/index.js'),require('./highlight/index.js'),require('./style/index.js'),require('./img-cache/index.js'),]
 const Parser = require('./parser')
 // #ifdef APP-PLUS-NVUE
 const dom = weex.requireModule('dom')
@@ -55,6 +55,8 @@ export default {
     }
   },
   props: {
+    ImgCache: Boolean,
+    markdown: Boolean,
     containerStyle: {
       type: String,
       default: ''
@@ -149,6 +151,7 @@ export default {
      * @returns {Promise}
      */
     navigateTo (id, offset) {
+      id = this._ids[decodeURI(id)] || id
       return new Promise((resolve, reject) => {
         if (!this.useAnchor) {
           reject(Error('Anchor is disabled'))

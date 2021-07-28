@@ -44,9 +44,9 @@
 
 **注意：**`unionid`默认状态下是暂不可获取的，需要你到[QQ互联](https://connect.qq.com/)去手动点击申请。
 
-**QQ小程序：**使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，在 `应用管理` - `小程序`下找到你的小程序，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。
+**QQ小程序**：使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，在 `应用管理` - `小程序`下找到你的小程序，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。
 
-**APP：**使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，并创建一个移动应用，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。接着去Uniapp程序源码里找到manifest配置文件，在`App模块配置` - `OAuth登录鉴权` - `QQ登录`前打钩，并填入在QQ互联平台刚刚创建的移动应用的appid即可。
+**APP**：使用与QQ小程序相同的开发者身份登录到[QQ互联](https://connect.qq.com/)平台，并创建一个移动应用，在`应用接口`选项卡中点击申请`unionid`的按钮，即可成功获取。接着去Uniapp程序源码里找到manifest配置文件，在`App模块配置` - `OAuth登录鉴权` - `QQ登录`前打钩，并填入在QQ互联平台刚刚创建的移动应用的appid即可。
 
 **（以上步骤请务必在程序上线前完成）**
 
@@ -54,9 +54,9 @@
 
 ## Demo
 
-| ![cover](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd4pcly7j608c08cwep02.jpg) |          | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd9enffgj608c08c3z502.jpg) |      |
-| :----------------------------------------------------------: | :------: | :----------------------------------------------------------: | :--: |
-|                          微信小程序                          | QQ小程序 |                              H5                              | APP  |
+| ![cover](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd4pcly7j608c08cwep02.jpg) | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1gstazqepndj608c08caaa02.jpg) | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd9enffgj608c08c3z502.jpg) |      |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :--: |
+|                          微信小程序                          |                           QQ小程序                           |                              H5                              | APP  |
 
 
 
@@ -66,6 +66,7 @@
 - 支持支付宝小程序
 - 增加小程序特殊能力应用
 - 支持第三方登录绑定邮箱
+- 文章发布管理
 - 完善错误处理
 - Q&A
 
@@ -73,8 +74,9 @@
 
 ## 特别感谢
 
-- [微慕小程序开源版 by jianbo](https://github.com/iamxjb/winxin-app-watch-life.net)
-- [WordpPress rest api 定制化插件 by jianbo](https://github.com/iamxjb/rest-api-to-miniprogram)
-- [JWT Authentication for WP-API](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)
-- [uView UI](https://www.uviewui.com/)
+- 微信小程序开源程序：[微慕小程序开源版](https://github.com/iamxjb/winxin-app-watch-life.net)
+- WordPress Restful API增强插件：[WordpPress rest api 定制化插件](https://github.com/iamxjb/rest-api-to-miniprogram)
+- WordPress JWT认证插件：[JWT Authentication for WP-API](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)
+- UniApp UI库：[uView UI](https://www.uviewui.com/)
+- Html解析库：[mp-html](https://github.com/jin-yufeng/mp-html)
 

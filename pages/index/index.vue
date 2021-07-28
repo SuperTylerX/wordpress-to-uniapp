@@ -91,14 +91,14 @@
 		async onLoad() {
 			// #ifdef MP-QQ
 			qq.showShareMenu({
-				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+				showShareItems: ["qq", "qzone", "wechatFriends", "wechatMoment"]
 			});
 			// #endif
 			// #ifdef MP-WEIXIN
 			wx.showShareMenu({
 				withShareTicket: true,
-				menus: ['shareAppMessage', 'shareTimeline']
-			})
+				menus: ["shareAppMessage", "shareTimeline"]
+			});
 			// #endif
 			await this.fetchCategoryIds();
 			this.fetchArticles();
@@ -122,13 +122,13 @@
 				title: `分享「${config.WEBSITE_NAME}」小程序`,
 				path: "pages/index/index",
 				imageUrl: this.$store.state.configStore.shareImageUrl,
-			}
+			};
 		},
 		onShareTimeline() {
 			return {
 				title: `分享「${config.WEBSITE_NAME}」小程序`,
 				imageUrl: this.$store.state.configStore.shareImageUrl
-			}
+			};
 		},
 		methods: {
 			formSubmit() {
@@ -185,6 +185,12 @@
 	};
 </script>
 
+<style>
+	page {
+		background-color: #FFFFFF;
+	}
+</style>
+
 <style lang="scss" scoped>
 	// 顶部幻灯片部分
 	.swiper-wrap {
@@ -237,6 +243,10 @@
 			border-top-left-radius: 0;
 			border-top-right-radius: 4px;
 			border-bottom-right-radius: 4px;
+
+			&::after {
+				border: none;
+			}
 		}
 
 		.search-input {

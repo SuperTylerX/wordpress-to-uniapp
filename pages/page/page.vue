@@ -79,12 +79,9 @@
 							background-color: #F6F6F6;
 							padding-left : 30rpx
 							`,
-					"code": `color: red;
-							background-color: #F8F8F8;
-							padding: 0 10rpx;
-							font-family : Consolas;
+					"code": `font-family : Consolas;
 							font-size: 30rpx;
-							`,
+							`
 				},
 
 			};

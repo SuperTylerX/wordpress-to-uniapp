@@ -33,7 +33,7 @@
       <!-- #endif -->
       <!-- #ifndef MP-TOUTIAO -->
       <!-- 音频 -->
-      <audio v-else-if="n.name==='audio'" :id="n.attrs.id" :class="n.attrs.class" :style="n.attrs.style" :author="n.attrs.author" :controls="n.attrs.controls" :loop="n.attrs.loop" :name="n.attrs.name" :poster="n.attrs.poster" :src="n.src[ctrl[i]||0]" :data-i="i" @play="play" @error="mediaError" />
+      
       <!-- #endif -->
       <view v-else-if="(n.name==='table'&&n.c)||n.name==='li'" :id="n.attrs.id" :class="'_'+n.name+' '+n.attrs.class" :style="n.attrs.style">
         <node v-if="n.name==='li'" :childs="n.children" :opts="opts" />
@@ -51,7 +51,7 @@
           </block>
         </view>
       </view>
-      
+      <my-audio v-else-if="n.name=='audio'" :class="n.attrs.class" :style="n.attrs.style" :aid="n.attrs.id" :author="n.attrs.author" :controls="n.attrs.controls" :autoplay="n.attrs.autoplay" :loop="n.attrs.loop" :name="n.attrs.name" :poster="n.attrs.poster" :src="n.src[ctrl[i]||0]" :data-i="i" data-source="audio" @play="play" @error="mediaError" />
       <!-- 富文本 -->
       <!-- #ifdef H5 || MP-WEIXIN || MP-QQ || APP-PLUS || MP-360 -->
       <rich-text v-else-if="handler.use(n)" :id="n.attrs.id" :style="n.f" :nodes="[n]" />
@@ -98,6 +98,7 @@ module.exports = {
 }
 </script>
 <script>
+import myAudio from '../audio/audio'
 
 import node from './node'
 export default {
@@ -127,6 +128,7 @@ export default {
     opts: Array
   },
   components: {
+myAudio,
 
     node
   },
@@ -225,7 +227,7 @@ export default {
     imgLongTap (e) {
       // #ifdef APP-PLUS
       const attrs = this.childs[e.currentTarget.dataset.i].attrs
-      if (!attrs.ignore) {
+      if (this.opts[3] && !attrs.ignore) {
         uni.showActionSheet({
           itemList: ['保存图片'],
           success: () => {
@@ -350,7 +352,63 @@ export default {
   }
 }
 </script>
-<style>
+<style>/deep/ .hl-code,/deep/ .hl-pre{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}/deep/ .hl-pre{padding:1em;margin:.5em 0;overflow:auto}/deep/ .hl-pre{background:#2d2d2d}/deep/ .hl-block-comment,/deep/ .hl-cdata,/deep/ .hl-comment,/deep/ .hl-doctype,/deep/ .hl-prolog{color:#999}/deep/ .hl-punctuation{color:#ccc}/deep/ .hl-attr-name,/deep/ .hl-deleted,/deep/ .hl-namespace,/deep/ .hl-tag{color:#e2777a}/deep/ .hl-function-name{color:#6196cc}/deep/ .hl-boolean,/deep/ .hl-function,/deep/ .hl-number{color:#f08d49}/deep/ .hl-class-name,/deep/ .hl-constant,/deep/ .hl-property,/deep/ .hl-symbol{color:#f8c555}/deep/ .hl-atrule,/deep/ .hl-builtin,/deep/ .hl-important,/deep/ .hl-keyword,/deep/ .hl-selector{color:#cc99cd}/deep/ .hl-attr-value,/deep/ .hl-char,/deep/ .hl-regex,/deep/ .hl-string,/deep/ .hl-variable{color:#7ec699}/deep/ .hl-entity,/deep/ .hl-operator,/deep/ .hl-url{color:#67cdcc}/deep/ .hl-bold,/deep/ .hl-important{font-weight:700}/deep/ .hl-italic{font-style:italic}/deep/ .hl-entity{cursor:help}/deep/ .hl-inserted{color:green}/deep/ .md-p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+/deep/ .md-table,
+/deep/ .md-blockquote {
+  margin-bottom: 16px;
+}
+
+/deep/ .md-table {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+/deep/ .md-tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+/deep/ .md-table .md-tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/deep/ .md-th,
+/deep/ .md-td {
+  padding: 6px 13px !important;
+  border: 1px solid #dfe2e5;
+}
+
+/deep/ .md-th {
+  font-weight: 600;
+}
+
+/deep/ .md-blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+/deep/ .md-code {
+  padding: 0.2em 0.4em;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 85%;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+}
+
+/deep/ .md-pre .md-code {
+  padding: 0;
+  font-size: 100%;
+  background: transparent;
+  border: 0;
+}
 /* a 标签默认效果 */
 ._a {
   padding: 1.5px 0 1.5px 0;

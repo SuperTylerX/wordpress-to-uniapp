@@ -236,7 +236,13 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style>
+	page {
+		background-color: #FFFFFF;
+	}
+</style>
+
+<style lang="scss" scoped>
 	.wrap {
 		margin: 0 30rpx;
 

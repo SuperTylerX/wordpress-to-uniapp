@@ -123,7 +123,8 @@
         "usingComponents" : true,
         "uniStatistics" : {
             "enable" : true
-        }
+        },
+        "appid" : "2021002162617376"
     },
     "mp-baidu" : {
         "usingComponents" : true,
@@ -140,7 +141,8 @@
             "es6" : true,
             "postcss" : true,
             "minified" : true
-        }
+        },
+        "appid" : "tt182e6e938715b87c"
     },
     "uniStatistics" : {
         "enable" : true

@@ -238,19 +238,9 @@
 							background-color: #F6F6F6;
 							padding-left : 30rpx
 							`,
-					"code": `color: red;
-							background-color: #F8F8F8;
-							padding: 0 10rpx;
-							font-family : Consolas;
+					"code": `font-family : Consolas;
 							font-size: 30rpx;
 							`,
-					// "pre": `color: red;
-					// 		background-color: #F8F8F8;
-					// 		border: 1px solid #FFFFFF;
-					// 		padding: 0 10rpx;
-					// 		font-family : Consolas;
-					// 		font-size: 30rpx
-					// 		`
 
 				},
 				relatedPost: [],
@@ -413,7 +403,6 @@
 					const url =
 						"https://wenhairu.com/static/api/qr/?size=300&text=https://m.q.qq.com/a/p/1112052934?s=pages/post/post?id=" +
 						this.postId;
-					console.log(url)
 					this.$refs.poster.showCanvas(url);
 					return;
 					// #endif
@@ -578,6 +567,12 @@
 		}
 	};
 </script>
+
+<style>
+	page {
+		background-color: #FFFFFF;
+	}
+</style>
 
 <style lang="scss" scoped>
 	.loading-wrap {
@@ -923,8 +918,8 @@
 			width: 80rpx;
 			height: 80rpx;
 			border: 1px solid #d9d9d9;
-			box-shadow: 25rpx 25rpx 53rpx #d9d9d9,
-				-25rpx -25rpx 53rpx #ffffff;
+			box-shadow: 5rpx 5rpx 19rpx #d9d9d9,
+				-5rpx -5rpx 19rpx #ffffff;
 			background-color: rgba($color: #FFF, $alpha: 0.8);
 			border-radius: 50%;
 			display: flex;
