@@ -187,7 +187,7 @@
 <script>
 	import http from "../../utils/http.js";
 	import config from "../../utils/config.js";
-	import QrcodePoster from '../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue'
+	import QrcodePoster from "../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue";
 	// 评论页数
 	let page = 1;
 
@@ -209,11 +209,11 @@
 				},
 				tags: [],
 				style: {
-					"img": `margin-bottom: 30rpx`,
+					"img": "margin-bottom: 30rpx",
 					"p": `font-size: 28rpx;
 						  margin-bottom: 10rpx;
 					`,
-					"li": `font-size: 28rpx`,
+					"li": "font-size: 28rpx",
 					"h1": `margin-bottom: 20rpx;
 						font-size: 36rpx;
 						border-left: 8rpx solid red;
@@ -269,7 +269,12 @@
 				}
 			},
 			isCommentEnabled() {
+				// #ifdef MP-QQ
+				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
+				// #endif
+				// #ifndef MP-QQ
 				return this.$store.state.configStore.wf_enable_comment_option == "1";
+				// #endif
 			},
 			abImg() {
 				return this.$store.state.configStore.postImageUrl;
@@ -278,7 +283,7 @@
 		async onLoad(option) {
 			// #ifdef MP-QQ
 			qq.showShareMenu({
-				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+				showShareItems: ["qq", "qzone", "wechatFriends", "wechatMoment"]
 			});
 			// #endif
 
@@ -342,9 +347,9 @@
 		onShareAppMessage(res) {
 			return {
 				title: `分享「${config.WEBSITE_NAME}」的文章：${this.article.title.rendered}`,
-				path: 'pages/post/post?id=' + this.pageId,
+				path: "pages/post/post?id=" + this.pageId,
 				imageUrl: this.article.post_full_image,
-			}
+			};
 		},
 		onShareTimeline() {
 			return {
@@ -353,7 +358,7 @@
 					id: this.pageId
 				},
 				imageUrl: this.article.post_full_image
-			}
+			};
 		},
 		methods: {
 			goToTop() {
@@ -415,7 +420,7 @@
 						uni.showToast({
 							title: "获取二维码失败",
 							icon: "none"
-						})
+						});
 					}
 
 				} catch (e) {
@@ -423,7 +428,7 @@
 					uni.showToast({
 						title: "获取二维码失败",
 						icon: "none"
-					})
+					});
 				}
 			},
 			// 文章加载完毕回调
@@ -550,7 +555,7 @@
 							});
 						}
 					} catch (e) {
-						console.log(e)
+						console.log(e);
 					}
 
 				} else {
