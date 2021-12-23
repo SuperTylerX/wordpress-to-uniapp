@@ -1,34 +1,41 @@
 <template>
 	<view>
-		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30" @tap="login">
+		<div class="user-box" @tap="login">
 			<view class="u-m-r-40">
-				<u-avatar :src="userInfo.avatarUrl" size="120" v-if="isLogin"></u-avatar>
-				<u-avatar src="/static/gravatar.png" size="120" v-else></u-avatar>
+				<div v-if="isLogin">
+					<u-avatar :src="userInfo.avatarUrl" size="60"></u-avatar>
+				</div>
+				<div v-else>
+					<u-avatar src="/static/gravatar.png" size="60"></u-avatar>
+				</div>
 			</view>
-			<view class="u-flex-1">
-				<view class="u-font-18 u-p-b-20" v-if="isLogin">{{userInfo.nickname}}</view>
-				<view class="u-font-18 u-p-b-20" v-else>游客</view>
-				<view class="u-font-14 u-tips-color" v-if="isLogin">{{userInfo.levelName}}</view>
-				<view class="u-font-14 u-tips-color" v-else>登录</view>
-			</view>
-		</view>
+			<view class="right">
+				<view class="name" v-if="isLogin">{{userInfo.nickname}}</view>
+				<view class="name " v-else>游客</view>
 
-		<view class="u-m-t-20">
+				<view class="role" v-if="isLogin">{{userInfo.levelName}}</view>
+				<view class="role" v-else>登录</view>
+			</view>
+		</div>
+
+
+		<view class="menus">
 			<u-cell-group>
-				<u-cell-item icon="file-text-fill" title="阅读历史" @tap="redirect({
+				<u-cell class="menu-cell" icon="file-text-fill" title="阅读历史" @tap="redirect({
 					type: 'apppage',
 					path: '/pages/list/list?history=true'
-				})"></u-cell-item>
-				<u-cell-item icon="star-fill" title="我的收藏" @tap="goTo('like')"></u-cell-item>
-				<u-cell-item icon="chat-fill" title="我的评论" @tap="goTo('comment')"></u-cell-item>
-				<!-- <u-cell-item icon="edit-pen-fill" title="我的投稿"></u-cell-item> -->
+				})" :isLink="true" size="large" :clickable="true"></u-cell>
+				<u-cell class="menu-cell" icon="star-fill" title="我的收藏" @tap="goTo('like')" :isLink="true" size="large" :clickable="true">
+				</u-cell>
+				<u-cell class="menu-cell" icon="chat-fill" title="我的评论" @tap="goTo('comment')" :isLink="true" size="large" :clickable="true"></u-cell>
+				<!-- <u-cell icon="edit-pen-fill" title="我的投稿"></u-cell> -->
 			</u-cell-group>
 		</view>
 
-		<view class="u-m-t-20">
+		<view class="menus-2">
 			<u-cell-group>
-				<!-- <u-cell-item icon="setting-fill" title="关于我们"></u-cell-item> -->
-				<u-cell-item icon="person-delete-fill" title="退出登录" @tap="logout"></u-cell-item>
+				<!-- <u-cell icon="setting-fill" title="关于我们"></u-cell> -->
+				<u-cell class="menu-cell" icon="person-delete-fill" title="退出登录" @tap="logout" :isLink="true" size="large" :clickable="true"></u-cell>
 			</u-cell-group>
 		</view>
 	</view>
@@ -130,7 +137,7 @@
 
 <style lang="scss">
 	page {
-		background-color: #ededed;
+		background-color: #F4F7F6;
 	}
 
 	.camera {
@@ -144,5 +151,38 @@
 
 	.user-box {
 		background-color: #fff;
+		display: flex;
+		padding: 30rpx 30rpx 60rpx;
+
+		.right {
+			margin-left: 50rpx;
+
+			.name {
+				font-size: 35rpx;
+				font-weight: 600;
+			}
+
+			.role {
+				font-size: 30rpx;
+				margin-top: 20rpx;
+				color: #B2B6B9;
+			}
+		}
+	}
+
+	.menus {
+		margin-top: 20rpx;
+
+		.menu-cell {
+			background-color: #fff;
+		}
+	}
+
+	.menus-2 {
+		margin-top: 20rpx;
+
+		.menu-cell {
+			background-color: #fff;
+		}
 	}
 </style>

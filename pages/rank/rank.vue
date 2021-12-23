@@ -1,20 +1,21 @@
 <template>
 	<view>
+		<u-loading-page :loading="isLoading"></u-loading-page>
 		<view class="wrap">
 			<view class="u-tabs-box">
-				<u-tabs-swiper active-color="#118FFF" ref="tabs" :list="list" :current="current" @change="change"
-					:is-scroll="false" swiperWidth="750"></u-tabs-swiper>
+				<u-tabs active-color="#118FFF" :list="list" :current="current" @change="change" :scrollable="false">
+				</u-tabs>
 			</view>
-			<swiper class="swiper-box" :current="swiperCurrent" @transition="transition"
-				@animationfinish="animationfinish">
+			<swiper class="swiper-box" :current="swiperCurrent" @animationfinish="animationfinish">
 				<swiper-item class="swiper-item">
 					<scroll-view scroll-y style="height: 100%; width: 100%;">
 						<view class="page-box">
 							<app-list :postsList="hotViews"></app-list>
 							<view class="center" v-if="hotViews.length==0">
-								<u-loading mode="flower"></u-loading>
+								<u-loading-icon mode="flower"></u-loading-icon>
 							</view>
 						</view>
+						<app-footer v-if="!isLoading"></app-footer>
 					</scroll-view>
 				</swiper-item>
 				<swiper-item class="swiper-item">
@@ -22,9 +23,10 @@
 						<view class="page-box">
 							<app-list :postsList="hotLikes"></app-list>
 							<view class="center" v-if="hotViews.length==0">
-								<u-loading mode="flower"></u-loading>
+								<u-loading-icon mode="flower"></u-loading-icon>
 							</view>
 						</view>
+						<app-footer v-if="!isLoading"></app-footer>
 					</scroll-view>
 				</swiper-item>
 				<swiper-item class="swiper-item">
@@ -32,12 +34,12 @@
 						<view class="page-box">
 							<app-list :postsList="hotComments"></app-list>
 							<view class="center" v-if="hotViews.length==0">
-								<u-loading mode="flower"></u-loading>
+								<u-loading-icon mode="flower"></u-loading-icon>
 							</view>
 						</view>
+						<app-footer v-if="!isLoading"></app-footer>
 					</scroll-view>
 				</swiper-item>
-
 			</swiper>
 		</view>
 	</view>
@@ -64,7 +66,8 @@
 				swiperCurrent: 0,
 				hotViews: [],
 				hotLikes: [],
-				hotComments: []
+				hotComments: [],
+				isLoading: true
 			};
 		},
 		onLoad() {
@@ -80,6 +83,7 @@
 			})
 			// #endif
 			try {
+				this.isLoading = true;
 				http.getHotViewPosts().then(data => data.data).then(hotViews => {
 					this.hotViews = hotViews.map(item => {
 						item.title = {
@@ -90,6 +94,7 @@
 						item.id = item.post_id;
 						return item;
 					});
+					this.isLoading = false;
 				});
 				http.getHotLikePosts().then(data => data.data).then(hotLikes => {
 					this.hotLikes = hotLikes.map(item => {
@@ -133,22 +138,14 @@
 		},
 		methods: {
 			// tab栏切换
-			change(index) {
-				this.swiperCurrent = index;
-			},
-			transition({
-				detail: {
-					dx
-				}
-			}) {
-				this.$refs.tabs.setDx(dx);
+			change(target) {
+				this.swiperCurrent = target.index;
 			},
 			animationfinish({
 				detail: {
 					current
 				}
 			}) {
-				this.$refs.tabs.setFinishCurrent(current);
 				this.swiperCurrent = current;
 				this.current = current;
 			}
@@ -162,8 +159,6 @@
 		height: 100%;
 		background-color: #f2f2f2;
 	}
-
-
 
 	/* #endif */
 	.u-tabs-box {

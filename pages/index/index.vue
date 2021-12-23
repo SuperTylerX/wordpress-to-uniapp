@@ -56,8 +56,8 @@
 
 		<!-- 文章列表 -->
 		<app-list :postsList="postsList"></app-list>
-		<view class="center">
-			<u-loading mode="flower" size="42" v-show="isLoading"></u-loading>
+		<view class="center"  v-show="isLoading">
+			<u-loading-icon size="20"></u-loading-icon>
 		</view>
 
 		<app-footer></app-footer>

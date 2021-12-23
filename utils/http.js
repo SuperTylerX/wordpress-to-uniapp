@@ -7,7 +7,7 @@
 
 import * as unip from "../utils/uniPromisify.js";
 import * as API from "../utils/api.js";
-import queryParams from "../uview-ui/libs/function/queryParams.js";
+
 
 function getHomeConfig() {
 	return unip.request({
@@ -23,13 +23,13 @@ function getDisplayCategoryIds() {
 
 function getArticleList(queryObj) {
 	return unip.request({
-		url: API.ARTICLE_LIST_URL + queryParams(queryObj)
+		url: API.ARTICLE_LIST_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
 function getCategory(queryObj) {
 	return unip.request({
-		url: API.CATEGORY_URL + queryParams(queryObj)
+		url: API.CATEGORY_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
@@ -59,19 +59,19 @@ function getPostDetail(postId) {
 
 function getPostTag(queryObj) {
 	return unip.request({
-		url: API.POST_TAG_URL + queryParams(queryObj)
+		url: API.POST_TAG_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
 function getGuessYouLike(queryObj) {
 	return unip.request({
-		url: API.ARTICLE_LIST_URL + queryParams(queryObj)
+		url: API.ARTICLE_LIST_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
 function getComments(queryObj) {
 	return unip.request({
-		url: API.POST_COMMENT_URL + queryParams(queryObj)
+		url: API.POST_COMMENT_URL + uni.$u.queryParams(queryObj)
 	});
 }
 

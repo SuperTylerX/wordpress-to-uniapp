@@ -5,19 +5,19 @@
 				{{article.title.rendered}}
 			</view>
 			<view class="info">
-				<u-icon class="icon" name="calendar" size="28"></u-icon>
+				<u-icon class="icon" name="calendar" size="14"></u-icon>
 				<text class="text">{{article.date.slice(0,10)}}</text>
 
-				<u-icon class="icon" name="list-dot" size="28"></u-icon>
+				<u-icon class="icon" name="list-dot" size="14"></u-icon>
 				<text class="text">{{article.category_name}}</text>
 
-				<u-icon class="icon" name="chat" size="28"></u-icon>
+				<u-icon class="icon" name="chat" size="14"></u-icon>
 				<text class="text">{{article.total_comments}}</text>
 
-				<u-icon class="icon" name="thumb-up" size="28"></u-icon>
+				<u-icon class="icon" name="thumb-up" size="14"></u-icon>
 				<text class="text">{{article.like_count}}</text>
 
-				<u-icon class="icon" name="eye" size="28"></u-icon>
+				<u-icon class="icon" name="eye" size="14"></u-icon>
 				<text class="text">{{article.pageviews}}</text>
 			</view>
 
@@ -31,12 +31,12 @@
 			<!-- 点赞 -->
 			<view class="likes">
 				<view class="button-wrap" @tap="likeHandler">
-					<u-icon class="icon" name="thumb-up"></u-icon> 点个赞
+					<u-icon class="icon" name="thumb-up" color="#0081FF"></u-icon> 点个赞
 				</view>
-				<u-divider v-if="article.avatarurls.length !==0" half-width="30" height="80">共有
-					{{article.avatarurls.length}} 人点赞
-				</u-divider>
-				<u-divider v-else half-width="30" height="80"> 还没有人点赞 </u-divider>
+				<u-divider v-if="article.avatarurls.length !==0" style="margin: 20rpx 0"
+					:text="'共有' + article.avatarurls.length + '人点赞'"></u-divider>
+				<u-divider v-else style="margin: 20rpx 0" text="还没有人点赞"></u-divider>
+
 				<view class="avatar-wrap">
 					<image class="avatar-item" :src="item.avatarurl" v-for="(item, index) in article.avatarurls"
 						:key="index" mode="aspectFill"></image>
@@ -45,8 +45,8 @@
 
 			<!-- 标签 -->
 			<view class="tags">
-				<u-tag class="tag-item" :text="`#${item.name}`" type="error" mode="light" v-for="(item,index) in tags"
-					@tap="redirect({ 'type': 'apppage',
+				<u-tag class="tag-item" :text="`#${item.name}`" type="error" plain plainFill
+					v-for="(item,index) in tags" @tap="redirect({ 'type': 'apppage',
 					path : '/pages/list/list?tagID=' + item.id } )" :key="index"></u-tag>
 			</view>
 
@@ -69,7 +69,8 @@
 				<view class="subTitle-line"></view>
 				<view class="comments-list">
 
-					<u-divider v-if="commentsList.length == 0" half-width="30" height="160">暂无评论</u-divider>
+					<u-divider v-if="commentsList.length == 0" style="margin: 120rpx 190rpx" text="暂无评论">
+					</u-divider>
 					<!-- 0级回复 -->
 					<block v-for="(item, index) in commentsList" :key="index">
 						<view class="comment">
@@ -601,6 +602,7 @@
 		}
 
 		.info {
+			display: flex;
 			margin-top: 30rpx;
 			color: #bbb;
 			font-size: 28rpx;
@@ -648,6 +650,8 @@
 			margin-top: 50rpx;
 
 			.button-wrap {
+				display: flex;
+				justify-content: center;
 				margin-bottom: 40rpx;
 				border: 1rpx solid #0081FF;
 				color: #0081FF;

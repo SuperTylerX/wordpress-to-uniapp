@@ -207,5 +207,8 @@
 
 	.empty {
 		height: 60vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 </style>

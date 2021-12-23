@@ -7,16 +7,16 @@
 			<view class="article-disc">
 				<view class="title">{{item.title.rendered}}</view>
 				<view class="info">
-					<u-icon class="icon" name="calendar" size="24"></u-icon>
+					<u-icon class="icon" name="calendar" size="12"></u-icon>
 					<text class="desc">{{item.date.slice(0,10)}}</text>
 
-					<u-icon class="icon" name="chat" size="24"></u-icon>
+					<u-icon class="icon" name="chat" size="12"></u-icon>
 					<text class="desc">{{item.total_comments}}</text>
 
-					<u-icon class="icon" name="thumb-up" size="24"></u-icon>
+					<u-icon class="icon" name="thumb-up" size="12"></u-icon>
 					<text class="desc">{{item.like_count}}</text>
 
-					<u-icon class="icon" name="eye" size="24"></u-icon>
+					<u-icon class="icon" name="eye" size="12"></u-icon>
 					<text class="desc">{{item.pageviews}}</text>
 				</view>
 			</view>
@@ -75,6 +75,7 @@
 				.info {
 					color: #bbb;
 					font-size: 21rpx;
+					display: flex;
 
 					.icon {
 						margin-right: 5rpx;

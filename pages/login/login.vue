@@ -7,12 +7,12 @@
 		<form @submit="login">
 			<view class="input-wrap">
 				<view class="username input-item">
-					<u-icon class="icon" size="40" name="account"></u-icon>
+					<u-icon class="icon" size="22" name="account"></u-icon>
 					<input class="input" type="text" value="" confirm-type="next" placeholder="请输入用户名/邮箱"
 						@confirm="isPassFocus= true" name="username" v-model="loginInput.username" />
 				</view>
 				<view class="password input-item">
-					<u-icon class="icon" size="40" name="lock"></u-icon>
+					<u-icon class="icon" size="22" name="lock"></u-icon>
 					<input class="input" value="" type="password" confirm-type="done" placeholder="请输入密码"
 						:focus="isPassFocus" @blur="isPassFocus = false" @confirm="login" name="password"
 						v-model="loginInput.password" />
@@ -37,7 +37,7 @@
 		<!-- #ifdef MP-QQ || H5 || APP-PLUS -->
 		<button type="default" plain="true" class="thrid-login" open-type="getUserInfo" @getuserinfo="miniAppLogin"
 			@tap="qqlogin">
-			<u-icon class="icon" size="60" name="qq-fill" color="#4BC1E8"></u-icon>
+			<u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
 			<text class="disc"> QQ登录 </text>
 		</button>
 		<!-- #endif -->
