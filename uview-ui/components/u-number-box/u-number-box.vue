@@ -134,15 +134,14 @@
 		computed: {
 			getCursorSpacing() {
 				// 判断传入的单位，如果为px单位，需要转成px
-				const number = parseInt(this.cursorSpacing)
-				return /rpx$/.test(String(this.cursorSpacing)) ? uni.upx2px(number) : number
+				return uni.$u.getPx(this.cursorSpacing)
 			},
 			// 按钮的样式
 			buttonStyle() {
 				return (type) => {
 					const style = {
 						backgroundColor: this.bgColor,
-						height: this.$u.addUnit(this.buttonSize),
+						height: uni.$u.addUnit(this.buttonSize),
 						color: this.color
 					}
 					if (this.isDisabled(type)) {
@@ -157,8 +156,8 @@
 				const style = {
 					color: this.color,
 					backgroundColor: this.bgColor,
-					height: this.$u.addUnit(this.buttonSize),
-					width: this.$u.addUnit(this.inputWidth)
+					height: uni.$u.addUnit(this.buttonSize),
+					width: uni.$u.addUnit(this.inputWidth)
 				}
 				return style
 			},

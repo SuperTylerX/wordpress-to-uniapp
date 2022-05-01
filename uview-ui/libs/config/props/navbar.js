@@ -7,12 +7,13 @@
  * @lastTime     : 2021-08-20 17:16:18
  * @FilePath     : /u-view2.0/uview-ui/libs/config/props/navbar.js
  */
+import color from '../color'
 export default {
     // navbar 组件
     navbar: {
         safeAreaInsetTop: true,
         placeholder: false,
-        fixed: false,
+        fixed: true,
         border: false,
         leftIcon: 'arrow-left',
         leftText: '',
@@ -22,7 +23,10 @@ export default {
         bgColor: '#ffffff',
         titleWidth: '400rpx',
         height: '44px',
-		leftIconSize: 20
+		leftIconSize: 20,
+		leftIconColor: color.mainColor,
+		autoBack: false,
+		titleStyle: ''
     }
 
 }

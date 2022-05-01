@@ -7,7 +7,7 @@
 			width: $u.addUnit(size),
 			height: $u.addUnit(size),
 		}, $u.addStyle(customStyle)]"
-		@tap.stop="clickHandler"
+		@tap="clickHandler"
 	>
 		<slot>
 			<!-- #ifdef MP-WEIXIN || MP-QQ || MP-BAIDU  -->
@@ -41,7 +41,7 @@
 				class="u-avatar__image"
 				v-else
 				:class="[`u-avatar__image--${shape}`]"
-				:src="avatarUrl"
+				:src="avatarUrl || defaultUrl"
 				:mode="mode"
 				@error="errorHandler"
 				:style="[{
@@ -103,6 +103,10 @@
 				immediate: true,
 				handler(newVal) {
 					this.avatarUrl = newVal
+					// 如果没有传src，则主动触发error事件，用于显示默认的头像，否则src为''空字符等的时候，会无内容展示
+					if(!newVal) {
+						this.errorHandler()
+					}
 				}
 			}
 		},

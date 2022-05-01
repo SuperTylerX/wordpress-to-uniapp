@@ -14,6 +14,9 @@
                 </slot>
             </view>
             <view class="u-input__content__field-wrapper" @tap="clickHandler">
+				<!-- 根据uni-app的input组件文档，H5和APP中只要声明了password参数(无论true还是false)，type均失效，此时
+					为了防止type=number时，又存在password属性，type无效，此时需要设置password为undefined
+				 -->
             	<input
             	    class="u-input__content__field-wrapper__field"
             	    :style="[inputStyle]"
@@ -34,7 +37,7 @@
             	    :adjust-position="adjustPosition"
             	    :selection-end="selectionEnd"
             	    :selection-start="selectionStart"
-            	    :password="password || type === 'password'"
+            	    :password="password || type === 'password' || undefined"
             	    @input="onInput"
             	    @blur="onBlur"
             	    @focus="onFocus"
@@ -188,7 +191,7 @@ export default {
                 style.paddingLeft = "9px";
                 style.paddingRight = "9px";
             }
-            return uni.$u.deepMerge(style, this.$u.addStyle(this.customStyle));
+            return uni.$u.deepMerge(style, uni.$u.addStyle(this.customStyle));
         },
         // 输入框的样式
         inputStyle() {

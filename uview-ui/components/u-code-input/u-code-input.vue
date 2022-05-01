@@ -23,6 +23,9 @@
 				v-if="mode === 'line'"
 				:style="[lineStyle]"
 			></view>
+			<!-- #ifndef APP-PLUS -->
+			<view v-if="isFocus && codeArray.length === index" :style="{backgroundColor: color}" class="u-code-input__item__cursor"></view>
+			<!-- #endif -->
 		</view>
 		<input
 			:disabled="disabledKeyboard"
@@ -35,6 +38,8 @@
 			:style="{
 				height: $u.addUnit(size) 
 			}"
+			@focus="isFocus = true"
+			@blur="isFocus = false"
 		/>
 	</view>
 </template>
@@ -69,7 +74,8 @@
 		mixins: [uni.$u.mpMixin, uni.$u.mixin, props],
 		data() {
 			return {
-				inputValue: ''
+				inputValue: '',
+				isFocus: this.focus
 			}
 		},
 		watch: {
@@ -84,7 +90,7 @@
 		computed: {
 			// 根据长度，循环输入框的个数，因为头条小程序数值不能用于v-for
 			codeLength() {
-				return new Array(this.maxlength)
+				return new Array(Number(this.maxlength))
 			},
 			// 循环item的样式
 			itemStyle() {
@@ -166,6 +172,10 @@
 
 <style lang="scss" scoped>
 	@import "../../libs/css/components.scss";
+	$u-code-input-cursor-width: 1px;
+	$u-code-input-cursor-height: 40%;
+	$u-code-input-cursor-animation-duration: 1s;
+	$u-code-input-cursor-animation-name: u-cursor-flicker;
 
 	.u-code-input {
 		@include flex;
@@ -176,6 +186,7 @@
 			@include flex;
 			justify-content: center;
 			align-items: center;
+			position: relative;
 
 			&__text {
 				font-size: 15px;
@@ -197,17 +208,44 @@
 				width: 40px;
 				background-color: $u-content-color;
 			}
+			/* #ifndef APP-PLUS */
+			&__cursor {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: $u-code-input-cursor-width;
+				height: $u-code-input-cursor-height;
+				animation: $u-code-input-cursor-animation-duration u-cursor-flicker infinite;
+			}
+			/* #endif */
+			
 		}
 
 		&__input {
 			// 之所以需要input输入框，是因为有它才能唤起键盘
 			// 这里将它设置为两倍的屏幕宽度，再将左边的一半移出屏幕，为了不让用户看到输入的内容
 			position: absolute;
-			left: -150rpx;
+			left: -750rpx;
 			width: 1500rpx;
 			top: 0;
 			background-color: transparent;
 			text-align: left;
 		}
 	}
+	
+	/* #ifndef APP-PLUS */
+	@keyframes u-cursor-flicker {
+		0% {
+		    opacity: 0;
+		}
+		50% {
+		    opacity: 1;
+		}
+		100% {
+		    opacity: 0;
+		}
+	}
+	/* #endif */
+
 </style>
