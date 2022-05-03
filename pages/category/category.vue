@@ -81,7 +81,7 @@
 					this.currentParentId = parentCategory[0].id;
 
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 				}
 			},
 			switchCategory(id) {

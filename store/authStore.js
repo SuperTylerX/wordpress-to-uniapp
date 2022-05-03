@@ -98,26 +98,24 @@ export default ({
 		},
 		// 普通使用token进行登录
 		async login({ commit, dispatch }, payloads) {
-			try {
-				const res = await http.getJWT({
-					username: payloads.username,
-					password: payloads.password
+			const res = await http.getJWT({
+				username: payloads.username,
+				password: payloads.password
+			});
+			if (res.statusCode === 200) {
+				const token = res.data.token;
+				commit("update_token", {
+					token
 				});
-				if (res.statusCode === 200) {
-					const token = res.data.token;
-					commit("update_token", {
-						token
-					});
-					await dispatch("getUserInfo", { login_type: "APP" });
-				} else if (res.statusCode === 403) {
-					uni.showToast({
-						title: res.data.message.replace(/<[^>]+>/g, ""),
-						icon: "none",
-						position: "bottom"
-					});
-				}
-			} catch (e) {
-				console.log(e);
+				await dispatch("getUserInfo", { login_type: "APP" });
+			} else if (res.statusCode === 403) {
+				const errorMessage = res.data.message.replace(/<[^>]+>/g, "")
+				uni.showToast({
+					title: errorMessage,
+					icon: "none",
+					position: "bottom"
+				});
+				throw new Error(errorMessage);
 			}
 		},
 		// 普通使用token获取用户信息

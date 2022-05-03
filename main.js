@@ -17,11 +17,11 @@ Vue.use(uView);
 Vue.mixin({
 	methods: {
 		// 页面跳转
-		redirect(data) {
-			switch (data.type) {
+		redirect({type, path, url}) {
+			switch (type) {
 				case "apppage":
 					uni.navigateTo({
-						url: data.path,
+						url: path,
 						fail: (e) => {
 							console.log(e);
 						}
@@ -29,7 +29,7 @@ Vue.mixin({
 					break;
 				case "webpage":
 					uni.navigateTo({
-						url: "/pages/webpage/webpage" + "?url=" + data.url,
+						url: "/pages/webpage/webpage" + "?url=" + url,
 						fail: (e) => {
 							console.log(e);
 						}

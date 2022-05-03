@@ -14,12 +14,6 @@
 				});
 				this.$store.dispatch("authStore/validateToken", { login_type });
 			}
-		},
-		onShow: function() {
-			console.log("App Show");
-		},
-		onHide: function() {
-			console.log("App Hide");
 		}
 	};
 </script>

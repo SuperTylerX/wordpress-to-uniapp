@@ -14,104 +14,108 @@ const PLUGIN_REST_API_URL = `${BASE_URL}/wp-json/uni-app-rest-enhanced/v1`;
 const JWT_REST_API_URL = `${BASE_URL}/wp-json/jwt-auth/v1`;
 const PLUGIN_PATH_URL = `${BASE_URL}/wp-content/plugins/rest-api-to-miniprogram-enhanced`;
 
-const RESIZE_IMG_URL = `${PLUGIN_PATH_URL}/prune.php`;
+export const RESIZE_IMG_URL = `${PLUGIN_PATH_URL}/prune.php`;
 
 // 配置文件，首页幻灯与导航
-const HOME_CONFIG_URL = `${PLUGIN_REST_API_URL}/options/homeconfig`;
+export const HOME_CONFIG_URL = `${PLUGIN_REST_API_URL}/options/homeconfig`;
 
 // 获取微信页面QRCode
-const WEIXIN_QR_CODE_URL = `${PLUGIN_REST_API_URL}/weixin/qrcodeimg`;
+export const WEIXIN_QR_CODE_URL = `${PLUGIN_REST_API_URL}/weixin/qrcodeimg`;
+
+
+
 /* 文章类API*/
 
 // 获取文章列表
-const ARTICLE_LIST_URL = `${PLUGIN_REST_API_URL}/posts`;
+export const ARTICLE_LIST_URL = `${PLUGIN_REST_API_URL}/posts`;
 // 获取评论热门
-const HOT_COMMENT_POST_URL = `${PLUGIN_REST_API_URL}/post/hotpostthisyear`;
+export const HOT_COMMENT_POST_URL = `${PLUGIN_REST_API_URL}/post/hotpostthisyear`;
 // 获取浏览热门
-const HOT_VIEW_POST_URL = `${PLUGIN_REST_API_URL}/post/pageviewsthisyear`;
+export const HOT_VIEW_POST_URL = `${PLUGIN_REST_API_URL}/post/pageviewsthisyear`;
 // 获取点赞热门
-const HOT_LIKE_POST_URL = `${PLUGIN_REST_API_URL}/post/likethisyear`;
+export const HOT_LIKE_POST_URL = `${PLUGIN_REST_API_URL}/post/likethisyear`;
 // 获取文章详情
-const POST_DETAIL_URL = `${PLUGIN_REST_API_URL}/posts`;
+export const POST_DETAIL_URL = `${PLUGIN_REST_API_URL}/posts`;
 // 点赞
-const POST_LIKE_URL = `${PLUGIN_REST_API_URL}/post/like`;
+export const POST_LIKE_URL = `${PLUGIN_REST_API_URL}/post/like`;
 // 获取我的点赞
-const GET_MY_LIKE_URL = `${PLUGIN_REST_API_URL}/post/mylike`;
+export const GET_MY_LIKE_URL = `${PLUGIN_REST_API_URL}/post/mylike`;
 // 获取文章标签
-const POST_TAG_URL = `${WORDPRESS_REST_API_URL}/tags`;
+export const POST_TAG_URL = `${WORDPRESS_REST_API_URL}/tags`;
 // 获取页面
-const PAGE_DETAIL_URL = `${WORDPRESS_REST_API_URL}/pages`;
+export const PAGE_DETAIL_URL = `${WORDPRESS_REST_API_URL}/pages`;
 
 
 /* 分类 API */
 
 // 显示分类的ID
-const DISPLAY_CATEGORY_IDS_URL = `${PLUGIN_REST_API_URL}/category/ids`;
+export const DISPLAY_CATEGORY_IDS_URL = `${PLUGIN_REST_API_URL}/category/ids`;
 // 获取分类列表
-const CATEGORY_URL = `${WORDPRESS_REST_API_URL}/categories`;
+export const CATEGORY_URL = `${WORDPRESS_REST_API_URL}/categories`;
 // 获取分类元信息
-const CATEGORY_META_URL = `${WORDPRESS_REST_API_URL}/categories`;
+export const CATEGORY_META_URL = `${WORDPRESS_REST_API_URL}/categories`;
 
 
 
 /* 评论类API*/
 
 // 获取我的评论
-const COMMENTS_URL = `${WORDPRESS_REST_API_URL}/comments`;
+export const COMMENTS_URL = `${WORDPRESS_REST_API_URL}/comments`;
 // 获取某篇文章的评论
-const POST_COMMENT_URL = `${PLUGIN_REST_API_URL}/comment/getcomments`;
+export const POST_COMMENT_URL = `${PLUGIN_REST_API_URL}/comment/getcomments`;
 // 添加我的评论
-const POST_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/add`;
+export const POST_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/add`;
 // 获取我的评论
-const GET_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/get`;
+export const GET_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/get`;
 // 删除我的评论
-const DELETE_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/delete`;
+export const DELETE_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/delete`;
 
 
 
 /* 登录类API*/
 
 // 微信用户登录
-const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/userlogin`;
+export const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/userlogin`;
 // QQ小程序用户登录
-const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
+export const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
 // QQAPP用户登录
-const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
+export const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
 // QQH5用户登录
-const QQ_H5_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/h5Login`;
+export const QQ_H5_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/h5Login`;
 // JWT登录
-const JWT_TOKEN_URL = `${JWT_REST_API_URL}/token`;
+export const JWT_TOKEN_URL = `${JWT_REST_API_URL}/token`;
 // JWT验证Token
-const JWT_VALIDATE_URL = `${JWT_REST_API_URL}/token/validate`;
+export const JWT_VALIDATE_URL = `${JWT_REST_API_URL}/token/validate`;
 // 获取用户信息
-const USER_INFO_URL = `${WORDPRESS_REST_API_URL}/users/me`;
+export const USER_INFO_URL = `${WORDPRESS_REST_API_URL}/users/me`;
+// 用户注册
+export const USER_REGISTER = `${PLUGIN_REST_API_URL}/register/submit`;
+// 用户重置密码
+export const USER_RESET_PASSWORD = `${PLUGIN_REST_API_URL}/register/reset`;
 
-export {
-	HOME_CONFIG_URL,
-	DISPLAY_CATEGORY_IDS_URL,
-	ARTICLE_LIST_URL,
-	CATEGORY_URL,
-	HOT_COMMENT_POST_URL,
-	HOT_VIEW_POST_URL,
-	HOT_LIKE_POST_URL,
-	POST_DETAIL_URL,
-	POST_TAG_URL,
-	POST_COMMENT_URL,
-	WECHAT_USER_LOGIN,
-	QQ_MINIAPP_USER_LOGIN,
-	QQ_APP_USER_LOGIN,
-	QQ_H5_USER_LOGIN,
-	POST_LIKE_URL,
-	JWT_TOKEN_URL,
-	JWT_VALIDATE_URL,
-	USER_INFO_URL,
-	CATEGORY_META_URL,
-	COMMENTS_URL,
-	POST_MY_COMMENTS_URL,
-	GET_MY_COMMENTS_URL,
-	DELETE_MY_COMMENTS_URL,
-	GET_MY_LIKE_URL,
-	PAGE_DETAIL_URL,
-	WEIXIN_QR_CODE_URL,
-	RESIZE_IMG_URL
-};
+
+
+/* 安全类API */
+// 获取图形验证码
+export const GRAPHIC_CAPTCHA_URL = `${PLUGIN_REST_API_URL}/register/getGraphicCaptcha`;
+// 获取邮箱验证码
+export const EMAIL_CAPTCHA_URL = `${PLUGIN_REST_API_URL}/register/getEmailCaptcha`;
+
+
+
+/* 论坛类API */
+
+// 论坛分类目录
+export const FORUMS_CATEGORY_URL = `${PLUGIN_REST_API_URL}/forums`;
+// 论坛话题列表
+export const FORUMS_LIST_URL = `${PLUGIN_REST_API_URL}/forums/`;
+// 论坛详情页面
+export const FORUMS_POST_DETAIL_URL = `${PLUGIN_REST_API_URL}/forums/topic/`;
+// 论坛评论
+export const FORUMS_POST_COMMENT_URL = `${PLUGIN_REST_API_URL}/forums/reply/`;
+// 论坛文章点赞
+export const FORUMS_POST_LIKE_URL = `${PLUGIN_REST_API_URL}/forums/like`;
+
+/* 文件上传类API*/
+
+export const MEDIA_URL = `${WORDPRESS_REST_API_URL}/media`;

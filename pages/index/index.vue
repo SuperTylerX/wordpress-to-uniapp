@@ -48,7 +48,7 @@
 			</scroll-view>
 		</view>
 
-		<u-gap bg-color="#F5F7F7" height="20"></u-gap>
+		<u-gap bg-color="#F5F7F7" height="10"></u-gap>
 
 		<view class="articles-top">
 			<view class="left">最新文章</view>

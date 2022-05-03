@@ -13,8 +13,9 @@ export default ({
 		wf_enable_qq_comment_option: "0",
 		wf_weixin_enterprise_minapp: "0",
 		wf_qq_enterprise_minapp: "0",
-		postImageUrl: "",
-		shareImageUrl: ""
+		posterImageUrl: "",
+		shareImageUrl: "",
+		is_user_registration_enable: "0"
 	},
 	mutations: {
 		SET_HOME_CONFIG(state, payloads) {
@@ -24,9 +25,10 @@ export default ({
 			state.wf_enable_qq_comment_option = payloads.wf_enable_qq_comment_option;
 			state.wf_weixin_enterprise_minapp = payloads.wf_weixin_enterprise_minapp;
 			state.wf_qq_enterprise_minapp = payloads.wf_qq_enterprise_minapp;
-			state.postImageUrl = payloads.postImageUrl;
+			state.posterImageUrl = payloads.posterImageUrl;
 			state.shareImageUrl = payloads.shareImageUrl ||
 				"https://tva1.sinaimg.cn/large/006RKGBpgy1gsqxssh3dyj60cs08hmxf02.jpg";
+			state.is_user_registration_enable = payloads.is_user_registration_enable;
 		}
 	},
 	actions: {
@@ -35,7 +37,7 @@ export default ({
 				let config = await http.getHomeConfig().then(data => data.data);
 				commit("SET_HOME_CONFIG", config);
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 
 		}
