@@ -7,6 +7,7 @@
 
 import * as unip from "../utils/uniPromisify.js";
 import * as API from "../utils/api.js";
+import { request } from "@/utils/request.js";
 
 
 function getHomeConfig() {
@@ -244,6 +245,251 @@ function getQRCode(postid, path) {
 	});
 }
 
+// 获取论坛分类目录
+function getForumCategories() {
+
+	return unip.request({
+		url: API.FORUMS_CATEGORY_URL
+	});
+}
+
+// 获取论坛话题列表
+function getForumTopicList({
+	id,
+	page,
+	per_page
+}) {
+
+	const token = uni.getStorageSync("token");
+
+	return unip.request({
+		url: API.FORUMS_LIST_URL + id,
+		method: "GET",
+		data: {
+			page,
+			per_page
+		},
+		header: {
+			Authorization: token ? "Bearer " + token : ""
+		}
+	});
+}
+
+// 获取论坛文章详情
+function getForumTopicDetail(id) {
+
+	const token = uni.getStorageSync("token");
+
+	return unip.request({
+		url: API.FORUMS_POST_DETAIL_URL + id,
+		method: "GET",
+		header: {
+			Authorization: token ? "Bearer " + token : ""
+		}
+	});
+}
+// 获取论坛文章的评论
+function getForumTopicComment({
+	id,
+	page,
+	per_page,
+	order
+}) {
+
+	return unip.request({
+		url: API.FORUMS_POST_COMMENT_URL + id,
+		method: "GET",
+		data: {
+			page,
+			per_page,
+			order
+		}
+	});
+}
+
+// 发布论坛帖子
+function postForumPost({
+	forum_id,
+	content,
+	tags,
+	images
+}) {
+	// 获取token
+	const token = uni.getStorageSync("token");
+	return request({
+		url: API.FORUMS_POST_PUBLISH_URL,
+		method: "POST",
+		data: {
+			forum_id,
+			content,
+			tags,
+			images
+		},
+		header: {
+			Authorization: "Bearer " + token
+		}
+	});
+}
+
+// 发表论坛评论
+function postForumReply({
+	topic_id,
+	reply_to_id,
+	content
+}) {
+	// 获取token
+	const token = uni.getStorageSync("token");
+
+	return unip.request({
+		url: API.FORUMS_POST_COMMENT_URL,
+		method: "POST",
+		data: {
+			topic_id,
+			reply_to_id,
+			content
+		},
+		header: {
+			Authorization: "Bearer " + token
+		}
+
+	});
+}
+
+// 给论坛文章点赞
+function forumPostLike({
+	id,
+	isLike
+}) {
+
+	// 获取token
+	const token = uni.getStorageSync("token");
+
+	return unip.request({
+		url: API.FORUMS_POST_LIKE_URL,
+		method: "POST",
+		data: {
+			id,
+			isLike
+		},
+		header: {
+			Authorization: "Bearer " + token
+		}
+	});
+}
+
+// 获取图形验证码
+function getGraphicCaptcha({
+	token
+}) {
+	return unip.request({
+		url: API.GRAPHIC_CAPTCHA_URL,
+		method: "POST",
+		data: token ? {
+			token
+		} : null,
+		withCredentials: true
+	});
+}
+
+// 获取邮箱验证码
+function getEmailCaptcha({
+	email,
+	graphicCaptcha,
+	token
+}) {
+	return unip.request({
+		url: API.EMAIL_CAPTCHA_URL,
+		method: "POST",
+		data: {
+			email,
+			graphicCaptcha,
+			token
+		}
+	});
+
+}
+
+// 用户注册
+function userRegister({
+	nickname,
+	email,
+	password,
+	graphicCaptcha,
+	emailCaptcha,
+	token
+}) {
+	return unip.request({
+		url: API.USER_REGISTER,
+		method: "POST",
+		data: {
+			nickname,
+			email,
+			password,
+			graphicCaptcha,
+			emailCaptcha,
+			token
+		}
+	});
+}
+
+
+// 用户注册
+function userResetPassword({
+	email,
+	password,
+	graphicCaptcha,
+	emailCaptcha,
+	token
+}) {
+	return unip.request({
+		url: API.USER_RESET_PASSWORD,
+		method: "POST",
+		data: {
+			email,
+			password,
+			graphicCaptcha,
+			emailCaptcha,
+			token
+		}
+	});
+}
+
+// 文件上传
+function uploadFile({
+	filePath
+}) {
+
+	// 获取token
+	const token = uni.getStorageSync("token");
+
+	return unip.uploadFile({
+		url: API.MEDIA_URL,
+		filePath,
+		name: "file",
+		header: {
+			Authorization: "Bearer " + token
+		}
+	});
+}
+
+function deleteFile({
+	id
+}) {
+	// 获取token
+	const token = uni.getStorageSync("token");
+
+	return unip.request({
+		url: API.MEDIA_URL + "/" + id,
+		method: "DELETE",
+		data: {
+			force: true
+		},
+		header: {
+			Authorization: "Bearer " + token
+		}
+	});
+}
+
 export default {
 	getHomeConfig,
 	getDisplayCategoryIds,
@@ -270,5 +516,60 @@ export default {
 	getPageDetail,
 	qqAppUserLogin,
 	getQRCode,
-	qqH5UserLogin
+	qqH5UserLogin,
+	getForumCategories,
+	getForumTopicList,
+	getForumTopicDetail,
+	getGraphicCaptcha,
+	getEmailCaptcha,
+	userRegister,
+	userResetPassword,
+	getForumTopicComment,
+	uploadFile,
+	deleteFile,
+	forumPostLike,
+	postForumReply,
+	postForumPost
+};
+
+export {
+	getHomeConfig,
+	getDisplayCategoryIds,
+	getArticleList,
+	getCategory,
+	getHotCommentPosts,
+	getHotViewPosts,
+	getHotLikePosts,
+	getPostDetail,
+	getPostTag,
+	getGuessYouLike,
+	getComments,
+	wxUserLogin,
+	postLike,
+	getJWT,
+	validateJWT,
+	getUserInfo,
+	getCategoryMeta,
+	getTagMeta,
+	getMyComments,
+	postMyComment,
+	deleteMyComment,
+	getLikePosts,
+	getPageDetail,
+	qqAppUserLogin,
+	getQRCode,
+	qqH5UserLogin,
+	getForumCategories,
+	getForumTopicList,
+	getForumTopicDetail,
+	getGraphicCaptcha,
+	getEmailCaptcha,
+	userRegister,
+	userResetPassword,
+	getForumTopicComment,
+	uploadFile,
+	deleteFile,
+	forumPostLike,
+	postForumReply,
+	postForumPost
 };

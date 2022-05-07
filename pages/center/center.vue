@@ -25,9 +25,11 @@
 					type: 'apppage',
 					path: '/pages/list/list?history=true'
 				})" :isLink="true" size="large" :clickable="true"></u-cell>
-				<u-cell class="menu-cell" icon="star-fill" title="我的收藏" @tap="goTo('like')" :isLink="true" size="large" :clickable="true">
+				<u-cell class="menu-cell" icon="star-fill" title="我的收藏" @tap="goTo('like')" :isLink="true" size="large"
+					:clickable="true">
 				</u-cell>
-				<u-cell class="menu-cell" icon="chat-fill" title="我的评论" @tap="goTo('comment')" :isLink="true" size="large" :clickable="true"></u-cell>
+				<u-cell class="menu-cell" icon="chat-fill" title="我的评论" @tap="goTo('comment')" :isLink="true"
+					size="large" :clickable="true"></u-cell>
 				<!-- <u-cell icon="edit-pen-fill" title="我的投稿"></u-cell> -->
 			</u-cell-group>
 		</view>
@@ -35,7 +37,8 @@
 		<view class="menus-2">
 			<u-cell-group>
 				<!-- <u-cell icon="setting-fill" title="关于我们"></u-cell> -->
-				<u-cell class="menu-cell" icon="person-delete-fill" title="退出登录" @tap="logout" :isLink="true" size="large" :clickable="true"></u-cell>
+				<u-cell class="menu-cell" icon="person-delete-fill" title="退出登录" @tap="logout" :isLink="true"
+					size="large" :clickable="true"></u-cell>
 			</u-cell-group>
 		</view>
 	</view>
@@ -52,29 +55,29 @@
 		},
 		computed: {
 			isLogin() {
-				return this.$store.state.authStore.isLogin
+				return this.$store.state.authStore.isLogin;
 			},
 			login_type() {
-				return this.$store.state.authStore.login_type
+				return this.$store.state.authStore.login_type;
 			},
 			js_code() {
-				return this.$store.state.authStore.js_code
+				return this.$store.state.authStore.js_code;
 			},
 			userInfo() {
-				return this.$store.state.authStore.userInfo
+				return this.$store.state.authStore.userInfo;
 			}
 		},
 		onLoad() {
 			// #ifdef MP-QQ
 			qq.showShareMenu({
-				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+				showShareItems: ["qq", "qzone", "wechatFriends", "wechatMoment"]
 			});
 			// #endif
 			// #ifdef MP-WEIXIN
 			wx.showShareMenu({
 				withShareTicket: true,
-				menus: ['shareAppMessage', 'shareTimeline']
-			})
+				menus: ["shareAppMessage", "shareTimeline"]
+			});
 			// #endif
 		},
 		onShareAppMessage(res) {
@@ -82,25 +85,25 @@
 				title: `分享「${config.WEBSITE_NAME}」小程序`,
 				path: "pages/index/index",
 				imageUrl: this.$store.state.configStore.shareImageUrl,
-			}
+			};
 		},
 		onShareTimeline() {
 			return {
 				title: `分享「${config.WEBSITE_NAME}」小程序`,
 				imageUrl: this.$store.state.configStore.shareImageUrl
-			}
+			};
 		},
 		methods: {
 			login() {
 				if (this.$store.state.authStore.isLogin) return;
 				uni.navigateTo({
 					url: "../login/login"
-				})
+				});
 			},
 			logout() {
 				uni.showToast({
 					title: "退出成功"
-				})
+				});
 				this.$store.commit("authStore/logout");
 				uni.clearStorageSync("login_type");
 				uni.clearStorageSync("userInfo");
@@ -109,22 +112,22 @@
 				if (!this.$store.state.authStore.isLogin) {
 					uni.navigateTo({
 						url: "../login/login"
-					})
+					});
 					return;
 				}
 
 				switch (option) {
 					case "like":
 						this.redirect({
-							type: 'apppage',
-							path: '/pages/list/list?like=true'
-						})
+							type: "apppage",
+							path: "/pages/list/list?like=true"
+						});
 						break;
 					case "comment":
 						this.redirect({
-							type: 'apppage',
-							path: '/pages/comment/comment'
-						})
+							type: "apppage",
+							path: "/pages/comment/comment"
+						});
 						break;
 				}
 
@@ -172,17 +175,11 @@
 
 	.menus {
 		margin-top: 20rpx;
-
-		.menu-cell {
-			background-color: #fff;
-		}
+		background-color: #fff;
 	}
 
 	.menus-2 {
 		margin-top: 20rpx;
-
-		.menu-cell {
-			background-color: #fff;
-		}
+		background-color: #fff;
 	}
 </style>

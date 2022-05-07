@@ -171,5 +171,6 @@
             "postcss" : true,
             "minified" : true
         }
-    }
+    },
+    "vueVersion" : "2"
 }

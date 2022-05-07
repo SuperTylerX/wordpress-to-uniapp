@@ -1,24 +1,22 @@
 <template>
 	<view class="">
 		<view class="wrap" v-show="!isLoading" @tap="resetComment">
-			<view class="title">
-				{{article.title.rendered}}
-			</view>
+			<view class="title">{{ article.title.rendered }}</view>
 			<view class="info">
 				<u-icon class="icon" name="calendar" size="14"></u-icon>
-				<text class="text">{{article.date.slice(0,10)}}</text>
+				<text class="text">{{ article.date.slice(0, 10) }}</text>
 
 				<u-icon class="icon" name="list-dot" size="14"></u-icon>
-				<text class="text">{{article.category_name}}</text>
+				<text class="text">{{ article.category_name }}</text>
 
 				<u-icon class="icon" name="chat" size="14"></u-icon>
-				<text class="text">{{article.total_comments}}</text>
+				<text class="text">{{ article.total_comments }}</text>
 
 				<u-icon class="icon" name="thumb-up" size="14"></u-icon>
-				<text class="text">{{article.like_count}}</text>
+				<text class="text">{{ article.like_count }}</text>
 
 				<u-icon class="icon" name="eye" size="14"></u-icon>
-				<text class="text">{{article.pageviews}}</text>
+				<text class="text">{{ article.pageviews }}</text>
 			</view>
 
 			<!-- 文章内容 -->
@@ -31,9 +29,10 @@
 			<!-- 点赞 -->
 			<view class="likes">
 				<view class="button-wrap" @tap="likeHandler">
-					<u-icon class="icon" name="thumb-up" color="#0081FF"></u-icon> 点个赞
+					<u-icon class="icon" name="thumb-up" color="#0081FF"></u-icon>
+					点个赞
 				</view>
-				<u-divider v-if="article.avatarurls.length !==0" style="margin: 20rpx 0"
+				<u-divider v-if="article.avatarurls.length !== 0" style="margin: 20rpx 0"
 					:text="'共有' + article.avatarurls.length + '人点赞'"></u-divider>
 				<u-divider v-else style="margin: 20rpx 0" text="还没有人点赞"></u-divider>
 
@@ -46,8 +45,9 @@
 			<!-- 标签 -->
 			<view class="tags">
 				<u-tag class="tag-item" :text="`#${item.name}`" type="error" plain plainFill
-					v-for="(item,index) in tags" @tap="redirect({ 'type': 'apppage',
-					path : '/pages/list/list?tagID=' + item.id } )" :key="index"></u-tag>
+					v-for="(item, index) in tags"
+					@tap="redirect({ type: 'apppage', path: '/pages/list/list?tagID=' + item.id })" :key="index">
+				</u-tag>
 			</view>
 
 			<!-- 猜你喜欢 -->
@@ -55,10 +55,10 @@
 				<view class="subTitle">猜你喜欢</view>
 				<view class="subTitle-line"></view>
 				<view class="relatedPost-list">
-					<view class="item" v-for="(item,index) in relatedPost" :key="index" @tap="redirect({ 'type': 'apppage',
-					path : '/pages/post/post?id=' + item.id} )">
+					<view class="item" v-for="(item, index) in relatedPost" :key="index"
+						@tap="redirect({ type: 'apppage', path: '/pages/post/post?id=' + item.id })">
 						<image class="item-image" :src="item.post_medium_image" mode="aspectFill"></image>
-						<text class="item-title"> {{item.title.rendered}}</text>
+						<text class="item-title">{{ item.title.rendered }}</text>
 					</view>
 				</view>
 			</view>
@@ -68,75 +68,66 @@
 				<view class="subTitle">评论</view>
 				<view class="subTitle-line"></view>
 				<view class="comments-list">
-
-					<u-divider v-if="commentsList.length == 0" style="margin: 120rpx 190rpx" text="暂无评论">
-					</u-divider>
+					<u-divider v-if="commentsList.length == 0" style="margin: 120rpx 190rpx" text="暂无评论"></u-divider>
 					<!-- 0级回复 -->
 					<block v-for="(item, index) in commentsList" :key="index">
 						<view class="comment">
-
 							<!-- 回复标题 -->
 							<view class="comment-user" @tap.stop="replyTo(item)">
 								<view class="comment-user-gravatar">
 									<image :src="item.author_url" class="gravatarImg"></image>
 								</view>
 								<view class="comment-user-name">
-									<view class="comment-name">{{item.author_name}}</view>
-									<view class="comment-date">{{item.date}}</view>
+									<view class="comment-name">{{ item.author_name }}</view>
+									<view class="comment-date">{{ item.date }}</view>
 								</view>
 							</view>
 							<!-- 回复内容 -->
-							<view class="comment-summary" @tap.stop="replyTo(item)">
-								{{item.content}}
-							</view>
+							<view class="comment-summary" @tap.stop="replyTo(item)">{{ item.content }}</view>
 
 							<!-- 一级回复-->
 							<view v-for="(item1, idx) in item.child" :key="idx" class="comment-content-bottom">
 								<view class="reply-user" @tap.stop="replyTo(item1)">
-									<text class="comment-name">{{item1.author_name}}</text>
+									<text class="comment-name">{{ item1.author_name }}</text>
 									回复
-									<text class="comment-name">{{item.author_name}}</text>
-									：{{item1.content}}
+									<text class="comment-name">{{ item.author_name }}</text>
+									：{{ item1.content }}
 								</view>
-
 
 								<!-- 二级回复-->
 								<view v-for="(item2, idx) in item1.child" :key="idx">
 									<view class="reply-user" @tap.stop="replyTo(item2)">
-										<text class="comment-name">{{item2.author_name}}</text>
+										<text class="comment-name">{{ item2.author_name }}</text>
 										回复
-										<text class="comment-name">{{item1.author_name}}</text>
-										：{{item2.content}}
+										<text class="comment-name">{{ item1.author_name }}</text>
+										：{{ item2.content }}
 									</view>
 
 									<!-- 三级回复-->
 									<view v-for="(item3, idx) in item2.child" :key="idx">
 										<view class="reply-user" @tap.stop="replyTo(item3)">
-											<text class="comment-name">{{item3.author_name}}</text>
+											<text class="comment-name">{{ item3.author_name }}</text>
 											回复
-											<text class="comment-name">{{item2.author_name}}</text>
-											：{{item3.content}}
+											<text class="comment-name">{{ item2.author_name }}</text>
+											：{{ item3.content }}
 										</view>
 
 										<!-- 四级回复-->
 										<view v-for="(item4, idx) in item3.child" :key="idx">
 											<view class="reply-user" @tap.stop="replyTo(item4)">
-												<text class="comment-name">{{item4.author_name}}</text>
-												回复<text class="comment-name">{{item3.author_name}}</text>
-												：{{item4.content}}
+												<text class="comment-name">{{ item4.author_name }}</text>
+												回复
+												<text class="comment-name">{{ item3.author_name }}</text>
+												：{{ item4.content }}
 											</view>
 										</view>
 										<!-- 四级回复-->
-
 									</view>
 									<!-- 三级回复-->
-
 								</view>
 								<!-- 二级回复-->
-
 							</view>
 							<!-- 一级回复-->
-
 						</view>
 					</block>
 				</view>
@@ -148,7 +139,7 @@
 				<view class="cu-bar">
 					<image class="cu-avatar" :src="avatarUrl" mode="aspectFill"></image>
 					<input class="solid-bottom" maxlength="300" cursor-spacing="10" type="text" confirm-type="send"
-						:placeholder="myComment.placeholder" v-model="myComment.content"></input>
+						:placeholder="myComment.placeholder" v-model="myComment.content" />
 					<button class="cu-btn bg-blue shadow-blur" formType="submit">发送</button>
 				</view>
 			</form>
@@ -176,11 +167,9 @@
 			<view class="btn" @tap="goToTop">
 				<u-icon name="arrow-up"></u-icon>
 			</view>
-
-
 		</view>
 		<qrcode-poster ref="poster" v-if="!isLoading" :headerImg="article.post_full_image"
-			:title="article.title.rendered" :subTitle="article.content.rendered.replace(/<[^>]+>/g,'')" :abImg="abImg">
+			:title="article.title.rendered" :subTitle="article.content.rendered.replace(/<[^>]+>/g, '')" :abImg="abImg">
 		</qrcode-poster>
 	</view>
 </template>
@@ -210,39 +199,38 @@
 				},
 				tags: [],
 				style: {
-					"img": "margin-bottom: 30rpx",
-					"p": `font-size: 28rpx;
+					img: "margin-bottom: 30rpx",
+					p: `font-size: 28rpx;
 						  margin-bottom: 10rpx;
 					`,
-					"li": "font-size: 28rpx",
-					"h1": `margin-bottom: 20rpx;
+					li: "font-size: 28rpx",
+					h1: `margin-bottom: 20rpx;
 						font-size: 36rpx;
 						border-left: 8rpx solid red;
 						background-color: #F6F6F6;
 						padding-left : 30rpx
 						`,
-					"h2": `margin-bottom: 20rpx;
+					h2: `margin-bottom: 20rpx;
 						font-size: 34rpx;
 						border-left: 8rpx solid green;
 						background-color: #F6F6F6;
 						padding-left : 30rpx
 						`,
-					"h3": `margin-bottom: 20rpx;
+					h3: `margin-bottom: 20rpx;
 							font-size: 32rpx;
 							border-left: 8rpx solid orange;
 							background-color: #F6F6F6;
 							padding-left : 30rpx
 							`,
-					"h4": `margin-bottom: 20rpx;
+					h4: `margin-bottom: 20rpx;
 							font-size: 30rpx;
 							border-left: 8rpx solid blue;
 							background-color: #F6F6F6;
 							padding-left : 30rpx
 							`,
-					"code": `font-family : Consolas;
+					code: `font-family : Consolas;
 							font-size: 30rpx;
-							`,
-
+							`
 				},
 				relatedPost: [],
 				commentsList: [],
@@ -278,7 +266,7 @@
 				// #endif
 			},
 			abImg() {
-				return this.$store.state.configStore.postImageUrl;
+				return this.$store.state.configStore.posterImageUrl;
 			}
 		},
 		async onLoad(option) {
@@ -316,23 +304,29 @@
 				uni.setStorageSync("history", history);
 
 				// 获取文章标签
-				http.getPostTag({ post: postId }).then(data => data.data).then(tags => {
-					this.tags = tags;
-				}).catch(e => {
-					console.log(e);
-				});
+				http.getPostTag({ post: postId })
+					.then(data => data.data)
+					.then(tags => {
+						this.tags = tags;
+					})
+					.catch(e => {
+						console.log(e);
+					});
 
 				// 获取猜你喜欢
 				http.getGuessYouLike({
-					per_page: 5,
-					page: 1,
-					exclude: postId,
-					tags: article.tags.join(",")
-				}).then(data => data.data).then(relatedPost => {
-					this.relatedPost = relatedPost;
-				}).catch(e => {
-					console.log(e);
-				});
+						per_page: 5,
+						page: 1,
+						exclude: postId,
+						tags: article.tags.join(",")
+					})
+					.then(data => data.data)
+					.then(relatedPost => {
+						this.relatedPost = relatedPost;
+					})
+					.catch(e => {
+						console.log(e);
+					});
 
 				// 获取评论
 				this.isLastPage = false;
@@ -349,7 +343,7 @@
 			return {
 				title: `分享「${config.WEBSITE_NAME}」的文章：${this.article.title.rendered}`,
 				path: "pages/post/post?id=" + this.pageId,
-				imageUrl: this.article.post_full_image,
+				imageUrl: this.article.post_full_image
 			};
 		},
 		onShareTimeline() {
@@ -369,7 +363,6 @@
 				});
 			},
 			shareApp() {
-
 				// #ifdef APP-PLUS
 				// uni.shareWithSystem({
 
@@ -398,12 +391,9 @@
 					}
 				});
 				//#endif
-
-
 			},
 			async sharePoster() {
 				try {
-
 					// QQ 小程序使用二维码
 					// #ifdef MP-QQ
 					const url =
@@ -413,8 +403,8 @@
 					return;
 					// #endif
 
-					const res = await http.getQRCode(this.postId, "pages/post/post?id=" + this.postId)
-						.then(data => data.data);
+					const res = await http.getQRCode(this.postId, "pages/post/post?id=" + this.postId).then(data =>
+						data.data);
 					if (res.status == 200) {
 						this.$refs.poster.showCanvas(res.qrcodeimgUrl);
 					} else {
@@ -423,7 +413,6 @@
 							icon: "none"
 						});
 					}
-
 				} catch (e) {
 					console.log(e);
 					uni.showToast({
@@ -441,23 +430,26 @@
 				if (this.isLastPage) return;
 
 				http.getComments({
-					postid: this.postId,
-					limit: 10,
-					page: page,
-					order: "desc"
-				}).then(data => data.data).then(data => {
-					let commentsList = data.data.map(item => {
-						return item;
+						postid: this.postId,
+						limit: 10,
+						page: page,
+						order: "desc"
+					})
+					.then(data => data.data)
+					.then(data => {
+						let commentsList = data.data.map(item => {
+							return item;
+						});
+						if (commentsList.length < 10) {
+							this.isLastPage = true;
+						} else {
+							page++;
+						}
+						this.commentsList = this.commentsList.concat(commentsList);
+					})
+					.catch(e => {
+						console.log(e);
 					});
-					if (commentsList.length < 10) {
-						this.isLastPage = true;
-					} else {
-						page++;
-					}
-					this.commentsList = this.commentsList.concat(commentsList);
-				}).catch(e => {
-					console.log(e);
-				});
 			},
 			// 选择回复对象
 			replyTo(e) {
@@ -501,7 +493,7 @@
 				const queryObj = {
 					post: this.postId, //评论ID
 					parent: this.myComment.id, //父评论ID
-					content: this.myComment.content, // 评论内容
+					content: this.myComment.content // 评论内容
 				};
 
 				try {
@@ -510,7 +502,6 @@
 					});
 					const res = await http.postMyComment(queryObj, this.$store.state.authStore.token).then(data => data
 						.data);
-
 
 					if (res.status == 200) {
 						uni.hideLoading();
@@ -524,7 +515,6 @@
 						this.commentsList = [];
 						this.isLastPage = false;
 						this.fetchComments();
-
 					} else {
 						uni.showToast({
 							title: "留言失败",
@@ -541,9 +531,13 @@
 			async likeHandler() {
 				if (this.$store.state.authStore.isLogin) {
 					try {
-						let res = await http.postLike({
-							postid: this.postId
-						}, this.$store.state.authStore.token).then(data => data.data);
+						let res = await http
+							.postLike({
+									postid: this.postId
+								},
+								this.$store.state.authStore.token
+							)
+							.then(data => data.data);
 						if (res.status == "200") {
 							// 点赞成功
 							this.article.avatarurls.push({
@@ -558,7 +552,6 @@
 					} catch (e) {
 						console.log(e);
 					}
-
 				} else {
 					uni.navigateTo({
 						url: "../login/login"
@@ -568,7 +561,6 @@
 						icon: "none"
 					});
 				}
-
 			}
 		}
 	};
@@ -576,7 +568,7 @@
 
 <style>
 	page {
-		background-color: #FFFFFF;
+		background-color: #ffffff;
 	}
 </style>
 
@@ -622,11 +614,11 @@
 			line-height: 2;
 
 			code {
-				color: red
+				color: red;
 			}
 
 			pre {
-				color: red
+				color: red;
 			}
 		}
 
@@ -653,8 +645,8 @@
 				display: flex;
 				justify-content: center;
 				margin-bottom: 40rpx;
-				border: 1rpx solid #0081FF;
-				color: #0081FF;
+				border: 1rpx solid #0081ff;
+				color: #0081ff;
 				padding: 15rpx;
 				width: 250rpx;
 				font-size: 30rpx;
@@ -693,7 +685,7 @@
 					.item-image {
 						width: 250rpx;
 						height: 140rpx;
-						background-color: #F5F7F7;
+						background-color: #f5f7f7;
 						margin-right: 40rpx;
 					}
 
@@ -719,7 +711,6 @@
 					font-size: 28rpx;
 					color: #333;
 
-
 					/* 评论用户头像 */
 					.comment-user-gravatar {
 						position: relative;
@@ -730,7 +721,6 @@
 							width: 64rpx;
 							margin-right: 20rpx;
 						}
-
 					}
 
 					/* 评论用户昵称 */
@@ -741,7 +731,7 @@
 						align-items: center;
 
 						.comment-name {
-							color: #118FFF;
+							color: #118fff;
 							font-weight: 500;
 							flex: 1;
 						}
@@ -787,9 +777,8 @@
 						color: #333;
 					}
 
-
 					.comment-name {
-						color: #118FFF;
+						color: #118fff;
 						font-weight: 500;
 					}
 				}
@@ -843,11 +832,10 @@
 					font-size: 15px;
 					margin: 0 10px;
 					border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
 				}
 
 				.cu-btn {
-					background-color: #0082FF;
+					background-color: #0082ff;
 					color: #ffffff;
 					position: relative;
 					border: 0px;
@@ -866,8 +854,8 @@
 					margin-right: initial;
 
 					&::before {
-						content: " ";
-						border: 1px solid rgba(0, 0, 0, .2);
+						content: ' ';
+						border: 1px solid rgba(0, 0, 0, 0.2);
 						box-sizing: border-box;
 						display: block;
 						background: inherit;
@@ -899,7 +887,7 @@
 			margin-bottom: 30rpx;
 
 			&:before {
-				content: "";
+				content: '';
 				position: absolute;
 				width: 50rpx;
 				height: 4rpx;
@@ -913,8 +901,6 @@
 		.footer {
 			padding-bottom: 80rpx !important;
 		}
-
-
 	}
 
 	.fixed-btns {
@@ -927,9 +913,8 @@
 			width: 80rpx;
 			height: 80rpx;
 			border: 1px solid #d9d9d9;
-			box-shadow: 5rpx 5rpx 19rpx #d9d9d9,
-				-5rpx -5rpx 19rpx #ffffff;
-			background-color: rgba($color: #FFF, $alpha: 0.8);
+			box-shadow: 5rpx 5rpx 19rpx #d9d9d9, -5rpx -5rpx 19rpx #ffffff;
+			background-color: rgba($color: #fff, $alpha: 0.8);
 			border-radius: 50%;
 			display: flex;
 			justify-content: center;

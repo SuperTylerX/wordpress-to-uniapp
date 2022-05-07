@@ -115,6 +115,8 @@ export const FORUMS_POST_DETAIL_URL = `${PLUGIN_REST_API_URL}/forums/topic/`;
 export const FORUMS_POST_COMMENT_URL = `${PLUGIN_REST_API_URL}/forums/reply/`;
 // 论坛文章点赞
 export const FORUMS_POST_LIKE_URL = `${PLUGIN_REST_API_URL}/forums/like`;
+// 论坛发表帖子
+export const FORUMS_POST_PUBLISH_URL = `${PLUGIN_REST_API_URL}/forums/topic`;
 
 /* 文件上传类API*/
 

@@ -3,3 +3,8 @@
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
 @import 'uview-ui/theme.scss';
+
+.u-navbar__content.u-border-bottom{
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	border-bottom: none !important;
+}

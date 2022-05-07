@@ -2,8 +2,7 @@
 	"easycom": {
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+	"pages": [{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "前端茶会",
@@ -12,7 +11,7 @@
 					"pullToRefresh": {
 						"support": true,
 						"color": "#118fff",
-						"style": "default"
+						"style": "circle"
 					}
 				}
 			}
@@ -57,6 +56,26 @@
 			}
 		},
 		{
+			"path": "pages/login/register",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/login/reset",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
 			"path": "pages/webpage/webpage",
 			"style": {
 				"app-plus": {
@@ -81,7 +100,7 @@
 					"pullToRefresh": {
 						"support": true,
 						"color": "#118fff",
-						"style": "default"
+						"style": "circle"
 					}
 				}
 			}
@@ -92,6 +111,48 @@
 		},
 		{
 			"path": "pages/page/page"
+		},
+		{
+			"path": "pages/forum/index",
+			"style": {
+				"navigationBarTitleText": "前端茶会",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#118fff",
+						"style": "circle"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/forum/post",
+			"style": {
+				"navigationBarTitleText": "动态",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"app-plus": {
+					"pullToRefresh": {
+						"support": true,
+						"color": "#118fff",
+						"style": "circle"
+					},
+					"softinputMode": "adjustResize"
+				}
+			}
+		},
+		{
+			"path": "pages/forum/publish",
+			"style": {
+				"navigationBarTitleText": "发布话题",
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"app-plus": {
+					"softinputMode": "adjustResize"
+				}
+			}
 		}
 	],
 	"globalStyle": {
@@ -115,6 +176,11 @@
 			"iconPath": "static/tab-category.png",
 			"selectedIconPath": "static/tab-category-on.png",
 			"text": "分类"
+		}, {
+			"pagePath": "pages/forum/index",
+			"iconPath": "static/tab-my.png",
+			"selectedIconPath": "static/tab-my-on.png",
+			"text": "圈子"
 		}, {
 			"pagePath": "pages/center/center",
 			"iconPath": "static/tab-my.png",

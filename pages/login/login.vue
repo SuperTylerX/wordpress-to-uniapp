@@ -1,46 +1,49 @@
 <template>
 	<view class="wrap">
-		<view class="header">
-			登录
-		</view>
+		<view class="top">
+			<view class="header">登录</view>
 
-		<form @submit="login">
-			<view class="input-wrap">
-				<view class="username input-item">
-					<u-icon class="icon" size="22" name="account"></u-icon>
-					<input class="input" type="text" value="" confirm-type="next" placeholder="请输入用户名/邮箱"
-						@confirm="isPassFocus= true" name="username" v-model="loginInput.username" />
+			<form @submit="login">
+				<view class="input-wrap">
+					<view class="username input-item">
+						<u-icon class="icon" size="22" name="account"></u-icon>
+						<input class="input" type="text" value="" confirm-type="next" placeholder="请输入用户名/邮箱"
+							@confirm="isPassFocus = true" name="username" v-model="loginInput.username" />
+					</view>
+					<view class="password input-item">
+						<u-icon class="icon" size="22" name="lock"></u-icon>
+						<input class="input" value="" type="password" confirm-type="done" placeholder="请输入密码"
+							:focus="isPassFocus" @blur="isPassFocus = false" @confirm="login" name="password"
+							v-model="loginInput.password" />
+					</view>
 				</view>
-				<view class="password input-item">
-					<u-icon class="icon" size="22" name="lock"></u-icon>
-					<input class="input" value="" type="password" confirm-type="done" placeholder="请输入密码"
-						:focus="isPassFocus" @blur="isPassFocus = false" @confirm="login" name="password"
-						v-model="loginInput.password" />
+
+				<view class="more-options">
+					<view class="forgot-pass"><text class="color" @tap="forgetPassOrRegister(1)">忘记密码</text></view>
+					<view class="register">
+						没有账号？
+						<text class="color" @tap="forgetPassOrRegister(2)">注册</text>
+					</view>
 				</view>
+
+				<button class="button" type="primary" form-type="submit">登录</button>
+			</form>
+
+			<!-- #ifdef MP-WEIXIN-->
+			<view class="thrid-login" @tap="miniAppLogin">
+				<u-icon class="icon" size="60" name="weixin-fill" color="#62b900"></u-icon>
+				<text class="disc">微信登录</text>
 			</view>
+			<!-- #endif -->
 
-			<view class="more-options">
-				<view class="forgot-pass"><text class="color" @tap="forgetPassOrRegister(1)">忘记密码</text></view>
-				<view class="register">没有账号？<text class="color" @tap="forgetPassOrRegister(2)">注册</text></view>
-			</view>
-
-			<button class="button" type="primary" form-type="submit">登录</button>
-		</form>
-
-		<!-- #ifdef MP-WEIXIN-->
-		<view class="thrid-login" @tap="miniAppLogin">
-			<u-icon class="icon" size="60" name="weixin-fill" color="#62b900"></u-icon>
-			<text class="disc"> 微信登录 </text>
+			<!-- #ifdef MP-QQ || H5 || APP-PLUS -->
+			<button type="default" plain="true" class="thrid-login" open-type="getUserInfo" @getuserinfo="miniAppLogin"
+				@tap="qqlogin">
+				<u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
+				<text class="disc">QQ登录</text>
+			</button>
+			<!-- #endif -->
 		</view>
-		<!-- #endif -->
-
-		<!-- #ifdef MP-QQ || H5 || APP-PLUS -->
-		<button type="default" plain="true" class="thrid-login" open-type="getUserInfo" @getuserinfo="miniAppLogin"
-			@tap="qqlogin">
-			<u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
-			<text class="disc"> QQ登录 </text>
-		</button>
-		<!-- #endif -->
 
 		<view class="footer">
 			<app-footer></app-footer>
@@ -60,31 +63,23 @@
 					username: "",
 					password: ""
 				},
-				isPassFocus: false,
+				isPassFocus: false
 			};
-		},
-		computed: {
-			lostpasswordUrl() {
-				return "https://" + config.HOST_DOMAIN + "/wp-login.php?action=lostpassword";
-			},
-			registerUrl() {
-				return "https://" + config.HOST_DOMAIN + "/wp-login.php?action=register";
-			}
 		},
 		onLoad(option) {
 			// #ifdef H5
 			const regres = location.hash.match(/access_token=([^&]*)/i);
 			if (!regres) return;
 			const access_token = regres[1];
-			console.log(access_token)
+			console.log(access_token);
 			http.qqH5UserLogin({
 				access_token
 			}).then(data => {
 				if (data.statusCode == 200) {
 					const res = data.data;
 					const token = res.token;
-					this.$store.commit("authStore/update_token", { token })
-					this.$store.dispatch("authStore/getUserInfo", { "login_type": "H5" })
+					this.$store.commit("authStore/update_token", { token });
+					this.$store.dispatch("authStore/getUserInfo", { login_type: "H5" });
 					// 加入本地存储用于二次登录
 					uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
 					uni.setStorageSync("token", this.$store.state.authStore.token);
@@ -92,16 +87,16 @@
 
 					uni.hideToast();
 					uni.switchTab({
-						url: '/pages/index/index'
+						url: "/pages/index/index"
 					});
 				} else {
 					uni.showToast({
 						title: "登录失败",
 						icon: "none",
 						duration: 3000
-					})
+					});
 				}
-			})
+			});
 
 			// #endif
 		},
@@ -126,13 +121,10 @@
 						uni.setStorageSync("login_type", "WECHAT");
 
 						uni.hideToast();
-						uni.navigateBack({
-
-						});
+						uni.navigateBack({});
 					} catch (e) {
-						console.log(e);
+						console.error(e);
 					}
-
 				});
 			},
 
@@ -169,7 +161,7 @@
 					uni.hideToast();
 					uni.navigateBack();
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 				}
 			},
 
@@ -181,7 +173,7 @@
 						title: "登录中",
 						icon: "loading"
 					});
-					await this.$store.dispatch("authStore/qqAppLogin")
+					await this.$store.dispatch("authStore/qqAppLogin");
 					// 加入本地存储用于二次登录
 					uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
 					uni.setStorageSync("token", this.$store.state.authStore.token);
@@ -190,7 +182,7 @@
 					uni.hideToast();
 					uni.navigateBack();
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 				}
 				// #endif
 
@@ -199,52 +191,63 @@
 				// 	"appId": "101961309",
 				// 	"redirectURI": "http://h5.uni.supertyler.com/#/pages/login/login"
 				// });
-				window.location =
-					`https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=${config.QQ_H5_APPID}&daid=383&pt_skey_valid=0&style=35&s_url=https%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=${config.QQ_H5_APPID}&response_type=token&scope=all&redirect_uri=${encodeURIComponent(config.QQ_H5_REDIRECT_URI)}`
+				window.location = `https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=${
+				config.QQ_H5_APPID
+			}&daid=383&pt_skey_valid=0&style=35&s_url=https%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=${
+				config.QQ_H5_APPID
+			}&response_type=token&scope=all&redirect_uri=${encodeURIComponent(config.QQ_H5_REDIRECT_URI)}`;
 
 				// #endif
-
 			},
 
 			forgetPassOrRegister(option) {
-				if ((utils.getPlatform() == "MP-WEIXIN" &&
-						this.$store.state.configStore.wf_weixin_enterprise_minapp == "0") ||
-					(utils.getPlatform() == "MP-QQ" &&
-						this.$store.state.configStore.wf_qq_enterprise_minapp == "0")
-				) {
-					uni.showToast({
-						title: "尚不支持此功能",
-						icon: "none",
-						duration: 3000
-					})
-					return;
-				}
+				// if ((utils.getPlatform() == "MP-WEIXIN" &&
+				// 		this.$store.state.configStore.wf_weixin_enterprise_minapp == "0") ||
+				// 	(utils.getPlatform() == "MP-QQ" &&
+				// 		this.$store.state.configStore.wf_qq_enterprise_minapp == "0")
+				// ) {
+				// 	uni.showToast({
+				// 		title: "尚不支持此功能",
+				// 		icon: "none",
+				// 		duration: 3000
+				// 	})
+				// 	return;
+				// }
 
 				if (option == 1) {
-					this.redirect({
-						type: 'webpage',
-						url: this.lostpasswordUrl
-					})
+					uni.navigateTo({
+						url: "./reset"
+					});
 				} else if (option == 2) {
-					this.redirect({
-						type: 'webpage',
-						url: this.registerUrl
-					})
+					if (this.$store.state.configStore.is_user_registration_enable) {
+						uni.navigateTo({
+							url: "./register"
+						});
+					} else {
+						uni.showToast({
+							title: "抱歉，网站已关闭邮箱注册！",
+							icon: "none",
+							position: "bottom"
+						});
+					}
 				}
 			}
 		}
-	}
+	};
 </script>
 
-<style>
-	page {
-		background-color: #FFFFFF;
-	}
-</style>
-
 <style lang="scss" scoped>
+	page {
+		height: 100%;
+		background-color: #ffffff;
+	}
+
 	.wrap {
 		margin: 0 30rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 100%;
 
 		.header {
 			padding-top: 30rpx;
@@ -273,7 +276,6 @@
 					margin-top: 40rpx;
 				}
 			}
-
 		}
 
 		.more-options {
@@ -287,7 +289,7 @@
 			}
 
 			.color {
-				color: #007AFF;
+				color: #007aff;
 			}
 		}
 
@@ -296,7 +298,7 @@
 			height: 90rpx;
 			line-height: 90rpx;
 			border-radius: 45rpx;
-			background-color: #007AFF;
+			background-color: #007aff;
 		}
 
 		.thrid-login {
@@ -314,11 +316,9 @@
 
 			.disc {
 				margin-top: 10rpx;
-				color: #BCBCBC;
+				color: #bcbcbc;
 				font-size: 28rpx;
 			}
-
-
 		}
 
 		button.thrid-login {
@@ -326,10 +326,7 @@
 		}
 
 		.footer {
-			position: fixed;
-			bottom: 40rpx;
-			left: 0;
-			width: 100%;
+			margin-top: 30rpx;
 		}
 	}
 </style>
