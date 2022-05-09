@@ -84,14 +84,6 @@
 			}
 		},
 		{
-			"path": "pages/editor/editor",
-			"style": {
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
-		},
-		{
 			"path": "pages/list/list",
 			"style": {
 				"enablePullDownRefresh": true,

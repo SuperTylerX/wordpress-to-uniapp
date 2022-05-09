@@ -54,7 +54,7 @@
 <script>
 	import config from "../../utils/config.js";
 	import utils from "../../utils/utils.js";
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 
 	export default {
 		data() {

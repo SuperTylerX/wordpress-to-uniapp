@@ -65,7 +65,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 	import config from "../../utils/config.js";
 	// 非响应式数据
 	let page = 1; // 文章显示页号

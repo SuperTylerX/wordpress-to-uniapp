@@ -10,74 +10,74 @@ import * as API from "../utils/api.js";
 import { request } from "@/utils/request.js";
 
 
-function getHomeConfig() {
+export function getHomeConfig() {
 	return unip.request({
 		url: API.HOME_CONFIG_URL
 	});
 }
 
-function getDisplayCategoryIds() {
+export function getDisplayCategoryIds() {
 	return unip.request({
 		url: API.DISPLAY_CATEGORY_IDS_URL
 	});
 }
 
-function getArticleList(queryObj) {
+export function getArticleList(queryObj) {
 	return unip.request({
 		url: API.ARTICLE_LIST_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
-function getCategory(queryObj) {
+export function getCategory(queryObj) {
 	return unip.request({
 		url: API.CATEGORY_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
-function getHotCommentPosts() {
+export function getHotCommentPosts() {
 	return unip.request({
 		url: API.HOT_COMMENT_POST_URL
 	});
 }
 
-function getHotViewPosts() {
+export function getHotViewPosts() {
 	return unip.request({
 		url: API.HOT_VIEW_POST_URL
 	});
 }
 
-function getHotLikePosts() {
+export function getHotLikePosts() {
 	return unip.request({
 		url: API.HOT_LIKE_POST_URL
 	});
 }
 
-function getPostDetail(postId) {
+export function getPostDetail(postId) {
 	return unip.request({
 		url: API.POST_DETAIL_URL + "/" + postId
 	});
 }
 
-function getPostTag(queryObj) {
+export function getPostTag(queryObj) {
 	return unip.request({
 		url: API.POST_TAG_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
-function getGuessYouLike(queryObj) {
+export function getGuessYouLike(queryObj) {
 	return unip.request({
 		url: API.ARTICLE_LIST_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
-function getComments(queryObj) {
+export function getComments(queryObj) {
 	return unip.request({
 		url: API.POST_COMMENT_URL + uni.$u.queryParams(queryObj)
 	});
 }
 
 // 微信用户登录
-function wxUserLogin(queryObj) {
+export function wxUserLogin(queryObj) {
 
 	let url = "";
 	// #ifdef MP-WEIXIN
@@ -94,7 +94,7 @@ function wxUserLogin(queryObj) {
 	});
 }
 // QQ APP用户登录
-function qqAppUserLogin(queryObj) {
+export function qqAppUserLogin(queryObj) {
 	const url = API.QQ_APP_USER_LOGIN;
 	return unip.request({
 		url,
@@ -103,7 +103,7 @@ function qqAppUserLogin(queryObj) {
 	});
 }
 // QQ H5用户登录
-function qqH5UserLogin(queryObj) {
+export function qqH5UserLogin(queryObj) {
 	const url = API.QQ_H5_USER_LOGIN;
 	return unip.request({
 		url,
@@ -113,7 +113,7 @@ function qqH5UserLogin(queryObj) {
 }
 
 // 点赞
-function postLike(queryObj, token) {
+export function postLike(queryObj, token) {
 	return unip.request({
 		url: API.POST_LIKE_URL,
 		method: "POST",
@@ -126,7 +126,7 @@ function postLike(queryObj, token) {
 }
 
 // 获取JWT token
-function getJWT(queryObj) {
+export function getJWT(queryObj) {
 	return unip.request({
 		url: API.JWT_TOKEN_URL,
 		method: "POST",
@@ -135,7 +135,7 @@ function getJWT(queryObj) {
 }
 
 // 验证JWT
-function validateJWT(token) {
+export function validateJWT(token) {
 	return unip.request({
 		url: API.JWT_VALIDATE_URL,
 		method: "POST",
@@ -146,7 +146,7 @@ function validateJWT(token) {
 }
 
 // 获取用户信息
-function getUserInfo(token) {
+export function getUserInfo(token) {
 	return unip.request({
 		url: API.USER_INFO_URL,
 		method: "POST",
@@ -157,21 +157,21 @@ function getUserInfo(token) {
 }
 
 // 获取分类元信息
-function getCategoryMeta(categoryID) {
+export function getCategoryMeta(categoryID) {
 	return unip.request({
 		url: API.CATEGORY_META_URL + "/" + categoryID
 	});
 }
 
 // 获取标签元信息
-function getTagMeta(tagID) {
+export function getTagMeta(tagID) {
 	return unip.request({
 		url: API.POST_TAG_URL + "/" + tagID
 	});
 }
 
 // 获取评论
-function getMyComments(token) {
+export function getMyComments(token) {
 	return unip.request({
 		url: API.GET_MY_COMMENTS_URL,
 		header: {
@@ -181,7 +181,7 @@ function getMyComments(token) {
 }
 
 // 提交评论
-function postMyComment(queryObj, token) {
+export function postMyComment(queryObj, token) {
 	return unip.request({
 		url: API.POST_MY_COMMENTS_URL,
 		method: "POST",
@@ -194,7 +194,7 @@ function postMyComment(queryObj, token) {
 }
 
 // 删除评论
-function deleteMyComment(commentId, token) {
+export function deleteMyComment(commentId, token) {
 	return unip.request({
 		url: API.DELETE_MY_COMMENTS_URL,
 		method: "DELETE",
@@ -209,7 +209,7 @@ function deleteMyComment(commentId, token) {
 }
 
 // 获取我的点赞评论
-function getLikePosts(token) {
+export function getLikePosts(token) {
 	return unip.request({
 		url: API.GET_MY_LIKE_URL,
 		method: "POST",
@@ -221,7 +221,7 @@ function getLikePosts(token) {
 }
 
 // 获取页面详情
-function getPageDetail(pageId) {
+export function getPageDetail(pageId) {
 	return unip.request({
 		url: API.PAGE_DETAIL_URL + "/" + pageId
 	});
@@ -229,7 +229,7 @@ function getPageDetail(pageId) {
 
 
 // 获取二维码
-function getQRCode(postid, path) {
+export function getQRCode(postid, path) {
 	let url = API.WEIXIN_QR_CODE_URL;
 
 	return unip.request({
@@ -246,7 +246,7 @@ function getQRCode(postid, path) {
 }
 
 // 获取论坛分类目录
-function getForumCategories() {
+export function getForumCategories() {
 
 	return unip.request({
 		url: API.FORUMS_CATEGORY_URL
@@ -254,7 +254,7 @@ function getForumCategories() {
 }
 
 // 获取论坛话题列表
-function getForumTopicList({
+export function getForumTopicList({
 	id,
 	page,
 	per_page
@@ -276,7 +276,7 @@ function getForumTopicList({
 }
 
 // 获取论坛文章详情
-function getForumTopicDetail(id) {
+export function getForumTopicDetail(id) {
 
 	const token = uni.getStorageSync("token");
 
@@ -289,7 +289,7 @@ function getForumTopicDetail(id) {
 	});
 }
 // 获取论坛文章的评论
-function getForumTopicComment({
+export function getForumTopicComment({
 	id,
 	page,
 	per_page,
@@ -308,7 +308,7 @@ function getForumTopicComment({
 }
 
 // 发布论坛帖子
-function postForumPost({
+export function postForumPost({
 	forum_id,
 	content,
 	tags,
@@ -332,7 +332,7 @@ function postForumPost({
 }
 
 // 发表论坛评论
-function postForumReply({
+export function postForumReply({
 	topic_id,
 	reply_to_id,
 	content
@@ -356,7 +356,7 @@ function postForumReply({
 }
 
 // 给论坛文章点赞
-function forumPostLike({
+export function forumPostLike({
 	id,
 	isLike
 }) {
@@ -378,7 +378,7 @@ function forumPostLike({
 }
 
 // 获取图形验证码
-function getGraphicCaptcha({
+export function getGraphicCaptcha({
 	token
 }) {
 	return unip.request({
@@ -392,7 +392,7 @@ function getGraphicCaptcha({
 }
 
 // 获取邮箱验证码
-function getEmailCaptcha({
+export function getEmailCaptcha({
 	email,
 	graphicCaptcha,
 	token
@@ -410,7 +410,7 @@ function getEmailCaptcha({
 }
 
 // 用户注册
-function userRegister({
+export function userRegister({
 	nickname,
 	email,
 	password,
@@ -434,7 +434,7 @@ function userRegister({
 
 
 // 用户注册
-function userResetPassword({
+export function userResetPassword({
 	email,
 	password,
 	graphicCaptcha,
@@ -455,7 +455,7 @@ function userResetPassword({
 }
 
 // 文件上传
-function uploadFile({
+export function uploadFile({
 	filePath
 }) {
 
@@ -472,7 +472,7 @@ function uploadFile({
 	});
 }
 
-function deleteFile({
+export function deleteFile({
 	id
 }) {
 	// 获取token
@@ -489,87 +489,3 @@ function deleteFile({
 		}
 	});
 }
-
-export default {
-	getHomeConfig,
-	getDisplayCategoryIds,
-	getArticleList,
-	getCategory,
-	getHotCommentPosts,
-	getHotViewPosts,
-	getHotLikePosts,
-	getPostDetail,
-	getPostTag,
-	getGuessYouLike,
-	getComments,
-	wxUserLogin,
-	postLike,
-	getJWT,
-	validateJWT,
-	getUserInfo,
-	getCategoryMeta,
-	getTagMeta,
-	getMyComments,
-	postMyComment,
-	deleteMyComment,
-	getLikePosts,
-	getPageDetail,
-	qqAppUserLogin,
-	getQRCode,
-	qqH5UserLogin,
-	getForumCategories,
-	getForumTopicList,
-	getForumTopicDetail,
-	getGraphicCaptcha,
-	getEmailCaptcha,
-	userRegister,
-	userResetPassword,
-	getForumTopicComment,
-	uploadFile,
-	deleteFile,
-	forumPostLike,
-	postForumReply,
-	postForumPost
-};
-
-export {
-	getHomeConfig,
-	getDisplayCategoryIds,
-	getArticleList,
-	getCategory,
-	getHotCommentPosts,
-	getHotViewPosts,
-	getHotLikePosts,
-	getPostDetail,
-	getPostTag,
-	getGuessYouLike,
-	getComments,
-	wxUserLogin,
-	postLike,
-	getJWT,
-	validateJWT,
-	getUserInfo,
-	getCategoryMeta,
-	getTagMeta,
-	getMyComments,
-	postMyComment,
-	deleteMyComment,
-	getLikePosts,
-	getPageDetail,
-	qqAppUserLogin,
-	getQRCode,
-	qqH5UserLogin,
-	getForumCategories,
-	getForumTopicList,
-	getForumTopicDetail,
-	getGraphicCaptcha,
-	getEmailCaptcha,
-	userRegister,
-	userResetPassword,
-	getForumTopicComment,
-	uploadFile,
-	deleteFile,
-	forumPostLike,
-	postForumReply,
-	postForumPost
-};

@@ -95,7 +95,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 
 	let page = 1;
 
@@ -130,7 +130,7 @@
 					count: 0
 				}
 
-			}
+			};
 		},
 		computed: {
 			mode() {
@@ -208,7 +208,7 @@
 					orderby: "date",
 					order: "desc",
 					page
-				}
+				};
 
 				if (this.searchKey) {
 					queryObj.search = this.searchKey;
@@ -236,13 +236,13 @@
 					this.category.name = res.name;
 					this.category.count = res.count;
 					if (res.category_thumbnail_image) {
-						this.cover = res.category_thumbnail_image
+						this.cover = res.category_thumbnail_image;
 					}
 
 					uni.setNavigationBarTitle({
 						title: this.category.name
-					})
-				})
+					});
+				});
 			},
 			async getTagMeta() {
 				http.getTagMeta(this.tagID).then(data => data.data).then(res => {
@@ -253,8 +253,8 @@
 					// 	}
 					uni.setNavigationBarTitle({
 						title: this.tag.name
-					})
-				})
+					});
+				});
 			},
 			async fetchLikePosts() {
 				try {
@@ -263,16 +263,16 @@
 						this.postsList = this.postsList.concat(res.data.map(item => {
 							item.title = {
 								rendered: item.title
-							}
+							};
 							return item;
-						}))
+						}));
 					}
 				} catch (e) {
 					console.log(e);
 				}
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="scss">

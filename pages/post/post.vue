@@ -175,7 +175,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 	import config from "../../utils/config.js";
 	import QrcodePoster from "../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue";
 	// 评论页数

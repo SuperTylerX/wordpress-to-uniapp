@@ -1,4 +1,4 @@
-import http from "../utils/http.js";
+import * as http from "../utils/http.js";
 import * as unip from "../utils/uniPromisify.js";
 import config from "../utils/config.js";
 
