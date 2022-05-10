@@ -75,7 +75,7 @@ export const DELETE_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/delete`;
 /* 登录类API*/
 
 // 微信用户登录
-export const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/userlogin`;
+export const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/miniAppLogin`;
 // QQ小程序用户登录
 export const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
 // QQAPP用户登录

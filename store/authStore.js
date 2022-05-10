@@ -27,7 +27,6 @@ export default ({
 		update_userLoginInfo(state, payloads) {
 			state.userInfo.openid = payloads.openid;
 			state.userInfo.userId = payloads.userId;
-			state.userInfo.levelName = payloads.levelName;
 			state.token = payloads.token;
 			state.isLogin = true;
 		},
@@ -77,7 +76,7 @@ export default ({
 			}
 		},
 		// 小程序发送请求获取token
-		async wxUserLoginRequest({ commit, state }) {
+		async wxUserLoginRequest({ commit, dispatch, state }) {
 			try {
 				const res = await http.wxUserLogin({
 					avatarUrl: state.userInfo.avatarUrl,
@@ -88,12 +87,12 @@ export default ({
 				commit("update_userLoginInfo", {
 					openid: res.openid,
 					userId: res.userId,
-					levelName: res.userLevel.levelName,
 					token: res.token
 				});
 
+				await dispatch("getUserInfo", { login_type: "WECHAT" });
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 		},
 		// 普通使用token进行登录
@@ -109,7 +108,7 @@ export default ({
 				});
 				await dispatch("getUserInfo", { login_type: "APP" });
 			} else if (res.statusCode === 403) {
-				const errorMessage = res.data.message.replace(/<[^>]+>/g, "")
+				const errorMessage = res.data.message.replace(/<[^>]+>/g, "");
 				uni.showToast({
 					title: errorMessage,
 					icon: "none",
@@ -118,15 +117,17 @@ export default ({
 				throw new Error(errorMessage);
 			}
 		},
-		// 普通使用token获取用户信息
+		// 使用token获取用户信息
 		async getUserInfo({ commit, state }, payloads) {
-			const res = await http.getUserInfo(state.token).then(data => data.data);
+			const res = await http.getUserInfo(state.token);
 			const avatarUrl = res.avatar || res.avatar_urls[24];
 			const userInfo = {
 				avatarUrl,
 				nickname: res.nickname,
 				levelName: config.ROLES[res.roles[0]],
-				userId: res.id
+				userId: res.id,
+				email: res.email,
+				social_connect: res.social_connect
 			};
 			commit("update_userInfo", {
 				userInfo: userInfo,
@@ -143,8 +144,8 @@ export default ({
 				uni.removeStorageSync("token");
 			}
 		},
+		// APP QQ第三方登录
 		async qqAppLogin({ commit, dispatch, state }, payloads) {
-
 			try {
 				const authResult = await unip.login({
 					"provider": "qq"
@@ -184,12 +185,12 @@ export default ({
 				commit("update_userLoginInfo", {
 					openid: res.openid,
 					userId: res.userId,
-					levelName: res.userLevel.levelName,
 					token: res.token
 				});
 
+				await dispatch("getUserInfo", { login_type: "APP" });
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 
 

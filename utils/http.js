@@ -147,7 +147,7 @@ export function validateJWT(token) {
 
 // 获取用户信息
 export function getUserInfo(token) {
-	return unip.request({
+	return request({
 		url: API.USER_INFO_URL,
 		method: "POST",
 		header: {

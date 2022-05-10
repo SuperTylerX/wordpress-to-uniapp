@@ -95,9 +95,8 @@
 		},
 		methods: {
 			login() {
-				if (this.$store.state.authStore.isLogin) return;
 				uni.navigateTo({
-					url: "../login/login"
+					url: this.isLogin ? "./profile" : "../login/login"
 				});
 			},
 			logout() {

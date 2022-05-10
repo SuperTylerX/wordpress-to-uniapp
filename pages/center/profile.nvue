@@ -1,0 +1,112 @@
+<template>
+	<div>
+		<div class="separator"></div>
+		<div class="cell-wrap">
+			<u-cell-group>
+				<u-cell size="large" title="头像">
+					<view slot="value"><u-avatar :src="userInfo.avatarUrl"></u-avatar></view>
+				</u-cell>
+				<u-cell size="large" title="昵称" :value="userInfo.nickname"></u-cell>
+				<u-cell size="large" title="UID" :value="userInfo.userId"></u-cell>
+				<u-cell size="large" title="用户等级" :value="userInfo.levelName"></u-cell>
+				<u-cell size="large" :isLink="true" :value="userInfo.email.includes(userInfo.openid) ? '未设置' : userInfo.email" title="邮箱" @tap="changeItem('email')"></u-cell>
+			</u-cell-group>
+		</div>
+
+		<u-popup :show="isPopupShow" @close="showPopup = false" mode="center" :safeAreaInsetBottom="false">
+			<view class="pop-box">
+				<view class="title">更换新邮箱</view>
+				<view class="item"><u--input placeholder="请输入新邮箱" border="bottom" clearable></u--input></view>
+				<view class="item"><u--input placeholder="请输入图形验证码" border="bottom" clearable></u--input></view>
+				<view class="item"><u--input placeholder="请输入邮箱验证码" border="bottom" clearable></u--input></view>
+
+				<view class="buttons">
+					<button class="cancel" @tap="cancel">取消</button>
+					<button class="confrim">确认</button>
+				</view>
+			</view>
+		</u-popup>
+	</div>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			isPopupShow: false,
+			email: "asdasda"
+		};
+	},
+	computed: {
+		userInfo() {
+			return this.$store.state.authStore.userInfo;
+		}
+	},
+	methods: {
+		changeItem(item) {
+			this.isPopupShow = true;
+			switch (item) {
+				case "email":
+					break;
+			}
+		},
+		cancel() {
+			this.isPopupShow = false;
+		}
+	}
+};
+</script>
+
+<style lang="scss" scope>
+page {
+	background-color: #f4f7f6;
+}
+
+.separator {
+	height: 20rpx;
+	background-color: #f4f7f6;
+}
+
+.cell-wrap {
+	background-color: #ffffff;
+}
+
+.pop-box {
+	width: 600rpx;
+	height: 600rpx;
+	border-radius: 10rpx;
+	display: flex;
+	justify-content: space-between;
+	padding: 30rpx;
+	background-color: #ffffff;
+
+	.item {
+		display: flex;
+
+		.label {
+			margin-bottom: 10rpx;
+		}
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+
+		.cancel,
+		.confrim {
+			border: none;
+			background-color: transparent;
+			font-size: 30rpx;
+
+			&::after {
+				border: none;
+			}
+		}
+
+		.confrim {
+			color: #0081ff;
+		}
+	}
+}
+</style>
