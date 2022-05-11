@@ -153,7 +153,8 @@
 					uni.hideLoading();
 					uni.showToast({
 						title: res.message,
-						icon: "success",
+						icon: res.code==="1" ? "success" : "none",
+						position: res.code==="1" ? "center" : "bottom",
 						duration: 2000
 					});
 					uni.$emit("forumListRefresh");

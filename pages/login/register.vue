@@ -54,7 +54,7 @@
 </template>
 
 <script>
-	import { getGraphicCaptcha, getEmailCaptcha, userRegister } from '../../utils/http.js';
+	import { getGraphicCaptcha, getEmailCaptcha, userRegister } from "../../utils/http.js";
 
 	const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -62,17 +62,17 @@
 		data() {
 			return {
 				form: {
-					nickname: '',
-					password: '',
-					repassword: '',
-					graphicCaptcha: '',
-					emailCaptcha: ''
+					nickname: "",
+					password: "",
+					repassword: "",
+					graphicCaptcha: "",
+					emailCaptcha: ""
 				},
 				isPassFocus: false,
 				showFetchMailCaptcha: true,
 				timer: 60,
-				captchaImg: '',
-				token: ''
+				captchaImg: "",
+				token: ""
 			};
 		},
 		computed: {
@@ -89,7 +89,7 @@
 			async refreshGraphicCaptcha() {
 				// 获取图形验证码
 				const args = {
-					token: this.token === '' ? null : this.token
+					token: this.token === "" ? null : this.token
 				};
 				try {
 					const {
@@ -114,23 +114,23 @@
 				if (!/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(reqParamsObj
 						.email)) {
 					uni.showToast({
-						title: '邮箱格式有误',
-						icon: 'error'
+						title: "邮箱格式有误",
+						icon: "error"
 					});
 					return;
 				}
 				// 验证图形验证码长度
 				if (reqParamsObj.graphicCaptcha.length !== 4) {
 					uni.showToast({
-						title: '图形验证码长度有误',
-						icon: 'none'
+						title: "图形验证码长度有误",
+						icon: "none"
 					});
 					return;
 				}
 
 				uni.showToast({
-					title: '请稍后...',
-					icon: 'loading',
+					title: "请稍后...",
+					icon: "loading",
 					duration: 999999
 				});
 				try {
@@ -138,31 +138,31 @@
 						data: { code, message }
 					} = await getEmailCaptcha(reqParamsObj);
 
-					if (code !== '200') {
+					if (code !== "200") {
 						uni.showToast({
 							title: message,
-							icon: 'error'
+							icon: "error"
 						});
-						if (code === '4001' || code === '4002') {
+						if (code === "4001" || code === "4002") {
 							// token过期，重新获取验证码
 							this.refreshGraphicCaptcha();
-							this.graphicCaptchaComputed = '';
+							this.graphicCaptchaComputed = "";
 						}
 						return;
 					}
 				} catch (e) {
 					console.error(e);
 					uni.showToast({
-						title: '请检查网络',
-						icon: 'error'
+						title: "请检查网络",
+						icon: "error"
 					});
 					return;
 				}
 
 				uni.showToast({
-					title: '发送成功, 请检查您的邮箱！',
-					icon: 'none',
-					position: 'bottom'
+					title: "发送成功, 请检查您的邮箱！",
+					icon: "none",
+					position: "bottom"
 				});
 
 				this.showFetchMailCaptcha = false;
@@ -177,8 +177,8 @@
 				// 检查密码是否相同
 				if (this.form.password !== this.form.repassword) {
 					uni.showToast({
-						title: '输入密码不一致',
-						icon: 'error'
+						title: "输入密码不一致",
+						icon: "error"
 					});
 					return;
 				}
@@ -195,39 +195,39 @@
 				if (!/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(reqParamsObj
 						.email)) {
 					uni.showToast({
-						title: '邮箱格式有误',
-						icon: 'error'
+						title: "邮箱格式有误",
+						icon: "error"
 					});
 					return;
 				}
 				// 验证密码长度
 				if (reqParamsObj.password.length < 6) {
 					uni.showToast({
-						title: '密码长度过短',
-						icon: 'none'
+						title: "密码长度过短",
+						icon: "none"
 					});
 					return;
 				}
 				// 验证图形验证码长度
 				if (reqParamsObj.graphicCaptcha.length !== 4) {
 					uni.showToast({
-						title: '图形验证码长度有误',
-						icon: 'none'
+						title: "图形验证码长度有误",
+						icon: "none"
 					});
 					return;
 				}
 				// 验证邮箱验证码长度
 				if (reqParamsObj.emailCaptcha.length !== 6) {
 					uni.showToast({
-						title: '邮箱验证码长度有误',
-						icon: 'none'
+						title: "邮箱验证码长度有误",
+						icon: "none"
 					});
 					return;
 				}
 
 				uni.showToast({
-					title: '请稍后...',
-					icon: 'loading',
+					title: "请稍后...",
+					icon: "loading",
 					duration: 999999
 				});
 				try {
@@ -235,44 +235,44 @@
 						data: { code, message }
 					} = await userRegister(reqParamsObj);
 
-					if (code !== '200') {
+					if (code !== "200") {
 						uni.showToast({
 							title: message,
-							icon: 'error'
+							icon: "error"
 						});
-						if (code === '4001' || code === '4002') {
+						if (code === "4001" || code === "4002") {
 							// token过期，重新获取验证码
 							this.refreshGraphicCaptcha();
-							this.graphicCaptchaComputed = '';
-							this.form.emailCaptcha = '';
+							this.graphicCaptchaComputed = "";
+							this.form.emailCaptcha = "";
 						}
 						return;
 					}
 				} catch (e) {
 					console.error(e);
 					uni.showToast({
-						title: '请检查网络',
-						icon: 'error'
+						title: "请检查网络",
+						icon: "error"
 					});
 					return;
 				}
 
 				uni.showToast({
-					title: '注册成功',
-					icon: 'success'
+					title: "注册成功",
+					icon: "success"
 				});
 				// 成功注册，使用用户名密码进行登录
-				this.$store.dispatch('authStore/login', { username: this.form.email, password: this.form.password });
+				await this.$store.dispatch("authStore/login", { username: this.form.email, password: this.form.password });
 				// 加入本地存储用于二次登录
-				uni.setStorageSync('userInfo', this.$store.state.authStore.userInfo);
-				uni.setStorageSync('token', this.$store.state.authStore.token);
-				uni.setStorageSync('login_type', 'APP');
+				uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
+				uni.setStorageSync("token", this.$store.state.authStore.token);
+				uni.setStorageSync("login_type", "APP");
 
 				uni.hideToast();
 
 				// 返回首页
 				uni.switchTab({
-					url: '/pages/index/index'
+					url: "/pages/index/index"
 				});
 			}
 		},
