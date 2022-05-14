@@ -12,7 +12,7 @@
 		</view>
 
 		<view class="empty" v-if="commentsList.length == 0">
-			<u-empty text="尚未评论" mode="message"></u-empty>
+			<u-empty text="尚未评论" icon="/static/no-message.png"></u-empty>
 		</view>
 
 		<view v-else class="comment-item " :class="item.isHover ? 'u-cell-hover' : ''"
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 	import * as unip from "../../utils/uniPromisify.js";
 	let page = 1;
 

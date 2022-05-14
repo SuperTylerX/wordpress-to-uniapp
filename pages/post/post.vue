@@ -21,7 +21,6 @@
 
 			<!-- 文章内容 -->
 			<view class="content">
-				<!-- <u-parse :html="article.content.rendered" :tag-style="style" :selectable="true" @ready="articleReady"></u-parse> -->
 				<mp-html :content="article.content.rendered" :tag-style="style" :selectable="true"
 					@ready="articleReady"></mp-html>
 			</view>
@@ -68,7 +67,9 @@
 				<view class="subTitle">评论</view>
 				<view class="subTitle-line"></view>
 				<view class="comments-list">
-					<u-divider v-if="commentsList.length == 0" style="margin: 120rpx 190rpx" text="暂无评论"></u-divider>
+					<view v-if="commentsList.length == 0" style="margin: 120rpx 190rpx">
+						<u-empty icon="/static/no-message.png" text="暂无评论"></u-empty>
+					</view>
 					<!-- 0级回复 -->
 					<block v-for="(item, index) in commentsList" :key="index">
 						<view class="comment">
@@ -88,44 +89,11 @@
 							<!-- 一级回复-->
 							<view v-for="(item1, idx) in item.child" :key="idx" class="comment-content-bottom">
 								<view class="reply-user" @tap.stop="replyTo(item1)">
-									<text class="comment-name">{{ item1.author_name }}</text>
-									回复
-									<text class="comment-name">{{ item.author_name }}</text>
-									：{{ item1.content }}
+									<text class="comment-name">{{ item1.author_name }}</text> ：{{ item1.content }}
 								</view>
 
-								<!-- 二级回复-->
-								<view v-for="(item2, idx) in item1.child" :key="idx">
-									<view class="reply-user" @tap.stop="replyTo(item2)">
-										<text class="comment-name">{{ item2.author_name }}</text>
-										回复
-										<text class="comment-name">{{ item1.author_name }}</text>
-										：{{ item2.content }}
-									</view>
-
-									<!-- 三级回复-->
-									<view v-for="(item3, idx) in item2.child" :key="idx">
-										<view class="reply-user" @tap.stop="replyTo(item3)">
-											<text class="comment-name">{{ item3.author_name }}</text>
-											回复
-											<text class="comment-name">{{ item2.author_name }}</text>
-											：{{ item3.content }}
-										</view>
-
-										<!-- 四级回复-->
-										<view v-for="(item4, idx) in item3.child" :key="idx">
-											<view class="reply-user" @tap.stop="replyTo(item4)">
-												<text class="comment-name">{{ item4.author_name }}</text>
-												回复
-												<text class="comment-name">{{ item3.author_name }}</text>
-												：{{ item4.content }}
-											</view>
-										</view>
-										<!-- 四级回复-->
-									</view>
-									<!-- 三级回复-->
-								</view>
-								<!-- 二级回复-->
+								<!-- 使用组件递归生成回复树 -->
+								<app-reply :parent="item1" @replyTo="replyTo"></app-reply>
 							</view>
 							<!-- 一级回复-->
 						</view>
@@ -152,7 +120,7 @@
 
 		<!-- 加载图 -->
 		<view v-if="isLoading" class="loading-wrap">
-			<image class="loading" src="../../static/loading.gif" mode="aspectFill"></image>
+			<u-skeleton class="item" rows="10" loading :rowsHeight="[18,200,18]"></u-skeleton>
 		</view>
 
 		<view class="fixed-btns">
@@ -175,7 +143,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 	import config from "../../utils/config.js";
 	import QrcodePoster from "../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue";
 	// 评论页数
@@ -310,7 +278,7 @@
 						this.tags = tags;
 					})
 					.catch(e => {
-						console.log(e);
+						console.error(e);
 					});
 
 				// 获取猜你喜欢
@@ -325,7 +293,7 @@
 						this.relatedPost = relatedPost;
 					})
 					.catch(e => {
-						console.log(e);
+						console.error(e);
 					});
 
 				// 获取评论
@@ -333,7 +301,7 @@
 				page = 1;
 				this.fetchComments();
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 		},
 		onReachBottom() {
@@ -342,7 +310,7 @@
 		onShareAppMessage(res) {
 			return {
 				title: `分享「${config.WEBSITE_NAME}」的文章：${this.article.title.rendered}`,
-				path: "pages/post/post?id=" + this.pageId,
+				path: "pages/post/post?id=" + this.postId,
 				imageUrl: this.article.post_full_image
 			};
 		},
@@ -350,7 +318,7 @@
 			return {
 				title: this.article.title.rendered,
 				query: {
-					id: this.pageId
+					id: this.postId
 				},
 				imageUrl: this.article.post_full_image
 			};
@@ -414,7 +382,7 @@
 						});
 					}
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 					uni.showToast({
 						title: "获取二维码失败",
 						icon: "none"
@@ -448,7 +416,7 @@
 						this.commentsList = this.commentsList.concat(commentsList);
 					})
 					.catch(e => {
-						console.log(e);
+						console.error(e);
 					});
 			},
 			// 选择回复对象
@@ -459,7 +427,6 @@
 					placeholder: "回复：" + e.author_name,
 					content: ""
 				};
-				console.log(this.myComment);
 			},
 			// 重置我的评论内容
 			resetComment() {
@@ -524,7 +491,7 @@
 						});
 					}
 				} catch (e) {
-					console.log(e);
+					console.error(e);
 				}
 			},
 			// 点赞处理
@@ -550,7 +517,7 @@
 							});
 						}
 					} catch (e) {
-						console.log(e);
+						console.error(e);
 					}
 				} else {
 					uni.navigateTo({
@@ -574,15 +541,7 @@
 
 <style lang="scss" scoped>
 	.loading-wrap {
-		display: flex;
-		justify-content: center;
-		padding: 300rpx 0;
-
-		.loading {
-			width: 600rpx;
-			height: 420rpx;
-			display: block;
-		}
+		padding: 30rpx;
 	}
 
 	.wrap {

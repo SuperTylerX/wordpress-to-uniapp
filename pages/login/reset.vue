@@ -255,7 +255,7 @@
 					icon: "success"
 				});
 				// 成功重置密码，使用用户名密码进行登录
-				this.$store.dispatch("authStore/login", { username: this.form.email, password: this.form.password });
+				await this.$store.dispatch("authStore/login", { username: this.form.email, password: this.form.password });
 				// 加入本地存储用于二次登录
 				uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
 				uni.setStorageSync("token", this.$store.state.authStore.token);

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 	import config from "../../utils/config.js";
 
 	export default {
@@ -73,14 +73,14 @@
 		onLoad() {
 			// #ifdef MP-QQ
 			qq.showShareMenu({
-				showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+				showShareItems: ["qq", "qzone", "wechatFriends", "wechatMoment"]
 			});
 			// #endif
 			// #ifdef MP-WEIXIN
 			wx.showShareMenu({
 				withShareTicket: true,
-				menus: ['shareAppMessage', 'shareTimeline']
-			})
+				menus: ["shareAppMessage", "shareTimeline"]
+			});
 			// #endif
 			try {
 				this.isLoading = true;
@@ -120,7 +120,7 @@
 				});
 
 			} catch (e) {
-				console.log(e)
+				console.error(e);
 			}
 		},
 		onShareAppMessage(res) {
@@ -128,13 +128,13 @@
 				title: `分享「${config.WEBSITE_NAME}」小程序 - 热门文章`,
 				path: "pages/rank/rank",
 				imageUrl: this.$store.state.configStore.shareImageUrl,
-			}
+			};
 		},
 		onShareTimeline() {
 			return {
 				title: `分享「${config.WEBSITE_NAME}」小程序 - 热门文章`,
 				imageUrl: this.$store.state.configStore.shareImageUrl
-			}
+			};
 		},
 		methods: {
 			// tab栏切换

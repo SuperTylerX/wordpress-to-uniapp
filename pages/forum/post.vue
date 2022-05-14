@@ -51,7 +51,6 @@
 				<view class="subTitle-line"></view>
 				<view class="comments-list">
 					<view style="margin: 120rpx 190rpx" v-if="commentList.length == 0">
-						<!-- <u-divider></u-divider> -->
 						<u-empty icon="/static/no-message.png" text="暂无评论"></u-empty>
 					</view>
 
@@ -107,7 +106,6 @@
 
 <script>
 	import { getForumTopicDetail, getForumTopicComment, postForumReply, forumPostLike } from "../../utils/http.js";
-	import appReply from "./app-reply.vue";
 
 	let page = 1;
 
@@ -181,9 +179,6 @@
 				},
 				order: "asc"
 			};
-		},
-		components: {
-			appReply
 		},
 		computed: {
 			isLogin() {

@@ -1,5 +1,6 @@
 /unpackage/dist
 /unpackage/cache
 /unpackage/release
+/unpackage/debug
 .hbuilderx
 .idea

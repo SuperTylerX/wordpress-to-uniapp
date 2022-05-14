@@ -5,8 +5,9 @@
  * Copyright (c) 2021 https://uni.supertyler.com
  */
 
-// const HOST_DOMAIN = "www.watch-life.net";
 const HOST_DOMAIN = "uni.supertyler.com";
+// const HOST_DOMAIN = "xy.supertyler.com";
+// const HOST_DOMAIN = "uni.moetu.club";
 
 const WEBSITE_NAME = "前端茶会";
 

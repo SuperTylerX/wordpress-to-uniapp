@@ -72,6 +72,9 @@
 					</view>
 				</view>
 			</view>
+			
+			<u-empty v-if="!isLoading && topics.length === 0  && super_stickies.length === 0 && stickies.length === 0" icon="/static/no-data.png" :marginTop="60" text="暂无帖子"></u-empty>
+		
 		</view>
 
 		<view class="skeleton" v-if="isLoading && page == 1">
@@ -87,13 +90,13 @@
 		</view>
 
 		<view class="error" v-if="!isLoading && isNetworkError">
-			<u-empty icon="/static/network-error.png" text="网络连接失败"></u-empty>
+			<u-empty icon="/static/no-network.png" text="网络连接失败"></u-empty>
 		</view>
 
-		<app-footer v-if="!isNetworkError" />
+		<app-footer v-if="!isNetworkError && !(topics.length === 0  && super_stickies.length === 0 && stickies.length === 0)" />
 
 		<!-- 发布按钮 -->
-		<view class="add" v-if="!isLoading && !isNetworkError">
+		<view class="add" v-if="(!isLoading || page !== 1 ) && !isNetworkError && isCommentEnabled">
 			<button class="button" color="#118fff" @tap="goToPublish">
 				<image class="img" src="../../static/add.png" mode="scaleToFill"></image>
 			</button>
@@ -101,7 +104,7 @@
 	</view>
 </template>
 <script>
-	import http from "../../utils/http.js";
+	import * as http from "../../utils/http.js";
 
 	let tempTopic = {};
 
@@ -118,6 +121,22 @@
 				isNetworkError: false,
 				page: 1
 			};
+		},
+		computed:{
+			isCommentEnabled() {
+				// #ifdef MP-QQ
+				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
+				// #endif
+				// #ifdef MP-WEIXIN
+				return this.$store.state.configStore.wf_enable_comment_option == "1";
+				// #endif
+				// #ifdef H5
+				return this.$store.state.configStore.uni_enable_h5_comment_option;
+				// #endif
+				// #ifndef MP-QQ || MP-WEIXIN || H5
+				return true;
+				// #endif
+			},
 		},
 		methods: {
 			async switchCategory({ id: categoryId }) {
@@ -212,7 +231,7 @@
 		async onLoad() {
 			try {
 				let categories = await http.getForumCategories().then(data => data.data);
-				categories = categories.sort((a, b) => b.order - a.order); // 按order排序
+				categories = categories.sort((a, b) => a.order - b.order); // 按order排序
 				this.categories = categories;
 				if (categories.length === 0) return;
 				let { id } = categories[0];

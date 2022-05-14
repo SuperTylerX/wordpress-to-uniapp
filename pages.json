@@ -46,6 +46,13 @@
 			}
 		},
 		{
+			"path": "pages/center/profile",
+			"style": {
+				"navigationBarTitleText": "个人信息",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "",
@@ -77,14 +84,6 @@
 		},
 		{
 			"path": "pages/webpage/webpage",
-			"style": {
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
-		},
-		{
-			"path": "pages/editor/editor",
 			"style": {
 				"app-plus": {
 					"bounce": "none"
@@ -153,6 +152,9 @@
 					"softinputMode": "adjustResize"
 				}
 			}
+		},
+		{
+			"path": "pages/policy/policy"
 		}
 	],
 	"globalStyle": {
@@ -178,8 +180,8 @@
 			"text": "分类"
 		}, {
 			"pagePath": "pages/forum/index",
-			"iconPath": "static/tab-my.png",
-			"selectedIconPath": "static/tab-my-on.png",
+			"iconPath": "static/tab-circle.png",
+			"selectedIconPath": "static/tab-circle-on.png",
 			"text": "圈子"
 		}, {
 			"pagePath": "pages/center/center",
