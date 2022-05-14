@@ -19,6 +19,5 @@
 </script>
 
 <style lang="scss">
-	@import "./static/icon.css";
 	@import "uview-ui/index.scss";
 </style>

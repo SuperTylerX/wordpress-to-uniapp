@@ -7,7 +7,6 @@
 
 			<!-- 文章内容 -->
 			<view class="content">
-				<!-- <u-parse :html="article.content.rendered" :tag-style="style" :selectable="true" @ready="articleReady"></u-parse> -->
 				<mp-html :content="article.content.rendered" :selectable="true" @ready="articleReady"
 					:tag-style="style"></mp-html>
 			</view>
@@ -20,7 +19,7 @@
 
 		<!-- 加载图 -->
 		<view v-if="isLoading" class="loading-wrap">
-			<image class="loading" src="../../static/loading.gif" mode="aspectFill"></image>
+			<u-skeleton class="item" rows="10" loading :rowsHeight="[18,200,18]"></u-skeleton>
 		</view>
 
 	</view>
@@ -131,15 +130,7 @@
 
 <style lang="scss" scoped>
 	.loading-wrap {
-		display: flex;
-		justify-content: center;
-		padding: 300rpx 0;
-
-		.loading {
-			width: 600rpx;
-			height: 420rpx;
-			display: block;
-		}
+		padding: 30rpx;
 	}
 
 	.wrap {

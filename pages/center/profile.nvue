@@ -1,24 +1,64 @@
 <template>
-	<div>
-		<div class="separator"></div>
-		<div class="cell-wrap">
+	<view>
+		<view class="separator"><text class="title">基本信息</text></view>
+		<view class="cell-wrap">
 			<u-cell-group>
 				<u-cell size="large" title="头像">
-					<view slot="value"><u-avatar :src="userInfo.avatarUrl"></u-avatar></view>
+					<view slot="value">
+						<u-avatar :src="userInfo.avatarUrl"></u-avatar>
+					</view>
 				</u-cell>
 				<u-cell size="large" title="昵称" :value="userInfo.nickname"></u-cell>
 				<u-cell size="large" title="UID" :value="userInfo.userId"></u-cell>
 				<u-cell size="large" title="用户等级" :value="userInfo.levelName"></u-cell>
-				<u-cell size="large" :isLink="true" :value="userInfo.email.includes(userInfo.openid) ? '未设置' : userInfo.email" title="邮箱" @tap="changeItem('email')"></u-cell>
+				<u-cell size="large" :isLink="true"
+					:value="userInfo.email.includes(userInfo.openid) ? '未设置' : userInfo.email" title="邮箱"
+					@tap="changeItem('email')"></u-cell>
 			</u-cell-group>
-		</div>
+		</view>
+		<view class="separator"><text class="title">社交绑定</text></view>
+
+		<view class="cell-wrap">
+			<u-cell-group>
+				<u-cell size="large" title="微信" icon="/static/icon-wechat.png" :label="socialWechat"
+					:iconStyle="{'marginRight':'20rpx'}">
+					<view slot="value">
+						<u-tag :text="socialWechat? '已绑定' : '绑定'" plain color="#909193" borderColor="#909193"
+							shape="circle" size="large">
+						</u-tag>
+					</view>
+				</u-cell>
+				<u-cell size="large" title="QQ" icon="/static/icon-qq.png" :label="socialQQ"
+					:iconStyle="{'marginRight':'20rpx'}">
+					<view slot="value">
+						<u-tag :text="socialQQ? '已绑定' : '绑定'" plain color="#909193" borderColor="#909193" shape="circle"
+							size="large">
+						</u-tag>
+					</view>
+				</u-cell>
+				<u-cell size="large" title="今日头条" icon="/static/icon-toutiao.png" :label="socialToutiao"
+					:iconStyle="{'marginRight':'20rpx'}">
+					<view slot="value">
+						<u-tag :text="socialToutiao? '已绑定' : '绑定'" plain color="#909193" borderColor="#909193"
+							shape="circle" size="large">
+						</u-tag>
+					</view>
+				</u-cell>
+			</u-cell-group>
+		</view>
 
 		<u-popup :show="isPopupShow" @close="showPopup = false" mode="center" :safeAreaInsetBottom="false">
 			<view class="pop-box">
 				<view class="title">更换新邮箱</view>
-				<view class="item"><u--input placeholder="请输入新邮箱" border="bottom" clearable></u--input></view>
-				<view class="item"><u--input placeholder="请输入图形验证码" border="bottom" clearable></u--input></view>
-				<view class="item"><u--input placeholder="请输入邮箱验证码" border="bottom" clearable></u--input></view>
+				<view class="item">
+					<u--input placeholder="请输入新邮箱" border="bottom" clearable></u--input>
+				</view>
+				<view class="item">
+					<u--input placeholder="请输入图形验证码" border="bottom" clearable></u--input>
+				</view>
+				<view class="item">
+					<u--input placeholder="请输入邮箱验证码" border="bottom" clearable></u--input>
+				</view>
 
 				<view class="buttons">
 					<button class="cancel" @tap="cancel">取消</button>
@@ -26,87 +66,117 @@
 				</view>
 			</view>
 		</u-popup>
-	</div>
+	</view>
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			isPopupShow: false,
-			email: "asdasda"
-		};
-	},
-	computed: {
-		userInfo() {
-			return this.$store.state.authStore.userInfo;
-		}
-	},
-	methods: {
-		changeItem(item) {
-			this.isPopupShow = true;
-			switch (item) {
-				case "email":
-					break;
+	export default {
+		data() {
+			return {
+				isPopupShow: false,
+				email: ""
+			};
+		},
+		computed: {
+			userInfo() {
+				return this.$store.state.authStore.userInfo;
+			},
+			socialQQ() {
+				if (this.$store.state.authStore.social_connect) {
+					return this.$store.state.authStore.social_connect.qq;
+				} else {
+					return "";
+				}
+			},
+			socialWechat() {
+				if (this.$store.state.authStore.social_connect) {
+					return this.$store.state.authStore.social_connect.wechat;
+				} else {
+					return "";
+				}
+			},
+			socialToutiao() {
+				if (this.$store.state.authStore.social_connect) {
+					return this.$store.state.authStore.social_connect.toutiao;
+				} else {
+					return "";
+				}
 			}
 		},
-		cancel() {
-			this.isPopupShow = false;
+		methods: {
+			changeItem(item) {
+				this.isPopupShow = true;
+				switch (item) {
+					case "email":
+						break;
+				}
+			},
+			cancel() {
+				this.isPopupShow = false;
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss" scope>
-page {
-	background-color: #f4f7f6;
-}
+	page {
+		background-color: #f4f7f6;
+	}
 
-.separator {
-	height: 20rpx;
-	background-color: #f4f7f6;
-}
-
-.cell-wrap {
-	background-color: #ffffff;
-}
-
-.pop-box {
-	width: 600rpx;
-	height: 600rpx;
-	border-radius: 10rpx;
-	display: flex;
-	justify-content: space-between;
-	padding: 30rpx;
-	background-color: #ffffff;
-
-	.item {
+	.separator {
+		height: 80rpx;
+		background-color: #f4f7f6;
 		display: flex;
+		justify-content: flex-end;
+		padding: 10rpx;
 
-		.label {
-			margin-bottom: 10rpx;
+		.title {
+			font-size: 30rpx;
+			margin-left: 25rpx;
+			color: #909193;
 		}
 	}
 
-	.buttons {
+	.cell-wrap {
+		background-color: #ffffff;
+	}
+
+	.pop-box {
+		width: 600rpx;
+		height: 600rpx;
+		border-radius: 10rpx;
 		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
+		justify-content: space-between;
+		padding: 30rpx;
+		background-color: #ffffff;
 
-		.cancel,
-		.confrim {
-			border: none;
-			background-color: transparent;
-			font-size: 30rpx;
+		.item {
+			display: flex;
 
-			&::after {
-				border: none;
+			.label {
+				margin-bottom: 10rpx;
 			}
 		}
 
-		.confrim {
-			color: #0081ff;
+		.buttons {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+
+			.cancel,
+			.confrim {
+				border: none;
+				background-color: transparent;
+				font-size: 30rpx;
+
+				&::after {
+					border: none;
+				}
+			}
+
+			.confrim {
+				color: #0081ff;
+			}
 		}
 	}
-}
 </style>

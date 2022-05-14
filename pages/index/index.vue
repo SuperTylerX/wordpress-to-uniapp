@@ -2,8 +2,7 @@
 * UniApp Wordpress 小程序
 * author: SuperTylerX
 * 开源协议：MIT
-* Inspired by WordPres版微信小程序@jianbo
-* GitHub: https://github.com/iamxjb/winxin-app-watch-life.net
+* Inspired by 微慕微信小程序开源版@jianbo
 * Copyright (c) 2021 https://uni.supertyler.com
 */
 
@@ -42,7 +41,7 @@
 				<view class="nav-content">
 					<view class="nav-item" v-for="(item, index) in selected_nav" :key="index" @tap="redirect(item)">
 						<image :src="item.image" mode="scaleToFill"></image>
-						<text>{{item.title}}</text>
+						<text>{{ item.title }}</text>
 					</view>
 				</view>
 			</scroll-view>
@@ -56,7 +55,7 @@
 
 		<!-- 文章列表 -->
 		<app-list :postsList="postsList"></app-list>
-		<view class="center"  v-show="isLoading">
+		<view class="center" v-if="isLoading">
 			<u-loading-icon size="20"></u-loading-icon>
 		</view>
 
@@ -121,7 +120,7 @@
 			return {
 				title: `分享「${config.WEBSITE_NAME}」小程序`,
 				path: "pages/index/index",
-				imageUrl: this.$store.state.configStore.shareImageUrl,
+				imageUrl: this.$store.state.configStore.shareImageUrl
 			};
 		},
 		onShareTimeline() {
@@ -176,7 +175,6 @@
 						this.isLastPage = true;
 						console.log("最后一页了");
 					}
-
 				} catch (e) {
 					console.log(e);
 				}
@@ -187,7 +185,7 @@
 
 <style>
 	page {
-		background-color: #FFFFFF;
+		background-color: #ffffff;
 	}
 </style>
 
@@ -280,7 +278,7 @@
 				display: flex;
 				align-items: center;
 				font-size: 25rpx;
-				color: #959595
+				color: #959595;
 			}
 		}
 

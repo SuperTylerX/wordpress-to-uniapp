@@ -64,7 +64,7 @@
             "splashscreen" : {
                 "androidStyle" : "common",
                 "iosStyle" : "common",
-                "useOriginalMsgbox" : false
+                "useOriginalMsgbox" : true
             },
             "icons" : {
                 "android" : {

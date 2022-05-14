@@ -41,6 +41,20 @@
 						<view class="fetch-btn" v-if="showFetchMailCaptcha" @click="getEmailCaptcha">点击获取验证码</view>
 						<view class="waitting" v-else>{{ timer }}秒后重新获取</view>
 					</view>
+
+					<view class="policy-item">
+						<u-checkbox-group v-model="policyChecked">
+							<u-checkbox shape="circle" name="agree"></u-checkbox>
+						</u-checkbox-group>
+						<text class="text">
+							阅读并同意
+							<span class="highlight"
+								@tap="redirect({type:'apppage', path: '/pages/policy/policy?type=agreement'})">《用户注册协议》</span>
+							和
+							<span class="highlight"
+								@tap="redirect({type:'apppage', path: '/pages/policy/policy?type=privacy'})">《隐私政策》</span>
+						</text>
+					</view>
 				</view>
 
 				<button class="button" type="primary" form-type="submit">注册</button>
@@ -72,7 +86,8 @@
 				showFetchMailCaptcha: true,
 				timer: 60,
 				captchaImg: "",
-				token: ""
+				token: "",
+				policyChecked: []
 			};
 		},
 		computed: {
@@ -174,6 +189,13 @@
 			},
 			async register() {
 				/* 验证一下输入是否合法 */
+				if (this.policyChecked.length === 0) {
+					uni.showToast({
+						title: "请阅读并勾选同意用户协议",
+						icon: "none"
+					});
+					return;
+				}
 				// 检查密码是否相同
 				if (this.form.password !== this.form.repassword) {
 					uni.showToast({
@@ -262,7 +284,11 @@
 					icon: "success"
 				});
 				// 成功注册，使用用户名密码进行登录
-				await this.$store.dispatch("authStore/login", { username: this.form.email, password: this.form.password });
+				await this.$store.dispatch("authStore/login", {
+					username: this.form.email,
+					password: this.form
+						.password
+				});
 				// 加入本地存储用于二次登录
 				uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
 				uni.setStorageSync("token", this.$store.state.authStore.token);
@@ -335,6 +361,22 @@
 
 				&.graphicCaptcha {
 					margin-top: 20rpx;
+				}
+			}
+
+			.policy-item {
+				padding: 20rpx;
+				margin-top: 40rpx;
+				display: flex;
+				align-items: center;
+
+				.text {
+					font-size: 30rpx;
+					margin-left: 20rpx;
+				}
+
+				.highlight {
+					color: #007aff;
 				}
 			}
 		}

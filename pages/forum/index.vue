@@ -73,7 +73,7 @@
 				</view>
 			</view>
 			
-			<u-empty v-if="!isLoading && topics.length === 0  && super_stickies.length === 0 && stickies.length === 0" icon="/static/empty-data.png" :marginTop="60" text="暂无帖子"></u-empty>
+			<u-empty v-if="!isLoading && topics.length === 0  && super_stickies.length === 0 && stickies.length === 0" icon="/static/no-data.png" :marginTop="60" text="暂无帖子"></u-empty>
 		
 		</view>
 
@@ -90,13 +90,13 @@
 		</view>
 
 		<view class="error" v-if="!isLoading && isNetworkError">
-			<u-empty icon="/static/network-error.png" text="网络连接失败"></u-empty>
+			<u-empty icon="/static/no-network.png" text="网络连接失败"></u-empty>
 		</view>
 
 		<app-footer v-if="!isNetworkError && !(topics.length === 0  && super_stickies.length === 0 && stickies.length === 0)" />
 
 		<!-- 发布按钮 -->
-		<view class="add" v-if="!isLoading && !isNetworkError && isCommentEnabled">
+		<view class="add" v-if="(!isLoading || page !== 1 ) && !isNetworkError && isCommentEnabled">
 			<button class="button" color="#118fff" @tap="goToPublish">
 				<image class="img" src="../../static/add.png" mode="scaleToFill"></image>
 			</button>

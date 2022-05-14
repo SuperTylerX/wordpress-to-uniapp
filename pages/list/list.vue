@@ -6,10 +6,10 @@
 				<image :src="cover" class="cover" mode="aspectFill"></image>
 				<view class="topic-item-content">
 					<view class="topic-content-brief">
-						<text>{{category.description}}</text>
+						<text>{{ category.description }}</text>
 					</view>
 					<view class="topic-content-num">
-						<text>共有 {{category.count}} 篇文章</text>
+						<text>共有 {{ category.count }} 篇文章</text>
 					</view>
 				</view>
 			</view>
@@ -21,10 +21,10 @@
 				<image :src="cover" class="cover" mode="aspectFill"></image>
 				<view class="topic-item-content">
 					<view class="topic-content-brief">
-						<text>#{{tag.name}}</text>
+						<text>#{{ tag.name }}</text>
 					</view>
 					<view class="topic-content-num">
-						<text>共收录 {{tag.count}} 篇文章</text>
+						<text>共收录 {{ tag.count }} 篇文章</text>
 					</view>
 				</view>
 			</view>
@@ -36,7 +36,7 @@
 				<image mode="aspectFill" src="/static/bg-search.jpg" class="cover"></image>
 				<view class="topic-item-content">
 					<view class="topic-content-brief">
-						<text>关于“{{searchKey}}”的搜索结果</text>
+						<text>关于“{{ searchKey }}”的搜索结果</text>
 					</view>
 				</view>
 			</view>
@@ -66,28 +66,14 @@
 			</view>
 		</view>
 
-
-		<!-- 无网络状态 -->
-		<!-- 	<view class="showerror" v-if="showerror">
-			<image src="/static/images/fail_nowifi.png" style="height:100rpx;width:100rpx"></image>
-			<view class="errortext">
-				<view>暂时无法访问网络</view>
-				<view>
-					<button class="more-button" @tap="reload" size="mini">重新加载</button>
-				</view>
-			</view>
-		</view> -->
-
 		<!-- 文章列表 -->
 		<view class="" style="padding-top: 20rpx;">
 			<app-list :postsList="postsList"></app-list>
 			<!-- <u-divider half-width="30" height="80"> 空空如也 </u-divider> -->
 			<view class="empty" v-if="postsList.length == 0">
-				<u-empty :text="text" :mode="mode"></u-empty>
+				<u-empty :text="text" :icon="icon"></u-empty>
 			</view>
 		</view>
-
-
 
 		<!-- 版权 -->
 		<app-footer></app-footer>
@@ -129,15 +115,14 @@
 					name: "",
 					count: 0
 				}
-
 			};
 		},
 		computed: {
-			mode() {
+			icon() {
 				if (this.isCategoryPage || this.isTagPage || this.isHistoryPage || this.isLikePage) {
-					return "list";
+					return "/static/no-data.png";
 				} else if (this.isSearchPage) {
-					return "search";
+					return "/static/no-result.png";
 				}
 			},
 			text() {
@@ -177,7 +162,6 @@
 			}
 
 			this.fetchPosts();
-
 		},
 		async onPullDownRefresh() {
 			if (this.isHistoryPage) {
@@ -202,7 +186,6 @@
 		},
 		methods: {
 			async fetchPosts() {
-
 				const queryObj = {
 					per_page: 10,
 					orderby: "date",
@@ -228,44 +211,49 @@
 						this.isLastPage = true;
 					}
 				}
-
 			},
 			async getCategoryMeta() {
-				http.getCategoryMeta(this.categoryID).then(data => data.data).then(res => {
-					this.category.description = res.description;
-					this.category.name = res.name;
-					this.category.count = res.count;
-					if (res.category_thumbnail_image) {
-						this.cover = res.category_thumbnail_image;
-					}
+				http.getCategoryMeta(this.categoryID)
+					.then(data => data.data)
+					.then(res => {
+						this.category.description = res.description;
+						this.category.name = res.name;
+						this.category.count = res.count;
+						if (res.category_thumbnail_image) {
+							this.cover = res.category_thumbnail_image;
+						}
 
-					uni.setNavigationBarTitle({
-						title: this.category.name
+						uni.setNavigationBarTitle({
+							title: this.category.name
+						});
 					});
-				});
 			},
 			async getTagMeta() {
-				http.getTagMeta(this.tagID).then(data => data.data).then(res => {
-					this.tag.name = res.name;
-					this.tag.count = res.count;
-					// 	if (res.category_thumbnail_image) {
-					// 		this.cover = res.category_thumbnail_image
-					// 	}
-					uni.setNavigationBarTitle({
-						title: this.tag.name
+				http.getTagMeta(this.tagID)
+					.then(data => data.data)
+					.then(res => {
+						this.tag.name = res.name;
+						this.tag.count = res.count;
+						// 	if (res.category_thumbnail_image) {
+						// 		this.cover = res.category_thumbnail_image
+						// 	}
+						uni.setNavigationBarTitle({
+							title: this.tag.name
+						});
 					});
-				});
 			},
 			async fetchLikePosts() {
 				try {
 					const res = await http.getLikePosts(this.$store.state.authStore.token).then(data => data.data);
 					if (res.status == 200) {
-						this.postsList = this.postsList.concat(res.data.map(item => {
-							item.title = {
-								rendered: item.title
-							};
-							return item;
-						}));
+						this.postsList = this.postsList.concat(
+							res.data.map(item => {
+								item.title = {
+									rendered: item.title
+								};
+								return item;
+							})
+						);
 					}
 				} catch (e) {
 					console.log(e);
@@ -318,7 +306,6 @@
 				margin-bottom: 24rpx;
 			}
 		}
-
 	}
 
 	.empty {
