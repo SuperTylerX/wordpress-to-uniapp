@@ -64,7 +64,13 @@
 
 			<!-- 评论 -->
 			<view class="comments-wrap" v-if="isCommentEnabled">
-				<view class="subTitle">评论</view>
+				<view class="top">
+					<view class="subTitle">评论</view>
+					<view class="right">
+						<view class="item" :class="{ cur: order === 'desc' }" @tap="changeOrder('desc')">最新</view>
+						<view class="item" :class="{ cur: order === 'asc' }" @tap="changeOrder('asc')">最早</view>
+					</view>
+				</view>
 				<view class="subTitle-line"></view>
 				<view class="comments-list">
 					<view v-if="commentsList.length == 0" style="margin: 120rpx 190rpx">
@@ -75,16 +81,23 @@
 						<view class="comment">
 							<!-- 回复标题 -->
 							<view class="comment-user" @tap.stop="replyTo(item)">
-								<view class="comment-user-gravatar">
-									<image :src="item.author_url" class="gravatarImg"></image>
+								<view class="comment-user-avatar">
+									<image :src="item.author_url" class="avatarImg"></image>
 								</view>
-								<view class="comment-user-name">
-									<view class="comment-name">{{ item.author_name }}</view>
+								<view class="comment-meta">
+									<view class="comment-user-meta">
+										<view class="name">{{ item.author_name }}</view>
+										<view class="location">
+											{{item.location ? `${item.location.country_name}${item.location.region_name}网友` : '' }}
+										</view>
+									</view>
 									<view class="comment-date">{{ item.date }}</view>
 								</view>
 							</view>
 							<!-- 回复内容 -->
-							<view class="comment-summary" @tap.stop="replyTo(item)">{{ item.content }}</view>
+							<view class="comment-summary" @tap.stop="replyTo(item)">
+								<mp-html :content="item.content" :tag-style="style" :selectable="true"></mp-html>
+							</view>
 
 							<!-- 一级回复-->
 							<view v-for="(item1, idx) in item.child" :key="idx" class="comment-content-bottom">
@@ -128,9 +141,11 @@
 				<u-icon name="share"></u-icon>
 			</button>
 
+			<!-- #ifdef APP-PLUS || MP-WEIXIN || MP-QQ -->
 			<view class="btn" @tap="sharePoster">
 				<u-icon name="photo"></u-icon>
 			</view>
+			<!-- #endif -->
 
 			<view class="btn" @tap="goToTop">
 				<u-icon name="arrow-up"></u-icon>
@@ -146,6 +161,8 @@
 	import * as http from "../../utils/http.js";
 	import config from "../../utils/config.js";
 	import QrcodePoster from "../../components/zhangyu-qrcode-poster/zhangyu-qrcode-poster.vue";
+	import { getPlatform } from "@/utils/utils.js";
+
 	// 评论页数
 	let page = 1;
 
@@ -208,7 +225,9 @@
 					userid: 0,
 					placeholder: "评论...",
 					content: ""
-				}
+				},
+				order: "desc",
+				isLoadingComment: false
 			};
 		},
 		components: {
@@ -229,7 +248,13 @@
 				// #ifdef MP-QQ
 				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
 				// #endif
-				// #ifndef MP-QQ
+				// #ifdef MP-WEIXIN
+				return this.$store.state.configStore.wf_enable_comment_option == "1";
+				// #endif
+				// #ifdef MP-TOUTIAO
+				return this.$store.state.configStore.uni_enable_toutiao_comment_option;
+				// #endif
+				// #ifndef MP-QQ || MP-WEIXIN || MP-TOUTIAO
 				return this.$store.state.configStore.wf_enable_comment_option == "1";
 				// #endif
 			},
@@ -305,6 +330,9 @@
 			}
 		},
 		onReachBottom() {
+			if (this.isLoadingComment) {
+				return;
+			}
 			this.fetchComments();
 		},
 		onShareAppMessage(res) {
@@ -396,12 +424,12 @@
 			// 拉取评论
 			fetchComments() {
 				if (this.isLastPage) return;
-
+				this.isLoadingComment = true;
 				http.getComments({
 						postid: this.postId,
 						limit: 10,
 						page: page,
-						order: "desc"
+						order: this.order
 					})
 					.then(data => data.data)
 					.then(data => {
@@ -414,9 +442,11 @@
 							page++;
 						}
 						this.commentsList = this.commentsList.concat(commentsList);
+						this.isLoadingComment = false;
 					})
 					.catch(e => {
 						console.error(e);
+						this.isLoadingComment = false;
 					});
 			},
 			// 选择回复对象
@@ -460,16 +490,16 @@
 				const queryObj = {
 					post: this.postId, //评论ID
 					parent: this.myComment.id, //父评论ID
-					content: this.myComment.content // 评论内容
+					content: this.myComment.content, // 评论内容
+					platform: getPlatform()
 				};
 
 				try {
 					uni.showLoading({
 						title: "评论提交中..."
 					});
-					const res = await http.postMyComment(queryObj, this.$store.state.authStore.token).then(data => data
-						.data);
-
+					const res = await http.postMyComment(queryObj, this.$store.state.authStore.token);
+					console.log(res);
 					if (res.status == 200) {
 						uni.hideLoading();
 						uni.showToast({
@@ -492,6 +522,27 @@
 					}
 				} catch (e) {
 					console.error(e);
+					uni.hideLoading();
+					if (e.statusCode) {
+						uni.showToast({
+							title: e.data.message,
+							// #ifdef H5 || APP || MP-WEIXIN
+							icon: "error",
+							// #endif
+							// #ifndef H5 || APP || MP-WEIXIN
+							icon: "none",
+							// #endif
+							duration: 2000,
+						});
+					} else {
+						uni.showToast({
+							title: "网络错误",
+							icon: "none",
+							duration: 2000,
+							position: "bottom"
+						});
+					}
+
 				}
 			},
 			// 点赞处理
@@ -528,6 +579,14 @@
 						icon: "none"
 					});
 				}
+			},
+			changeOrder(order) {
+				this.order = order;
+				this.resetComment();
+				page = 1;
+				this.commentsList = [];
+				this.isLastPage = false;
+				this.fetchComments();
 			}
 		}
 	};
@@ -671,10 +730,10 @@
 					color: #333;
 
 					/* 评论用户头像 */
-					.comment-user-gravatar {
+					.comment-user-avatar {
 						position: relative;
 
-						.gravatarImg {
+						.avatarImg {
 							border-radius: 16rpx;
 							height: 64rpx;
 							width: 64rpx;
@@ -683,16 +742,26 @@
 					}
 
 					/* 评论用户昵称 */
-					.comment-user-name {
+					.comment-meta {
 						flex: 1;
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
 
-						.comment-name {
-							color: #118fff;
+						.comment-user-meta {
 							font-weight: 500;
 							flex: 1;
+							line-height: 38rpx;
+
+							.name {
+								color: #118fff;
+							}
+
+							.location {
+								color: #959595;
+								font-weight: normal;
+								font-size: 20rpx;
+							}
 						}
 
 						/* 评论日期颜色 */
@@ -834,14 +903,47 @@
 			}
 		}
 
-		.subTitle {
-			font-size: 30rpx;
-			padding: 20rpx 0;
+		.top {
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 1px solid #f4f7f6;
+
+			.subTitle {
+				font-size: 30rpx;
+				padding: 20rpx 0;
+			}
+
+			.right {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #959595;
+				font-size: 23rpx;
+
+				.item {
+					margin-left: 40rpx;
+
+					&.cur {
+						color: #333;
+					}
+
+					&:last-child {
+						position: relative;
+
+						&:before {
+							content: '';
+							border-left: 1px solid #ccc;
+							position: absolute;
+							top: 8rpx;
+							left: -20rpx;
+							height: 20rpx;
+						}
+					}
+				}
+			}
 		}
 
 		.subTitle-line {
-			height: 1px;
-			background-color: #e6e6e6;
 			position: relative;
 			margin-bottom: 30rpx;
 
@@ -852,7 +954,7 @@
 				height: 4rpx;
 				background: #959595;
 				position: absolute;
-				top: 0;
+				top: -5rpx;
 				left: 0;
 			}
 		}

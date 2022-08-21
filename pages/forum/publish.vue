@@ -49,6 +49,7 @@
 
 <script>
 	import * as http from "@/utils/http.js";
+	import { getPlatform } from "@/utils/utils.js";
 
 	export default {
 		data() {
@@ -143,18 +144,19 @@
 				const content = this.textarea;
 				const tags = this.tags.split(/,|、/);
 				const images = this.imgList.map(item => item.remoteUrl);
+				const platform = getPlatform();
 
 				this.isSubmitting = true;
 				try {
 					uni.showLoading({
 						title: "帖子发布中..."
 					});
-					const res = await http.postForumPost({ forum_id, content, tags, images });
+					const res = await http.postForumPost({ forum_id, content, tags, images, platform });
 					uni.hideLoading();
 					uni.showToast({
 						title: res.message,
-						icon: res.code==="1" ? "success" : "none",
-						position: res.code==="1" ? "center" : "bottom",
+						icon: res.code === "1" ? "success" : "none",
+						position: res.code === "1" ? "center" : "bottom",
 						duration: 2000
 					});
 					uni.$emit("forumListRefresh");
@@ -167,7 +169,13 @@
 					if (e.statusCode) {
 						uni.showToast({
 							title: e.data.message,
+							// #ifdef H5 || APP || MP-WEIXIN
 							icon: "error",
+							// #endif
+							// #ifndef H5 || APP || MP-WEIXIN
+							icon: "none",
+							// #endif
+							duration: 2000,
 							duration: 2000,
 						});
 					} else {
@@ -178,7 +186,7 @@
 							position: "bottom"
 						});
 					}
-					this.isSubmitting = true;
+					this.isSubmitting = false;
 				}
 			}
 		},

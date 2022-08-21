@@ -1,45 +1,51 @@
-function getPlatform() {
+export function getPlatform() {
 
-	let platform = undefined;
 	// #ifdef APP-PLUS || APP-PLUS-NVUE || APP-NVUE
-	platform = "APP";
+	return "APP";
 	// #endif
 
 	// #ifdef H5
-	platform = "H5";
+	return "H5";
 	// #endif
 
 	// #ifdef MP-WEIXIN
-	platform = "MP-WEIXIN";
+	return "MP-WEIXIN";
 	// #endif
 
 	// #ifdef MP-ALIPAY
-	platform = "MP-ALIPAY";
+	return "MP-ALIPAY";
 	// #endif	
 
 	// #ifdef MP-BAIDU
-	platform = "MP-BAIDU";
-	// #endif	
-
-	// #ifdef MP-QQ
-	platform = "MP-QQ";
-	// #endif	
-
-	// #ifdef MP-360
-	platform = "MP-360";
-	// #endif	
-
-	// #ifdef QUICKAPP-WEBVIEW
-	platform = "QUICKAPP";
+	return "MP-BAIDU";
 	// #endif
 
-	return platform;
+	// #ifdef MP-QQ
+	return "MP-QQ";
+	// #endif
+
+	// #ifdef MP-TOUTIAO
+	return "MP-TOUTIAO";
+	// #endif
+
+	// #ifdef MP-LARK	
+	return "MP-LARK";
+	// #endif
+
+	// #ifdef MP-KUAISHOU	
+	return "MP-KUAISHOU";
+	// #endif
+
+	// #ifdef MP-JD
+	return "MP-JD";
+	// #endif
+
+	// #ifdef MP-360
+	return "MP-360";
+	// #endif
+
+	// #ifdef QUICKAPP-WEBVIEW || QUICKAPP-WEBVIEW-UNION || QUICKAPP-WEBVIEW-HUAWEI
+	return "QUICKAPP";
+	// #endif
+
 }
-
-export {
-	getPlatform
-};
-
-export default {
-	getPlatform
-};

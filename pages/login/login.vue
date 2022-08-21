@@ -43,6 +43,14 @@
 				<text class="disc">QQ登录</text>
 			</button>
 			<!-- #endif -->
+
+			<!-- #ifdef MP-TOUTIAO -->
+			<view type="default" plain="true" class="thrid-login" open-type="getUserInfo" @tap="miniAppLogin">
+				<u-icon class="icon" size="30" name="/static/icon-toutiao.png" color="#4BC1E8"></u-icon>
+				<text class="disc">快捷登录</text>
+			</view>
+			<!-- #endif -->
+
 		</view>
 
 		<view class="footer">
@@ -53,7 +61,6 @@
 
 <script>
 	import config from "../../utils/config.js";
-	import utils from "../../utils/utils.js";
 	import * as http from "../../utils/http.js";
 
 	export default {
@@ -105,7 +112,6 @@
 			miniAppLogin() {
 				let userinfoP = this.$store.dispatch("authStore/wxGetUserInfo");
 				let loginP = this.$store.dispatch("authStore/wxLogin");
-
 				Promise.all([userinfoP, loginP]).then(async () => {
 					// 如果userInfo 获取不到，说明用户拒绝登录授权，那么取消登录
 					if (this.$store.state.authStore.userInfo.nickname === undefined) return;
@@ -201,18 +207,6 @@
 			},
 
 			forgetPassOrRegister(option) {
-				// if ((utils.getPlatform() == "MP-WEIXIN" &&
-				// 		this.$store.state.configStore.wf_weixin_enterprise_minapp == "0") ||
-				// 	(utils.getPlatform() == "MP-QQ" &&
-				// 		this.$store.state.configStore.wf_qq_enterprise_minapp == "0")
-				// ) {
-				// 	uni.showToast({
-				// 		title: "尚不支持此功能",
-				// 		icon: "none",
-				// 		duration: 3000
-				// 	})
-				// 	return;
-				// }
 
 				if (option == 1) {
 					uni.navigateTo({

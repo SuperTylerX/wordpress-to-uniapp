@@ -78,6 +78,8 @@ export const DELETE_MY_COMMENTS_URL = `${PLUGIN_REST_API_URL}/comment/delete`;
 export const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/miniAppLogin`;
 // QQ小程序用户登录
 export const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
+// 字节跳动小程序用户登录
+export const TOUTIAO_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/bytedance/miniAppLogin`;
 // QQAPP用户登录
 export const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
 // QQH5用户登录
@@ -92,7 +94,8 @@ export const USER_INFO_URL = `${WORDPRESS_REST_API_URL}/users/me`;
 export const USER_REGISTER = `${PLUGIN_REST_API_URL}/register/submit`;
 // 用户重置密码
 export const USER_RESET_PASSWORD = `${PLUGIN_REST_API_URL}/register/reset`;
-
+// 更新用户邮箱
+export const UPDATE_USER_EMAIL = `${PLUGIN_REST_API_URL}/register/updateEmail`;
 
 
 /* 安全类API */

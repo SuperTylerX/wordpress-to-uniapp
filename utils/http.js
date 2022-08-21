@@ -76,7 +76,7 @@ export function getComments(queryObj) {
 	});
 }
 
-// 微信用户登录
+// 小程序用户登录
 export function wxUserLogin(queryObj) {
 
 	let url = "";
@@ -85,6 +85,9 @@ export function wxUserLogin(queryObj) {
 	// #endif
 	// #ifdef MP-QQ
 	url = API.QQ_MINIAPP_USER_LOGIN;
+	// #endif
+	// #ifdef MP-TOUTIAO
+	url = API.TOUTIAO_MINIAPP_USER_LOGIN;
 	// #endif
 
 	return unip.request({
@@ -182,7 +185,7 @@ export function getMyComments(token) {
 
 // 提交评论
 export function postMyComment(queryObj, token) {
-	return unip.request({
+	return request({
 		url: API.POST_MY_COMMENTS_URL,
 		method: "POST",
 		data: queryObj,
@@ -312,7 +315,8 @@ export function postForumPost({
 	forum_id,
 	content,
 	tags,
-	images
+	images,
+	platform
 }) {
 	// 获取token
 	const token = uni.getStorageSync("token");
@@ -323,7 +327,8 @@ export function postForumPost({
 			forum_id,
 			content,
 			tags,
-			images
+			images,
+			platform
 		},
 		header: {
 			Authorization: "Bearer " + token
@@ -335,7 +340,8 @@ export function postForumPost({
 export function postForumReply({
 	topic_id,
 	reply_to_id,
-	content
+	content,
+	platform
 }) {
 	// 获取token
 	const token = uni.getStorageSync("token");
@@ -346,7 +352,8 @@ export function postForumReply({
 		data: {
 			topic_id,
 			reply_to_id,
-			content
+			content,
+			platform
 		},
 		header: {
 			Authorization: "Bearer " + token
@@ -450,6 +457,31 @@ export function userResetPassword({
 			graphicCaptcha,
 			emailCaptcha,
 			token
+		}
+	});
+}
+
+export function updateUserEmail({
+	email,
+	graphicCaptcha,
+	emailCaptcha,
+	token
+}) {
+
+	// 获取token
+	const AuthToken = uni.getStorageSync("token");
+
+	return request({
+		url: API.UPDATE_USER_EMAIL,
+		method: "POST",
+		data: {
+			email,
+			graphicCaptcha,
+			emailCaptcha,
+			token
+		},
+		header: {
+			Authorization: "Bearer " + AuthToken
 		}
 	});
 }

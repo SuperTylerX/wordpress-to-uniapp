@@ -17,3 +17,5 @@ export const login = promisify(uni.login);
 export const getUserProfile = promisify(uni.getUserProfile);
 export const showActionSheet = promisify(uni.showActionSheet);
 export const uploadFile = promisify(uni.uploadFile);
+export const getSystemInfo = promisify(uni.getSystemInfo);
+export const showModal = promisify(uni.showModal);

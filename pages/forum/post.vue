@@ -44,8 +44,8 @@
 				<view class="top">
 					<view class="subTitle">评论</view>
 					<view class="right">
-						<view class="item" :class="{ cur: order === 'asc' }" @tap="changeOrder('asc')">最早</view>
 						<view class="item" :class="{ cur: order === 'desc' }" @tap="changeOrder('desc')">最新</view>
+						<view class="item" :class="{ cur: order === 'asc' }" @tap="changeOrder('asc')">最早</view>
 					</view>
 				</view>
 				<view class="subTitle-line"></view>
@@ -59,11 +59,16 @@
 						<view class="comment">
 							<!-- 回复标题 -->
 							<view class="comment-user" @tap.stop="replyTo(item)">
-								<view class="comment-user-gravatar">
-									<image :src="item.author_avatar" class="gravatarImg"></image>
+								<view class="comment-user-avatar">
+									<image :src="item.author_avatar" class="avatarImg"></image>
 								</view>
-								<view class="comment-user-name">
-									<view class="comment-name">{{ item.author_name }}</view>
+								<view class="comment-meta">
+									<view class="comment-user-meta">
+										<view class="name">{{ item.author_name }}</view>
+										<view class="location">
+											{{item.location ? `${item.location.country_name}${item.location.region_name}网友` : '' }}
+										</view>
+									</view>
 									<view class="comment-date">{{ item.post_date }}</view>
 								</view>
 							</view>
@@ -106,6 +111,7 @@
 
 <script>
 	import { getForumTopicDetail, getForumTopicComment, postForumReply, forumPostLike } from "../../utils/http.js";
+	import { getPlatform } from "@/utils/utils.js";
 
 	let page = 1;
 
@@ -177,7 +183,7 @@
 					placeholder: "评论...",
 					content: ""
 				},
-				order: "asc"
+				order: "desc"
 			};
 		},
 		computed: {
@@ -326,7 +332,8 @@
 				const queryObj = {
 					topic_id: this.id, //评论ID
 					reply_to_id: this.myComment.id, //父评论ID
-					content: this.myComment.content // 评论内容
+					content: this.myComment.content, // 评论内容，
+					platform: getPlatform()
 				};
 
 				try {
@@ -338,7 +345,12 @@
 					uni.hideLoading();
 					uni.showToast({
 						title: res.message,
+						// #ifdef H5 || APP || MP-WEIXIN
+						icon: "error",
+						// #endif
+						// #ifndef H5 || APP || MP-WEIXIN
 						icon: "none",
+						// #endif
 						duration: 2000
 					});
 					this.reset();
@@ -492,30 +504,40 @@
 					align-items: center;
 					font-size: 28rpx;
 					color: #333;
-
+				
 					/* 评论用户头像 */
-					.comment-user-gravatar {
+					.comment-user-avatar {
 						position: relative;
-
-						.gravatarImg {
+				
+						.avatarImg {
 							border-radius: 16rpx;
 							height: 64rpx;
 							width: 64rpx;
 							margin-right: 20rpx;
 						}
 					}
-
+				
 					/* 评论用户昵称 */
-					.comment-user-name {
+					.comment-meta {
 						flex: 1;
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
-
-						.comment-name {
-							color: #118fff;
+				
+						.comment-user-meta {
 							font-weight: 500;
 							flex: 1;
+							line-height: 38rpx;
+				
+							.name {
+								color: #118fff;
+							}
+				
+							.location {
+								color: #959595;
+								font-weight: normal;
+								font-size: 20rpx;
+							}
 						}
 
 						/* 评论日期颜色 */

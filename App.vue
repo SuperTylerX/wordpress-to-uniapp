@@ -14,6 +14,9 @@
 				});
 				this.$store.dispatch("authStore/validateToken", { login_type });
 			}
+			
+			// 获取设备信息
+			this.$store.dispatch("systemStore/GET_SYSTEM_INFO");
 		}
 	};
 </script>
