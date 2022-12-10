@@ -264,13 +264,18 @@
 					if (code !== "200") {
 						uni.showToast({
 							title: message,
-							icon: "error"
+							// #ifdef APP || H5
+							icon: "error",
+							// #endif
+							// #ifndef APP || H5
+							icon: "none",
+							// #endif
 						});
 						if (code === "4001" || code === "4002") {
 							// token过期，重新获取验证码
 							this.refreshGraphicCaptcha();
 							this.graphicCaptchaComputed = "";
-							this.form.emailCaptcha = "";
+							this.newEmail.emailCaptcha = "";
 						}
 						return;
 					}
@@ -333,6 +338,7 @@
 									title: "请在微信小程序或APP中绑定",
 									icon: "none"
 								});
+								return;
 							}
 							console.log("去绑定");
 						}
