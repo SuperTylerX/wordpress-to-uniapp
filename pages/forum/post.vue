@@ -216,7 +216,6 @@
 			async fetchPostDetail() {
 				try {
 					this.post = await getForumTopicDetail(this.id).then(data => data.data);
-					this.fetchPostReply();
 				} catch (e) {
 					console.error(e);
 				}
@@ -371,13 +370,22 @@
 				this.fetchPostReply();
 			}
 		},
-		onLoad({ id }) {
+		async onLoad({ id, mode }) {
 			if (!id) {
 				return;
 			}
 			this.id = Number(id);
 			this.reset();
-			this.fetchPostDetail();
+			await this.fetchPostDetail();
+			await this.fetchPostReply();
+			setTimeout(() => {
+				if (mode === "comment") {
+					uni.pageScrollTo({
+						selector: ".operation",
+						duration: 100
+					});
+				}
+			}, 1000);
 		},
 		async onPullDownRefresh() {
 			this.reset();
@@ -430,6 +438,7 @@
 
 				.date {
 					font-size: 25rpx;
+					color: #959595;
 				}
 			}
 		}
@@ -504,11 +513,11 @@
 					align-items: center;
 					font-size: 28rpx;
 					color: #333;
-				
+
 					/* 评论用户头像 */
 					.comment-user-avatar {
 						position: relative;
-				
+
 						.avatarImg {
 							border-radius: 16rpx;
 							height: 64rpx;
@@ -516,23 +525,23 @@
 							margin-right: 20rpx;
 						}
 					}
-				
+
 					/* 评论用户昵称 */
 					.comment-meta {
 						flex: 1;
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
-				
+
 						.comment-user-meta {
 							font-weight: 500;
 							flex: 1;
 							line-height: 38rpx;
-				
+
 							.name {
 								color: #118fff;
 							}
-				
+
 							.location {
 								color: #959595;
 								font-weight: normal;

@@ -14,25 +14,21 @@ App.mpType = "app";
 import uView from "uview-ui";
 Vue.use(uView);
 
+import { navigateTo } from "@/utils/uniPromisify.js";
+
 Vue.mixin({
 	methods: {
 		// 页面跳转
-		redirect({type, path, url}) {
+		async redirect({ type, path, url }) {
 			switch (type) {
 				case "apppage":
-					uni.navigateTo({
+					await navigateTo({
 						url: path,
-						fail: (e) => {
-							console.log(e);
-						}
 					});
 					break;
 				case "webpage":
-					uni.navigateTo({
+					await navigateTo({
 						url: "/pages/webpage/webpage" + "?url=" + url,
-						fail: (e) => {
-							console.log(e);
-						}
 					});
 					break;
 			}

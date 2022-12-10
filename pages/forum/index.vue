@@ -52,7 +52,8 @@
 				<view class="content">
 					<view class="text">{{ item.excerpt }}</view>
 					<view class="images">
-						<u-album :urls="item.all_img" multipleSize="205rpx" singleSize="400rpx"></u-album>
+						<u-album v-if="item.all_img.length!==0" :urls="item.all_img" multipleSize="205rpx"
+							singleSize="400rpx"></u-album>
 					</view>
 					<view class="buttons">
 						<u-button class="item heart" type="default" @tap.native.stop="likeTopic(item)">
@@ -61,20 +62,21 @@
 							<text
 								:style="{ color: item.is_user_favorite ? '#D54529' : '#636363' }">{{ item.like_count }}</text>
 						</u-button>
-						<u-button class="item chat" type="default">
+						<u-button class="item chat" type="default" @tap.native.stop="readComment(item)">
 							<u-icon name="chat" color="#636363" size="18"></u-icon>
 							<text>{{ item.reply_count }}</text>
 						</u-button>
-						<u-button class="item forward" type="default" @tap.native.stop="forwardTopic(item.id)">
+						<u-button class="item forward" type="default" @tap.native.stop="forwardTopic(item)">
 							<u-icon name="share-square" color="#636363" size="18"></u-icon>
 							<text>分享</text>
 						</u-button>
 					</view>
 				</view>
 			</view>
-			
-			<u-empty v-if="!isLoading && topics.length === 0  && super_stickies.length === 0 && stickies.length === 0" icon="/static/no-data.png" :marginTop="60" text="暂无帖子"></u-empty>
-		
+
+			<u-empty v-if="!isLoading && topics.length === 0  && super_stickies.length === 0 && stickies.length === 0"
+				icon="/static/no-data.png" :marginTop="60" text="暂无帖子"></u-empty>
+
 		</view>
 
 		<view class="skeleton" v-if="isLoading && page == 1">
@@ -93,7 +95,8 @@
 			<u-empty icon="/static/no-network.png" text="网络连接失败"></u-empty>
 		</view>
 
-		<app-footer v-if="!isNetworkError && !(topics.length === 0  && super_stickies.length === 0 && stickies.length === 0)" />
+		<app-footer
+			v-if="!isNetworkError && !(topics.length === 0  && super_stickies.length === 0 && stickies.length === 0)" />
 
 		<!-- 发布按钮 -->
 		<view class="add" v-if="(!isLoading || page !== 1 ) && !isNetworkError && isCommentEnabled">
@@ -122,7 +125,7 @@
 				page: 1
 			};
 		},
-		computed:{
+		computed: {
 			isCommentEnabled() {
 				// #ifdef MP-QQ
 				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
@@ -177,13 +180,18 @@
 					this.isLoading = false;
 				}
 			},
-			goToTopic(item) {
+			async goToTopic(item) {
 				const { id } = item;
-				this.redirect({ type: "apppage", path: "./post?id=" + id });
+				await this.redirect({ type: "apppage", path: "./post?id=" + id });
 				tempTopic = item;
 			},
-			forwardTopic(id) {
-				console.log(id);
+			async readComment(item) {
+				const { id } = item;
+				await this.redirect({ type: "apppage", path: "./post?id=" + id + "&mode=comment" });
+				tempTopic = item;
+			},
+			forwardTopic(item) {
+				console.log(item);
 			},
 			likeTopic(item) {
 				// 判断用户是否登录
@@ -343,6 +351,7 @@
 
 					.date {
 						font-size: 25rpx;
+						color: #959595;
 					}
 				}
 			}

@@ -19,3 +19,4 @@ export const showActionSheet = promisify(uni.showActionSheet);
 export const uploadFile = promisify(uni.uploadFile);
 export const getSystemInfo = promisify(uni.getSystemInfo);
 export const showModal = promisify(uni.showModal);
+export const navigateTo = promisify(uni.navigateTo);
