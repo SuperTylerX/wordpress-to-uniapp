@@ -153,6 +153,9 @@
 				}
 			},
 			async fetchArticles() {
+				if (this.isLoading) {
+					return;
+				}
 				// 首先获取显示类目的ID
 				try {
 					let queryObj = {
