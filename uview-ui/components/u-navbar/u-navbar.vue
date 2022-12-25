@@ -1,70 +1,34 @@
 <template>
 	<view class="u-navbar">
-		<view
-			class="u-navbar__placeholder"
-			v-if="fixed && placeholder"
-			:style="{
+		<view class="u-navbar__placeholder" v-if="fixed && placeholder" :style="{
 				height: $u.addUnit($u.getPx(height) + $u.sys().statusBarHeight,'px'),
-			}"
-		></view>
+			}"></view>
 		<view :class="[fixed && 'u-navbar--fixed']">
-			<u-status-bar
-				v-if="safeAreaInsetTop"
-				:bgColor="bgColor"
-			></u-status-bar>
-			<view
-				class="u-navbar__content"
-				:class="[border && 'u-border-bottom']"
-				:style="{
+			<u-status-bar v-if="safeAreaInsetTop" :bgColor="bgColor"></u-status-bar>
+			<view class="u-navbar__content" :class="[border && 'u-border-bottom']" :style="{
 					height: $u.addUnit(height),
 					backgroundColor: bgColor,
-				}"
-			>
-				<view
-					class="u-navbar__content__left"
-					hover-class="u-navbar__content__left--hover"
-					hover-start-time="150"
-					@tap="leftClick"
-				>
+				}">
+				<view class="u-navbar__content__left" hover-class="u-navbar__content__left--hover"
+					hover-start-time="150" @tap="leftClick">
 					<slot name="left">
-						<u-icon
-							v-if="leftIcon"
-							:name="leftIcon"
-							:size="leftIconSize"
-							:color="leftIconColor"
-						></u-icon>
-						<text
-							v-if="leftText"
-							:style="{
+						<!-- #ifndef MP-BAIDU -->
+						<u-icon v-if="leftIcon" :name="leftIcon" :size="leftIconSize" :color="leftIconColor"></u-icon>
+						<!-- #endif -->
+						<text v-if="leftText" :style="{
 								color: leftIconColor
-							}"
-							class="u-navbar__content__left__text"
-						>{{ leftText }}</text>
+							}" class="u-navbar__content__left__text">{{ leftText }}</text>
 					</slot>
 				</view>
 				<slot name="center">
-					<text
-						class="u-line-1 u-navbar__content__title"
-						:style="[{
+					<text class="u-line-1 u-navbar__content__title" :style="[{
 							width: $u.addUnit(titleWidth),
-						}, $u.addStyle(titleStyle)]"
-					>{{ title }}</text>
+						}, $u.addStyle(titleStyle)]">{{ title }}</text>
 				</slot>
-				<view
-					class="u-navbar__content__right"
-					v-if="$slots.right || rightIcon || rightText"
-					@tap="rightClick"
-				>
+				<view class="u-navbar__content__right" v-if="$slots.right || rightIcon || rightText" @tap="rightClick">
 					<slot name="right">
-						<u-icon
-							v-if="rightIcon"
-							:name="rightIcon"
-							size="20"
-						></u-icon>
-						<text
-							v-if="rightText"
-							class="u-navbar__content__right__text"
-						>{{ rightText }}</text>
+						<u-icon v-if="rightIcon" :name="rightIcon" size="20"></u-icon>
+						<text v-if="rightText" class="u-navbar__content__right__text">{{ rightText }}</text>
 					</slot>
 				</view>
 			</view>
@@ -73,7 +37,7 @@
 </template>
 
 <script>
-	import props from './props.js';
+	import props from "./props.js";
 	/**
 	 * Navbar 自定义导航栏
 	 * @description 此组件一般用于在特殊情况下，需要自定义导航栏的时候用到，一般建议使用uni-app带的导航栏。
@@ -99,28 +63,28 @@
 	 * @example <u-navbar title="剑未配妥，出门已是江湖" left-text="返回" right-text="帮助" @click-left="onClickBack" @click-right="onClickRight"></u-navbar>
 	 */
 	export default {
-		name: 'u-navbar',
+		name: "u-navbar",
 		mixins: [uni.$u.mpMixin, uni.$u.mixin, props],
 		data() {
 			return {
 
-			}
+			};
 		},
 		methods: {
 			// 点击左侧区域
 			leftClick() {
 				// 如果配置了autoBack，自动返回上一页
-				this.$emit('leftClick')
-				if(this.autoBack) {
-					uni.navigateBack()
+				this.$emit("leftClick");
+				if (this.autoBack) {
+					uni.navigateBack();
 				}
 			},
 			// 点击右侧区域
 			rightClick() {
-				this.$emit('rightClick')
+				this.$emit("rightClick");
 			},
 		}
-	}
+	};
 </script>
 
 <style lang="scss" scoped>
@@ -156,7 +120,7 @@
 
 			&__left {
 				left: 0;
-				
+
 				&--hover {
 					opacity: 0.7;
 				}
