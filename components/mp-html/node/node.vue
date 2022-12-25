@@ -292,7 +292,8 @@ myAudio,
             // #ifdef H5
             window.open(href)
             // #endif
-            // #ifdef MP
+            // #ifdef MP-WEIXIN || MP-QQ || MP-TOUTIAO
+			// 百度小程序不显示该文字防止被判诱导打开审核不能通过
             uni.setClipboardData({
               data: href,
               success: () =>
