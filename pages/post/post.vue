@@ -245,18 +245,7 @@
 				}
 			},
 			isCommentEnabled() {
-				// #ifdef MP-QQ
-				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
-				// #endif
-				// #ifdef MP-WEIXIN
-				return this.$store.state.configStore.wf_enable_comment_option == "1";
-				// #endif
-				// #ifdef MP-TOUTIAO
-				return this.$store.state.configStore.uni_enable_toutiao_comment_option;
-				// #endif
-				// #ifndef MP-QQ || MP-WEIXIN || MP-TOUTIAO
-				return this.$store.state.configStore.wf_enable_comment_option == "1";
-				// #endif
+				return this.$store.getters.isCommentEnabled;
 			},
 			abImg() {
 				return this.$store.state.configStore.posterImageUrl;

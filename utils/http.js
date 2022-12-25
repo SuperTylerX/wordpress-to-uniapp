@@ -89,6 +89,9 @@ export function wxUserLogin(queryObj) {
 	// #ifdef MP-TOUTIAO
 	url = API.TOUTIAO_MINIAPP_USER_LOGIN;
 	// #endif
+	// #ifdef MP-BAIDU
+	url = API.BAIDU_MINIAPP_USER_LOGIN;
+	// #endif
 
 	return unip.request({
 		url,

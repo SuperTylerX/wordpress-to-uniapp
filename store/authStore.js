@@ -45,7 +45,14 @@ export default ({
 		// 小程序获取js_code
 		async wxLogin({ commit }) {
 			try {
-				let res = await unip.login();
+				let res;
+				// 注：百度小程序不允许使用swan.login方法，替换为swan.getLoginCode
+				// #ifdef MP-BAIDU
+				res = await unip.getLoginCode();
+				// #endif
+				// #ifndef MP-BAIDU
+				res = await unip.login();
+				// #endif
 				let js_code = res.code;
 				commit("update_js_code", {
 					js_code
@@ -53,7 +60,7 @@ export default ({
 			} catch (e) {
 				console.log(e);
 				uni.showToast({
-					title: "获取js_coded失败"
+					title: "获取js_code失败"
 				});
 			}
 		},
@@ -144,6 +151,7 @@ export default ({
 				uni.removeStorageSync("token");
 			}
 		},
+		// #ifdef APP
 		// APP QQ第三方登录
 		async qqAppLogin({ commit, dispatch, state }, payloads) {
 			try {
@@ -193,8 +201,8 @@ export default ({
 				console.error(e);
 			}
 
-
-
 		}
+		// #endif
+
 	}
 });

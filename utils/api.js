@@ -80,6 +80,8 @@ export const WECHAT_USER_LOGIN = `${PLUGIN_REST_API_URL}/weixin/miniAppLogin`;
 export const QQ_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/miniAppLogin`;
 // 字节跳动小程序用户登录
 export const TOUTIAO_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/bytedance/miniAppLogin`;
+// 百度小程序用户登录
+export const BAIDU_MINIAPP_USER_LOGIN = `${PLUGIN_REST_API_URL}/baidu/miniAppLogin`;
 // QQAPP用户登录
 export const QQ_APP_USER_LOGIN = `${PLUGIN_REST_API_URL}/qq/appLogin`;
 // QQH5用户登录

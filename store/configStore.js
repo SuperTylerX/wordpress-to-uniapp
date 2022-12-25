@@ -26,7 +26,8 @@ export default ({
 			state.wf_enable_comment_option = payloads.wf_enable_comment_option;
 			state.wf_enable_qq_comment_option = payloads.wf_enable_qq_comment_option;
 			state.uni_enable_h5_comment_option = payloads.uni_enable_h5_comment_option;
-			state.uni_enable_toutiao_comment_option = payloads.uni_enable_toutiao_comment_option;
+			state.uni_enable_bytedance_comment_option = payloads.uni_enable_bytedance_comment_option;
+			state.uni_enable_baidu_comment_option = payloads.uni_enable_baidu_comment_option;
 			state.wf_weixin_enterprise_minapp = payloads.wf_weixin_enterprise_minapp;
 			state.wf_qq_enterprise_minapp = payloads.wf_qq_enterprise_minapp;
 			state.posterImageUrl = payloads.posterImageUrl;

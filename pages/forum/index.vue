@@ -127,18 +127,7 @@
 		},
 		computed: {
 			isCommentEnabled() {
-				// #ifdef MP-QQ
-				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
-				// #endif
-				// #ifdef MP-WEIXIN
-				return this.$store.state.configStore.wf_enable_comment_option == "1";
-				// #endif
-				// #ifdef H5
-				return this.$store.state.configStore.uni_enable_h5_comment_option;
-				// #endif
-				// #ifndef MP-QQ || MP-WEIXIN || H5
-				return true;
-				// #endif
+				return this.$store.getters.isCommentEnabled;
 			},
 		},
 		methods: {

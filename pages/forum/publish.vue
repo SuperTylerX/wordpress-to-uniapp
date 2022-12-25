@@ -211,6 +211,10 @@
 </script>
 
 <style lang="scss" scope>
+	page {
+		background-color: #fff;
+	}
+
 	.publish-btn {
 		color: #3c9cff;
 	}

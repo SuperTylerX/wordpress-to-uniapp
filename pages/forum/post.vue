@@ -191,18 +191,7 @@
 				return this.$store.state.authStore.isLogin;
 			},
 			isCommentEnabled() {
-				// #ifdef MP-QQ
-				return this.$store.state.configStore.wf_enable_qq_comment_option == "1";
-				// #endif
-				// #ifdef MP-WEIXIN
-				return this.$store.state.configStore.wf_enable_comment_option == "1";
-				// #endif
-				// #ifdef H5
-				return this.$store.state.configStore.uni_enable_h5_comment_option;
-				// #endif
-				// #ifndef MP-QQ || MP-WEIXIN || H5
-				return true;
-				// #endif
+				return this.$store.getters.isCommentEnabled;
 			},
 			avatarUrl() {
 				if (this.isLogin) {
@@ -390,6 +379,7 @@
 		async onPullDownRefresh() {
 			this.reset();
 			await this.fetchPostDetail();
+			await this.fetchPostReply();
 			uni.stopPullDownRefresh();
 		},
 		onReachBottom() {
@@ -399,6 +389,10 @@
 </script>
 
 <style lang="scss" scope>
+	page {
+		background-color: #fff;
+	}
+
 	.nav-bar {
 		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 	}

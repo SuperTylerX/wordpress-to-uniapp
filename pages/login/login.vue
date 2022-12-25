@@ -51,6 +51,14 @@
 			</view>
 			<!-- #endif -->
 
+			<!-- #ifdef MP-BAIDU -->
+			<button type="default" plain="true" class="thrid-login" open-type="getUserInfo"
+				@getuserinfo="baiduAppLogin">
+				<u-icon class="icon" size="30" name="/static/icon-baidu.png" color="#4BC1E8"></u-icon>
+				<text class="disc">快捷登录</text>
+			</button>
+			<!-- #endif -->
+
 		</view>
 
 		<view class="footer">
@@ -134,6 +142,36 @@
 				});
 			},
 
+			// 百度小程序登录
+			async baiduAppLogin(e) {
+				this.$store.commit("authStore/update_userInfo", {
+					userInfo: {
+						...e.detail.userInfo,
+						nickname: e.detail.userInfo.nickName
+					},
+					login_type: "WECHAT"
+				});
+				await this.$store.dispatch("authStore/wxLogin");
+				// 如果userInfo 获取不到，说明用户拒绝登录授权，那么取消登录
+				if (this.$store.state.authStore.userInfo.nickname === undefined) return;
+				try {
+					uni.showToast({
+						title: "登录中",
+						icon: "loading"
+					});
+					await this.$store.dispatch("authStore/wxUserLoginRequest");
+					// 加入本地存储用于二次登录
+					uni.setStorageSync("userInfo", this.$store.state.authStore.userInfo);
+					uni.setStorageSync("token", this.$store.state.authStore.token);
+					uni.setStorageSync("login_type", "WECHAT");
+
+					uni.hideToast();
+					uni.navigateBack({});
+				} catch (e) {
+					console.error(e);
+				}
+
+			},
 			// 普通用户名密码登录
 			async login(e) {
 				if (this.loginInput.username === "") {
