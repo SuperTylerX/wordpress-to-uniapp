@@ -25,5 +25,7 @@ export const showModal = promisify(uni.showModal);
 export const navigateTo = promisify(uni.navigateTo);
 
 
+// #ifdef MP-BAIDU
 // 百度私有API
 export const getLoginCode = promisify(swan.getLoginCode);
+// #endif
