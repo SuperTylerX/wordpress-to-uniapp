@@ -1,82 +1,103 @@
 <template>
 	<view>
-		<!-- 文章分类 -->
-		<view class="topic-common-list" v-if="isCategoryPage">
-			<view class="topic-list-item">
-				<image :src="cover" class="cover" mode="aspectFill"></image>
-				<view class="topic-item-content">
-					<view class="topic-content-brief">
-						<text>{{ category.description }}</text>
-					</view>
-					<view class="topic-content-num">
-						<text>共有 {{ category.count }} 篇文章</text>
+		<view v-if="isLoading">
+			<view class="topic-common-list">
+				<view class="topic-list-item">
+					<view>
+						<u-skeleton :title="false" :rows="1" loading :rowsWidth="['100%']" rowsHeight="240rpx">
+						</u-skeleton>
 					</view>
 				</view>
 			</view>
-		</view>
+			<!-- 加载图 -->
+			<view class="skeleton">
+				<view class="item" v-for="item in 4" :key="item">
+					<u-skeleton rows="2" title loading :rowsWidth="['90%' , '70%']" rowsHeight="14" avatar
+						avatarSize="80" avatarShape="square">
+					</u-skeleton>
+				</view>
+			</view>
 
-		<!-- 标签列表 -->
-		<view class="topic-common-list" v-if="isTagPage">
-			<view class="topic-list-item">
-				<image :src="cover" class="cover" mode="aspectFill"></image>
-				<view class="topic-item-content">
-					<view class="topic-content-brief">
-						<text>#{{ tag.name }}</text>
-					</view>
-					<view class="topic-content-num">
-						<text>共收录 {{ tag.count }} 篇文章</text>
+		</view>
+		<view v-else>
+			<!-- 文章分类 -->
+			<view class="topic-common-list" v-if="isCategoryPage">
+				<view class="topic-list-item">
+					<image :src="cover" class="cover" mode="aspectFill"></image>
+					<view class="topic-item-content">
+						<view class="topic-content-brief">
+							<text>{{ category.description }}</text>
+						</view>
+						<view class="topic-content-num">
+							<text>共有 {{ category.count }} 篇文章</text>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
 
-		<!-- 搜索 -->
-		<view class="search_box" v-if="isSearchPage">
-			<view class="topic-list-item">
-				<image mode="aspectFill" src="/static/bg-search.jpg" class="cover"></image>
-				<view class="topic-item-content">
-					<view class="topic-content-brief">
-						<text>关于“{{ searchKey }}”的搜索结果</text>
+			<!-- 标签列表 -->
+			<view class="topic-common-list" v-if="isTagPage">
+				<view class="topic-list-item">
+					<image :src="cover" class="cover" mode="aspectFill"></image>
+					<view class="topic-item-content">
+						<view class="topic-content-brief">
+							<text>#{{ tag.name }}</text>
+						</view>
+						<view class="topic-content-num">
+							<text>共收录 {{ tag.count }} 篇文章</text>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
 
-		<!-- 阅读历史 -->
-		<view class="search_box" v-if="isHistoryPage">
-			<view class="topic-list-item">
-				<image mode="aspectFill" src="/static/bg-list.jpg" class="cover"></image>
-				<view class="topic-item-content">
-					<view class="topic-content-brief">
-						<text>阅读历史</text>
+			<!-- 搜索 -->
+			<view class="search_box" v-if="isSearchPage">
+				<view class="topic-list-item">
+					<image mode="aspectFill" src="/static/bg-search.jpg" class="cover"></image>
+					<view class="topic-item-content">
+						<view class="topic-content-brief">
+							<text>关于“{{ searchKey }}”的搜索结果</text>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
 
-		<!-- 收藏文章 -->
-		<view class="search_box" v-if="isLikePage">
-			<view class="topic-list-item">
-				<image mode="aspectFill" src="/static/bg-list.jpg" class="cover"></image>
-				<view class="topic-item-content">
-					<view class="topic-content-brief">
-						<text>点赞文章</text>
+			<!-- 阅读历史 -->
+			<view class="search_box" v-if="isHistoryPage">
+				<view class="topic-list-item">
+					<image mode="aspectFill" src="/static/bg-list.jpg" class="cover"></image>
+					<view class="topic-item-content">
+						<view class="topic-content-brief">
+							<text>阅读历史</text>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
 
-		<!-- 文章列表 -->
-		<view class="" style="padding-top: 20rpx;">
-			<app-list :postsList="postsList"></app-list>
-			<!-- <u-divider half-width="30" height="80"> 空空如也 </u-divider> -->
-			<view class="empty" v-if="postsList.length == 0">
-				<u-empty :text="text" :icon="icon"></u-empty>
+			<!-- 收藏文章 -->
+			<view class="search_box" v-if="isLikePage">
+				<view class="topic-list-item">
+					<image mode="aspectFill" src="/static/bg-list.jpg" class="cover"></image>
+					<view class="topic-item-content">
+						<view class="topic-content-brief">
+							<text>点赞文章</text>
+						</view>
+					</view>
+				</view>
 			</view>
-		</view>
 
-		<!-- 版权 -->
-		<app-footer></app-footer>
+			<!-- 文章列表 -->
+			<view class="" style="padding-top: 20rpx;">
+				<app-list :postsList="postsList"></app-list>
+				<!-- <u-divider half-width="30" height="80"> 空空如也 </u-divider> -->
+				<view class="empty" v-if="postsList.length == 0">
+					<u-empty :text="text" :icon="icon"></u-empty>
+				</view>
+			</view>
+
+			<!-- 版权 -->
+			<app-footer></app-footer>
+		</view>
 	</view>
 </template>
 
@@ -88,6 +109,7 @@
 	export default {
 		data() {
 			return {
+				isLoading: true,
 				isCategoryPage: false,
 				isTagPage: false,
 				isSearchPage: false,
@@ -133,8 +155,9 @@
 				}
 			}
 		},
-		onLoad(options) {
+		async onLoad(options) {
 			page = 1;
+			this.isLoading = true;
 			// 如果是搜索页
 			if (options.search) {
 				uni.setNavigationBarTitle({
@@ -154,14 +177,17 @@
 				this.isHistoryPage = true;
 				const postsList = uni.getStorageSync("history") || [];
 				this.postsList = postsList;
+				this.isLoading = false;
 				return;
 			} else if (options.like) {
 				this.isLikePage = true;
-				this.fetchLikePosts();
+				await this.fetchLikePosts();
+				this.isLoading = false;
 				return;
 			}
 
-			this.fetchPosts();
+			await this.fetchPosts();
+			this.isLoading = false;
 		},
 		async onPullDownRefresh() {
 			if (this.isHistoryPage) {
@@ -264,6 +290,24 @@
 </script>
 
 <style lang="scss">
+	.skeleton {
+		margin: 20rpx 20rpx;
+
+		.item {
+			margin-bottom: 30rpx;
+			padding: 30rpx 30rpx 10rpx;
+			background-color: #ffffff;
+			padding: 30rpx;
+			border-radius: 10rpx;
+			border-bottom: 1rpx solid #eee;
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+	}
+
 	.topic-list-item {
 		position: relative;
 		overflow: hidden;
@@ -273,7 +317,9 @@
 			display: block;
 			width: 100%;
 			height: 240rpx;
-			filter: brightness(88%);
+			filter: brightness(88%) blur(8px);
+			transform: scale(1.2);
+			overflow: hidden;
 		}
 
 		.topic-item-content {
