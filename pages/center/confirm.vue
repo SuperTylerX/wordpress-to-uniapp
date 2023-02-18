@@ -1,13 +1,15 @@
 <template>
 	<view>
-		<view class="monitor_img"></view>
+		<div class="monitor_img">
+			<image src="../../static/monitor.svg"></image>
+		</div>
 
 		<view class="p1">电脑端登录确认</view>
 		<view class="p2">为确保账号安全，请确认是您本人操作</view>
 
 		<view class="btn_wrap">
 			<u-button type="primary" @click="confirmLogin(true)">确认登录电脑端</u-button>
-			<u-button @click="confirmLogin(false)" style="margin-top: 20rpx">取消</u-button>
+			<u-button @click="confirmLogin(false)">取消</u-button>
 		</view>
 	</view>
 </template>
@@ -79,11 +81,15 @@
 
 <style lang="scss" scoped>
 	.monitor_img {
-		width: 300rpx;
-		height: 300rpx;
-		margin: 20rpx auto;
-		background: url('../../static/monitor.svg');
-		background-size: cover;
+		margin: 20rpx 0;
+		display: flex;
+		justify-content: center;
+
+		image {
+			width: 300rpx;
+			height: 300rpx;
+		}
+
 	}
 
 	.p1 {
@@ -102,5 +108,8 @@
 	.btn_wrap {
 		margin-top: 100rpx;
 		padding: 0 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 20rpx;
 	}
 </style>
