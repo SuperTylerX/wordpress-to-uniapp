@@ -1,22 +1,27 @@
 <template>
 	<view>
-		<div class="user-box" @tap="login">
+		<view class="user-box" @tap="login">
 			<view class="u-m-r-40">
-				<div v-if="isLogin">
+				<view v-if="isLogin">
 					<u-avatar :src="userInfo.avatarUrl" size="60"></u-avatar>
-				</div>
-				<div v-else>
+				</view>
+				<view v-else>
 					<u-avatar src="/static/gravatar.png" size="60"></u-avatar>
-				</div>
+				</view>
 			</view>
 			<view class="right">
-				<view class="name" v-if="isLogin">{{userInfo.nickname}}</view>
-				<view class="name " v-else>游客</view>
+				<view>
+					<view class="name" v-if="isLogin">{{userInfo.nickname}}</view>
+					<view class="name " v-else>游客</view>
 
-				<view class="role" v-if="isLogin">{{userInfo.levelName}}</view>
-				<view class="role" v-else>登录</view>
+					<view class="role" v-if="isLogin">{{userInfo.levelName}}</view>
+					<view class="role" v-else>登录</view>
+				</view>
+				<view v-if="isLogin" class="scan" @click.stop="scanQR">
+					<u-icon name="scan" color="#aaaaaa" size="30"></u-icon>
+				</view>
 			</view>
-		</div>
+		</view>
 
 
 		<view class="menus">
@@ -46,6 +51,7 @@
 
 <script>
 	import config from "../../utils/config.js";
+	import * as unip from "../../utils/uniPromisify.js";
 
 	export default {
 		data() {
@@ -130,8 +136,33 @@
 						break;
 				}
 
+			},
+			async scanQR() {
+				try {
+					const { result } = await unip.scanCode();
+					const code = JSON.parse(result);
+					if (!code.token) {
+						throw new Error("无法识别的二维码");
+					}
 
+					const { token } = code;
+					uni.navigateTo({
+						url: "./confirm?token=" + token,
+						fail: (e) => {
+							console.log(e);
+						}
+					});
 
+				} catch (e) {
+					console.error(e);
+					if (e.errMsg == "scanCode:fail cancel") {
+						return;
+					}
+					uni.showToast({
+						icon: "error",
+						title: "二维码未识别"
+					});
+				}
 			}
 		}
 	};
@@ -155,9 +186,11 @@
 		background-color: #fff;
 		display: flex;
 		padding: 30rpx 30rpx 60rpx;
+		gap: 50rpx;
 
 		.right {
-			margin-left: 50rpx;
+			flex: 1;
+			position: relative;
 
 			.name {
 				font-size: 35rpx;
@@ -168,6 +201,12 @@
 				font-size: 30rpx;
 				margin-top: 20rpx;
 				color: #B2B6B9;
+			}
+
+			.scan {
+				position: absolute;
+				top: 30rpx;
+				right: 20rpx;
 			}
 		}
 	}

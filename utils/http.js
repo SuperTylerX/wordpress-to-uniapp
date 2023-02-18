@@ -524,3 +524,37 @@ export function deleteFile({
 		}
 	});
 }
+
+// 获取用户二维码信息
+export const getQRInfo = (token) => {
+	// 获取token
+	const AuthToken = uni.getStorageSync("token");
+	return request({
+		url: API.QR_INFO_URL,
+		method: "POST",
+		data: {
+			token
+		},
+		header: {
+			Authorization: "Bearer " + AuthToken
+		}
+	});
+};
+
+// 确认用户二维码登录
+export const confirmQRLogin = (token, isContinue) => {
+
+	// 获取token
+	const AuthToken = uni.getStorageSync("token");
+	return request({
+		url: API.CONFIRM_QR_LOGIN,
+		method: "POST",
+		data: {
+			token,
+			isContinue
+		},
+		header: {
+			Authorization: "Bearer " + AuthToken
+		}
+	});
+};

@@ -23,6 +23,8 @@ export const uploadFile = promisify(uni.uploadFile);
 export const getSystemInfo = promisify(uni.getSystemInfo);
 export const showModal = promisify(uni.showModal);
 export const navigateTo = promisify(uni.navigateTo);
+export const scanCode = promisify(uni.scanCode);
+export const navigateBack = promisify(uni.navigateBack);
 
 
 // #ifdef MP-BAIDU

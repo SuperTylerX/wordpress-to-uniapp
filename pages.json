@@ -53,6 +53,13 @@
 			}
 		},
 		{
+			"path": "pages/center/confirm",
+			"style": {
+				"navigationBarTitleText": "登录确认",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "",

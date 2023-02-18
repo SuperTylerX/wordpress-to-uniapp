@@ -107,6 +107,11 @@ export const GRAPHIC_CAPTCHA_URL = `${PLUGIN_REST_API_URL}/register/getGraphicCa
 export const EMAIL_CAPTCHA_URL = `${PLUGIN_REST_API_URL}/register/getEmailCaptcha`;
 
 
+/* 登录类API */
+// 扫码获取用户二维码信息
+export const QR_INFO_URL = `${PLUGIN_REST_API_URL}/login/getQRInfo`;
+// 确认是否二维码登录
+export const CONFIRM_QR_LOGIN = `${PLUGIN_REST_API_URL}/login/confirmLogin`;
 
 /* 论坛类API */
 
