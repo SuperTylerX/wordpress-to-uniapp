@@ -1,0 +1,11 @@
+node_modules
+*.md
+*.woff
+*.ttf
+.vscode
+public
+bin
+build
+dist
+node_modules
+/src/uni_modules
