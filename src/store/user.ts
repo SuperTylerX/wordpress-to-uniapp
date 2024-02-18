@@ -1,9 +1,10 @@
-import { ref, reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getUserInfo, login as httpLogin, wxMiniAppLoginHttp } from '@/api/user'
 import type { GetTokenResponse, User } from '@/types/user'
 import type { ResponseObj } from '@/types/http'
 import { DEFAULT_AVATAR_URL } from '@/config'
+import { decodeJwt } from '@/utils'
 
 export const useUserStore = defineStore(
   'user',
@@ -11,12 +12,22 @@ export const useUserStore = defineStore(
     // Token
     const token = ref('')
 
+    const tokenExpire = ref<Date>(new Date())
+
+    // 从token中解析用户信息
+    const decodeUserInfo = () => {
+      const payload = decodeJwt(token.value)
+      // 设置token过期时间
+      tokenExpire.value = new Date(payload.exp * 1000)
+    }
+
     const login = async (username: string, password: string) => {
       const res = await httpLogin(username, password)
       if (res.statusCode === 200) {
         // 密码正确，设置token
         const { token: _token } = res.data as GetTokenResponse
         token.value = _token
+        decodeUserInfo()
       } else {
         throw res.data as ResponseObj
       }
@@ -58,6 +69,7 @@ export const useUserStore = defineStore(
         avatarUrl: DEFAULT_AVATAR_URL
       })
       token.value = res.token
+      decodeUserInfo()
     }
 
     // 重置Store
@@ -66,7 +78,7 @@ export const useUserStore = defineStore(
       Object.assign(userInfo, userInfoModel)
     }
 
-    return { token, login, userInfo, getUserMetaInfo, wxMiniAppLogin, resetStore }
+    return { token, tokenExpire, login, userInfo, getUserMetaInfo, wxMiniAppLogin, resetStore }
   },
   {
     // @ts-expect-error 增加持久化
