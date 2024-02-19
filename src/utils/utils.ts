@@ -14,3 +14,29 @@ export const decodeJwt = (token: string) => {
     exp: number
   }
 }
+
+type RedirectType = 'apppage' | 'webpage'
+export const redirect = <T extends RedirectType>(
+  option: T extends 'apppage'
+    ? {
+        type: 'apppage'
+        path: string
+      }
+    : {
+        type: 'webpage'
+        url: string
+      }
+) => {
+  switch (option.type) {
+    case 'apppage':
+      uni.navigateTo({
+        url: option.path
+      })
+      break
+    case 'webpage':
+      uni.navigateTo({
+        url: '/pages/webpage/webpage' + '?url=' + option.url
+      })
+      break
+  }
+}

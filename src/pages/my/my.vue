@@ -88,6 +88,7 @@ import { scanCode } from '@/utils'
 import { useUserStore } from '@/store/user'
 import { computed } from 'vue'
 import { onLoad, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
+import { useConfigStore } from '@/store/config'
 
 const userStore = useUserStore()
 const userInfo = userStore.userInfo
@@ -178,19 +179,19 @@ onLoad(() => {
   // #endif
 })
 
+const configStore = useConfigStore()
+
 onShareAppMessage(() => {
   return {
     title: `分享「${WEBSITE_NAME}」小程序`,
-    path: 'pages/index/index'
-    // imageUrl: this.$store.state.configStore.shareImageUrl
+    path: 'pages/index/index',
+    imageUrl: configStore.config.shareImageUrl
   }
 })
 
 onShareTimeline(() => {
   return {
-    title: `分享「${WEBSITE_NAME}」小程序`,
-    path: 'pages/index/index'
-    // imageUrl: this.$store.state.configStore.shareImageUrl
+    title: `分享「${WEBSITE_NAME}」小程序`
   }
 })
 </script>

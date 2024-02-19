@@ -61,6 +61,21 @@ export const http = async <T>(options: RequestOptions, extraOptions?: ExtraReque
       })
   })
 
+export const get = <T>(
+  url: string,
+  data?: AnyObject,
+  options?: Omit<RequestOptions, 'url'>,
+  extraOptions?: ExtraRequestOptions
+) =>
+  http<T>(
+    {
+      url,
+      data,
+      method: 'GET',
+      ...options
+    },
+    extraOptions
+  )
 export const postJSON = <T>(
   url: string,
   data?: AnyObject,
