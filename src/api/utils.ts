@@ -43,7 +43,7 @@ export const http = async <T>(options: RequestOptions, extraOptions?: ExtraReque
             resolve(res.data as T)
           } else {
             uni.showToast({
-              title: (res.data as ResponseObj).message,
+              title: (res.data as ResponseObj<AnyObject>).message,
               icon: 'none'
             })
             reject(res)

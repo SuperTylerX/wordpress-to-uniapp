@@ -42,6 +42,9 @@
       "style": {
         "navigationBarTitleText": "登录"
       }
+    },
+    {
+      "path": "pages/post/post"
     }
   ],
   "tabBar": {

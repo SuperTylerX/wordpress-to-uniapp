@@ -1,6 +1,6 @@
-export interface ResponseObj {
+export interface ResponseObj<T> {
   code: number | string
-  data: any // eslint-disable-line
+  data: T
   message: string
 }
 

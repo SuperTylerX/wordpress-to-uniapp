@@ -50,6 +50,9 @@ dependencies:
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
+  mp-html:
+    specifier: ^2.4.3
+    version: 2.4.3
   pinia:
     specifier: ^2.0.33
     version: 2.0.33(typescript@5.3.3)(vue@3.4.19)
@@ -6551,6 +6554,10 @@ packages:
 
   /module-alias@2.2.3:
     resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
+
+  /mp-html@2.4.3:
+    resolution: {integrity: sha512-3Mqzig06Y4M4sUl1onxSOnbRrR+taNeMEgeweaE5g2b/D7cVBuGnr2SwCUgUwmhiEGJ+dsIPj0uFEzFNxp+YNA==}
+    dev: false
 
   /ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}

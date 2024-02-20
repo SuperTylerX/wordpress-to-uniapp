@@ -29,7 +29,7 @@ export const useUserStore = defineStore(
         token.value = _token
         decodeUserInfo()
       } else {
-        throw res.data as ResponseObj
+        throw res.data as ResponseObj<AnyObject>
       }
     }
 

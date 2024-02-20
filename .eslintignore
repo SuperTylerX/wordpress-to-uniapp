@@ -9,3 +9,4 @@ build
 dist
 node_modules
 /src/uni_modules
+/src/components/mp-html

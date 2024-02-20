@@ -4,7 +4,7 @@ import type { GetMiniAppUserToken, GetTokenResponse, miniAppLoginArgs, User } fr
 import type { ResponseObj, ResponseStructure } from '@/types/http'
 
 export const login = (username: string, password: string) =>
-  postJSON<ResponseStructure<GetTokenResponse | ResponseObj>>(
+  postJSON<ResponseStructure<GetTokenResponse | ResponseObj<AnyObject>>>(
     `${JWT_REST_API_URL}/token`,
     {
       username,

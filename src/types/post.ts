@@ -30,7 +30,7 @@ export interface GetPostListParams {
   tax_relation?: 'AND' | 'OR'
   categories?: number
   categories_exclude?: number
-  tags?: number
+  tags?: string
   tags_exclude?: number
   sticky?: boolean
 }
@@ -101,4 +101,14 @@ export interface Meta {
   _bbp_reply_count_hidden: number
   _bbp_forum_subforum_count: number
   footnotes: string
+}
+
+export interface HistoryPostItem {
+  id: number
+  post_medium_image: string
+  title: string
+  date: string
+  total_comments: number
+  like_count: number
+  pageviews: number
 }
