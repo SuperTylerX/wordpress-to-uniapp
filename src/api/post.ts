@@ -16,3 +16,13 @@ export const postLike = (postid: number) =>
 /** 获取我收藏的文章 */
 export const getMyFavoritePosts = () =>
   postJSON<ResponseObj<Post[]>>(`${PLUGIN_REST_API_URL}/post/mylike`)
+
+/** 获取评论热门文章 */
+export const getHotCommentPosts = () =>
+  get<Post[]>(`${PLUGIN_REST_API_URL}/post/getTopCommentPosts`)
+
+/** 获取浏览热门文章 */
+export const getHotViewPosts = () => get<Post[]>(`${PLUGIN_REST_API_URL}/post/getTopPageViewPosts`)
+
+/** 获取点赞热门 */
+export const getHotLikePosts = () => get<Post[]>(`${PLUGIN_REST_API_URL}/post/getTopLikePosts`)
