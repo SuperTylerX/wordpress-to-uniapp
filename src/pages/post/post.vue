@@ -197,9 +197,9 @@ import { useUserStore } from '@/store/user'
 import { DEFAULT_AVATAR_URL } from '@/config'
 import { useConfigStore } from '@/store/config'
 import { onLoad, onReachBottom, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
-import { getPostDetail, getPostList, postLike } from '@/api/post'
+import { getPost, getPostList, postLike } from '@/api/post'
 import type { HistoryPostItem, Post } from '@/types/post'
-import { getPostTag } from '@/api/tag'
+import { getTagList } from '@/api/tag'
 import { getCommentList, postMyComment } from '@/api/comment'
 import { getPlatform, redirect } from '@/utils'
 import type { Tag } from '@/types/tag'
@@ -330,7 +330,7 @@ const relatedPost = ref<Post[]>([])
 
 const getPostDetailHandler = async () => {
   try {
-    const res = await getPostDetail(postId.value)
+    const res = await getPost(postId.value)
     Object.assign(article, res)
 
     // 添加到阅读历史
@@ -341,7 +341,7 @@ const getPostDetailHandler = async () => {
     history.unshift({
       id: postId.value,
       post_medium_image: article.post_medium_image,
-      title: article.title.rendered,
+      title: article.title,
       date: article.date,
       total_comments: article.total_comments,
       like_count: article.like_count,
@@ -359,7 +359,7 @@ const getPostDetailHandler = async () => {
 
 const getPostTagHandler = async () => {
   try {
-    tags.value = await getPostTag({ post: postId.value })
+    tags.value = await getTagList({ post: postId.value })
   } catch (e) {
     console.error(e)
   }

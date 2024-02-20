@@ -106,7 +106,7 @@ export interface Meta {
 export interface HistoryPostItem {
   id: number
   post_medium_image: string
-  title: string
+  title: GUID
   date: string
   total_comments: number
   like_count: number

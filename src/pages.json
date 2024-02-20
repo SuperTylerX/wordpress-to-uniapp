@@ -45,6 +45,9 @@
     },
     {
       "path": "pages/post/post"
+    },
+    {
+      "path": "pages/list/list"
     }
   ],
   "tabBar": {
