@@ -47,6 +47,9 @@
       "path": "pages/post/post"
     },
     {
+      "path": "pages/page/page"
+    },
+    {
       "path": "pages/list/list"
     }
   ],
