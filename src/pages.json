@@ -57,6 +57,12 @@
       "style": {
         "navigationBarTitleText": "排行"
       }
+    },
+    {
+      "path": "pages/webpage/webpage",
+      "style": {
+        "navigationBarTitleText": ""
+      }
     }
   ],
   "tabBar": {
