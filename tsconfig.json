@@ -14,5 +14,5 @@
     "nativeTags": ["block", "component", "template", "slot"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["src/components/mp-html/**/*"]
+  "exclude": ["src/components/mp-html/**/*", "src/components/image-crop/image-crop.vue"]
 }

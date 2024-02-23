@@ -16,5 +16,11 @@ export const login = (username: string, password: string) =>
 
 export const getUserInfo = () => postJSON<User>(`${WORDPRESS_REST_API_URL}/users/me`)
 
+export const updateUserInfo = (userInfo: Partial<User>) =>
+  postJSON<User>(`${WORDPRESS_REST_API_URL}/users/me`, userInfo)
+
 export const wxMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/weixin/miniAppLogin`, loginOption)
+
+export const qqMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/miniAppLogin`, loginOption)

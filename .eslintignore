@@ -10,3 +10,4 @@ dist
 node_modules
 /src/uni_modules
 /src/components/mp-html
+/src/components/image-crop/image-crop.vue

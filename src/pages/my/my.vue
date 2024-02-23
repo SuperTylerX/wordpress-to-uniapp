@@ -59,8 +59,8 @@
           size="large"
           :clickable="true"
           icon="edit-pen-fill"
-          title="个人中心"
-          @tap="goTo('center')"
+          title="我的资料"
+          @tap="goTo('profile')"
         ></u-cell>
       </u-cell-group>
     </view>
@@ -96,7 +96,7 @@ const userInfo = userStore.userInfo
 const isLogin = computed(() => !!userStore.token)
 const login = () => {
   uni.navigateTo({
-    url: isLogin.value ? './profile' : '../login/login'
+    url: isLogin.value ? '/pages/my/center' : '/pages/login/login'
   })
 }
 const logout = () => {
@@ -106,7 +106,7 @@ const logout = () => {
   userStore.resetStore()
 }
 
-type redirectPageType = 'like' | 'comment' | 'center' | 'history'
+type redirectPageType = 'like' | 'comment' | 'profile' | 'history'
 const goTo = (option: redirectPageType) => {
   if (option === 'history') {
     uni.navigateTo({
@@ -133,9 +133,9 @@ const goTo = (option: redirectPageType) => {
         url: '/pages/comment/comment'
       })
       break
-    case 'center':
+    case 'profile':
       uni.navigateTo({
-        url: '/pages/user/profile'
+        url: '/pages/my/profile'
       })
       break
   }
@@ -150,7 +150,7 @@ const scanQR = async () => {
 
     const { token } = code
     uni.navigateTo({
-      url: './confirm?token=' + token
+      url: '/pages/my/confirm?token=' + token
     })
   } catch (e) {
     console.error(e)

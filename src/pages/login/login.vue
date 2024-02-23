@@ -1,7 +1,26 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
-import { login as uniLogin } from '@/utils/promisify'
+
+interface GetUserInfo {
+  type: string
+  timeStamp: number
+  detail: Detail
+}
+
+interface Detail {
+  errMsg: string
+  rawData: string
+  userInfo: UserInfo
+  signature: string
+  encryptedData: string
+  iv: string
+}
+
+interface UserInfo {
+  avatarUrl: string
+  nickName: string
+}
 
 const loginInput = reactive({
   username: '',
@@ -62,7 +81,7 @@ const wxMiniAppLoginHandler = async () => {
       mask: true
     })
 
-    const res = await uniLogin({})
+    const res = await uni.login()
 
     await userStore.wxMiniAppLogin(res.code)
 
@@ -82,8 +101,36 @@ const wxMiniAppLoginHandler = async () => {
   }
 }
 
-const qqLoginHandler = () => {
-  console.error('qqlogin')
+const qqMinAppLoginHandler = async (res: GetUserInfo) => {
+  const { avatarUrl, nickName } = res.detail.userInfo
+  try {
+    uni.showLoading({
+      title: '登录中',
+      mask: true
+    })
+
+    const res = await uni.login()
+
+    await userStore.qqMiniAppLogin(res.code, nickName, avatarUrl)
+
+    // 验证通过，获取用户信息
+    await userStore.getUserMetaInfo()
+
+    // 登录成功，返回上一页
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success'
+    })
+
+    uni.hideLoading()
+    uni.navigateBack()
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+const qqAppLoginHandler = async () => {
+  console.error('qqAppLogin')
 }
 
 const bdMiniAppLoginHandler = () => {
@@ -144,28 +191,35 @@ const forgetPassOrRegister = (type: number) => {
       </form>
 
       <!-- #ifdef MP-WEIXIN-->
-      <view class="thrid-login" @tap="wxMiniAppLoginHandler">
+      <view class="third-login" @tap="wxMiniAppLoginHandler">
         <u-icon class="icon" size="60" name="weixin-fill" color="#62b900"></u-icon>
         <text class="disc">微信登录</text>
       </view>
       <!-- #endif -->
 
-      <!-- #ifdef MP-QQ || H5 || APP-PLUS -->
-      <view class="thrid-login" @tap="qqLoginHandler">
+      <!-- #ifdef MP-QQ -->
+      <button class="third-login" open-type="getUserInfo" @getuserinfo="qqMinAppLoginHandler">
+        <u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
+        <text class="disc">QQ登录</text>
+      </button>
+      <!-- #endif -->
+
+      <!-- #ifdef APP-PLUS -->
+      <view class="third-login" @tap="qqAppLoginHandler">
         <u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
         <text class="disc">QQ登录</text>
       </view>
       <!-- #endif -->
 
       <!-- #ifdef MP-TOUTIAO -->
-      <view type="default" plain="true" class="thrid-login" @tap="wxMiniAppLoginHandler">
+      <view type="default" plain="true" class="third-login" @tap="wxMiniAppLoginHandler">
         <u-icon class="icon" size="30" name="/static/icon-toutiao.png" color="#4BC1E8"></u-icon>
         <text class="disc">快捷登录</text>
       </view>
       <!-- #endif -->
 
       <!-- #ifdef MP-BAIDU -->
-      <view type="default" plain="true" class="thrid-login" @tap="bdMiniAppLoginHandler">
+      <view type="default" plain="true" class="third-login" @tap="bdMiniAppLoginHandler">
         <u-icon class="icon" size="30" name="/static/icon-baidu.png" color="#4BC1E8"></u-icon>
         <text class="disc">快捷登录</text>
       </view>
@@ -243,7 +297,7 @@ page {
     background-color: #007aff;
   }
 
-  .thrid-login {
+  .third-login {
     margin-top: 80rpx;
     display: flex;
     justify-content: center;
@@ -263,7 +317,7 @@ page {
     }
   }
 
-  button.thrid-login {
+  button.third-login {
     border: transparent;
   }
 

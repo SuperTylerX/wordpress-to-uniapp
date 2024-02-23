@@ -21,8 +21,15 @@ export interface User {
   roles: string[]
   registered_date: string
   avatar: string
-  social_connect: boolean
+  social_connect: SocialConnect | false
   role: string
+}
+
+export interface SocialConnect {
+  qq: string
+  wechat: string
+  baidu: string
+  bytedance: string
 }
 
 export interface miniAppLoginArgs {

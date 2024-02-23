@@ -38,6 +38,12 @@
       }
     },
     {
+      "path": "pages/my/profile",
+      "style": {
+        "navigationBarTitleText": "个人资料"
+      }
+    },
+    {
       "path": "pages/login/login",
       "style": {
         "navigationBarTitleText": "登录"

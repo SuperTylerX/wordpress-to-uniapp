@@ -47,6 +47,9 @@
       "splashscreen": {
         "useOriginalMsgbox": false
       }
+    },
+    "uniStatistics": {
+      "enable": true
     }
   },
   /* 快应用特有相关 */
@@ -58,21 +61,73 @@
       "urlCheck": false,
       "minified": true
     },
-    "usingComponents": true
+    "usingComponents": true,
+    "uniStatistics": {
+      "enable": true
+    }
   },
   "mp-alipay": {
-    "usingComponents": true
+    "usingComponents": true,
+    "uniStatistics": {
+      "enable": true
+    }
   },
   "mp-baidu": {
-    "usingComponents": true
+    "usingComponents": true,
+    "uniStatistics": {
+      "enable": true
+    }
   },
   "mp-toutiao": {
-    "usingComponents": true
+    "usingComponents": true,
+    "uniStatistics": {
+      "enable": true
+    }
   },
   "uniStatistics": {
-    "enable": false
+    "enable": true,
+    "version": "1"
   },
   "vueVersion": "3",
   "locale": "auto",
-  "fallbackLocale": "zh-Hans"
+  "fallbackLocale": "zh-Hans",
+  "mp-qq": {
+    "appid": "1112052934",
+    "setting": {
+      "urlCheck": false
+    },
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "h5": {
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "mp-jd": {
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "mp-kuaishou": {
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "mp-lark": {
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "quickapp-webview-huawei": {
+    "uniStatistics": {
+      "enable": true
+    }
+  },
+  "quickapp-webview-union": {
+    "uniStatistics": {
+      "enable": true
+    }
+  }
 }

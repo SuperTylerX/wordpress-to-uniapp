@@ -62,3 +62,23 @@ export const DefaultPost: Post = {
     footnotes: ''
   }
 }
+
+export enum Platform {
+  APP = 'APP',
+  H5 = 'H5',
+  MP_WEIXIN = 'MP-WEIXIN',
+  MP_QQ = 'MP-QQ',
+  MP_TOUTIAO = 'MP-TOUTIAO',
+  MP_BAIDU = 'MP-BAIDU',
+  MP_ALIPAY = 'MP-ALIPAY'
+}
+
+export const PlatformLabel = {
+  [Platform.APP]: 'APP',
+  [Platform.H5]: 'H5',
+  [Platform.MP_WEIXIN]: '微信',
+  [Platform.MP_QQ]: 'QQ',
+  [Platform.MP_TOUTIAO]: '头条',
+  [Platform.MP_ALIPAY]: '支付宝',
+  [Platform.MP_BAIDU]: '百度'
+}

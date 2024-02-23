@@ -1,10 +1,10 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getUserInfo, login as httpLogin, wxMiniAppLoginHttp } from '@/api/user'
+import { getUserInfo, login as httpLogin, qqMiniAppLoginHttp, wxMiniAppLoginHttp } from '@/api/user'
 import type { GetTokenResponse, User } from '@/types/user'
 import type { ResponseObj } from '@/types/http'
 import { DEFAULT_AVATAR_URL } from '@/config'
-import { decodeJwt } from '@/utils'
+// import { decodeJwt } from '@/utils'
 
 export const useUserStore = defineStore(
   'user',
@@ -15,11 +15,11 @@ export const useUserStore = defineStore(
     const tokenExpire = ref<Date>(new Date())
 
     // 从token中解析用户信息
-    const decodeUserInfo = () => {
-      const payload = decodeJwt(token.value)
-      // 设置token过期时间
-      tokenExpire.value = new Date(payload.exp * 1000)
-    }
+    // const decodeUserInfo = () => {
+    //   const payload = decodeJwt(token.value)
+    //   // 设置token过期时间
+    //   tokenExpire.value = new Date(payload.exp * 1000)
+    // }
 
     const login = async (username: string, password: string) => {
       const res = await httpLogin(username, password)
@@ -27,13 +27,13 @@ export const useUserStore = defineStore(
         // 密码正确，设置token
         const { token: _token } = res.data as GetTokenResponse
         token.value = _token
-        decodeUserInfo()
+        // decodeUserInfo()
       } else {
         throw res.data as ResponseObj<AnyObject>
       }
     }
 
-    const userInfoModel = {
+    const userInfoModel: User = {
       id: 0,
       username: '',
       name: '',
@@ -69,7 +69,18 @@ export const useUserStore = defineStore(
         avatarUrl: DEFAULT_AVATAR_URL
       })
       token.value = res.token
-      decodeUserInfo()
+      // decodeUserInfo()
+    }
+
+    // QQ小程序登录
+    const qqMiniAppLogin = async (js_code: string, nickName: string, avatarUrl: string) => {
+      const res = await qqMiniAppLoginHttp({
+        js_code,
+        nickname: nickName,
+        avatarUrl: avatarUrl
+      })
+      token.value = res.token
+      // decodeUserInfo()
     }
 
     // 重置Store
@@ -78,7 +89,16 @@ export const useUserStore = defineStore(
       Object.assign(userInfo, userInfoModel)
     }
 
-    return { token, tokenExpire, login, userInfo, getUserMetaInfo, wxMiniAppLogin, resetStore }
+    return {
+      token,
+      tokenExpire,
+      login,
+      userInfo,
+      getUserMetaInfo,
+      wxMiniAppLogin,
+      qqMiniAppLogin,
+      resetStore
+    }
   },
   {
     // @ts-expect-error 增加持久化
