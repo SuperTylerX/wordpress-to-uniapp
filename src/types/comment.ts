@@ -28,3 +28,20 @@ export interface Location {
   region_name: string
   city_name: string
 }
+
+export interface CommentListItem {
+  post: number
+  id: number
+  post_title: string
+  comment_content: string
+  date: string
+  author_name: string
+  author_avatar: string
+}
+
+export interface GetCommentListByUserIdParams {
+  userId: number
+  limit: number
+  page: number
+  order: 'asc' | 'desc'
+}

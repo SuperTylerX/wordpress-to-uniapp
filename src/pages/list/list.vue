@@ -297,7 +297,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .skeleton {
   margin: 20rpx 20rpx;
 

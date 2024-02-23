@@ -130,7 +130,7 @@ const goTo = (option: redirectPageType) => {
       break
     case 'comment':
       uni.navigateTo({
-        url: '/pages/comment/comment'
+        url: '/pages/my/comment'
       })
       break
     case 'profile':
@@ -196,11 +196,13 @@ onShareTimeline(() => {
 })
 </script>
 
-<style lang="scss">
+<style>
 page {
   background-color: #f4f7f6;
 }
+</style>
 
+<style scoped lang="scss">
 .camera {
   width: 54px;
   height: 44px;

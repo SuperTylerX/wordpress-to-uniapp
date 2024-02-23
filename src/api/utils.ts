@@ -92,3 +92,20 @@ export const postJSON = <T>(
     },
     extraOptions
   )
+
+export const deleteJSON = <T>(
+  url: string,
+  data?: AnyObject,
+  options?: Omit<RequestOptions, 'url'>,
+  extraOptions?: ExtraRequestOptions
+) =>
+  http<T>(
+    {
+      url,
+      data,
+      method: 'DELETE',
+      dataType: 'json',
+      ...options
+    },
+    extraOptions
+  )

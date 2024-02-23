@@ -69,6 +69,13 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+      "path": "pages/my/comment",
+      "style": {
+        "navigationBarTitleText": "我的评论",
+        "enablePullDownRefresh": true
+      }
     }
   ],
   "tabBar": {
