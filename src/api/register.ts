@@ -77,3 +77,24 @@ export const userRegister = ({
     emailCaptcha,
     token
   })
+
+export const userResetPassword = ({
+  email,
+  password,
+  graphicCaptcha,
+  emailCaptcha,
+  token
+}: {
+  email: string
+  password: string
+  graphicCaptcha: string
+  emailCaptcha: string
+  token: string
+}) =>
+  postJSON<ResponseObj<null>>(`${PLUGIN_REST_API_URL}/register/reset`, {
+    email,
+    password,
+    graphicCaptcha,
+    emailCaptcha,
+    token
+  })

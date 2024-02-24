@@ -50,6 +50,12 @@
       }
     },
     {
+      "path": "pages/login/register",
+      "style": {
+        "navigationBarTitleText": "用户注册"
+      }
+    },
+    {
       "path": "pages/post/post"
     },
     {
@@ -75,6 +81,19 @@
       "style": {
         "navigationBarTitleText": "我的评论",
         "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/login/reset",
+      "style": {
+        "navigationBarTitleText": "重置密码",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/policy/policy",
+      "style": {
+        "navigationBarTitleText": ""
       }
     }
   ],

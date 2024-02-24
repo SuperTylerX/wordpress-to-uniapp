@@ -137,8 +137,19 @@ const bdMiniAppLoginHandler = () => {
   console.error('baiduAppLogin')
 }
 
-const forgetPassOrRegister = (type: number) => {
-  console.error('forgetPassOrRegister', type)
+const forgetPassOrRegister = (type: 1 | 2) => {
+  switch (type) {
+    case 1:
+      uni.navigateTo({
+        url: '/pages/login/register'
+      })
+      break
+    case 2:
+      uni.navigateTo({
+        url: '/pages/login/reset'
+      })
+      break
+  }
 }
 </script>
 
@@ -179,11 +190,11 @@ const forgetPassOrRegister = (type: number) => {
 
         <view class="more-options">
           <view class="forgot-pass"
-            ><text class="color" @tap="forgetPassOrRegister(1)">忘记密码</text></view
+            ><text class="color" @tap="forgetPassOrRegister(2)">忘记密码</text></view
           >
           <view class="register">
             没有账号？
-            <text class="color" @tap="forgetPassOrRegister(2)">注册</text>
+            <text class="color" @tap="forgetPassOrRegister(1)">注册</text>
           </view>
         </view>
 
