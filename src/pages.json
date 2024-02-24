@@ -95,6 +95,13 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+      "path": "pages/login/confirm",
+      "style": {
+        "navigationBarTitleText": "确认登录",
+        "enablePullDownRefresh": true
+      }
     }
   ],
   "tabBar": {

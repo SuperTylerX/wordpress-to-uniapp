@@ -24,3 +24,14 @@ export const wxMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
 
 export const qqMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/miniAppLogin`, loginOption)
+
+export const getQRInfo = (token: string) =>
+  postJSON<{ expire_time: number; status: number }>(`${PLUGIN_REST_API_URL}/login/getQRInfo`, {
+    token
+  })
+
+export const confirmQRLogin = (token: string, isContinue: boolean) =>
+  postJSON<null>(`${PLUGIN_REST_API_URL}/login/confirmLogin`, {
+    token,
+    isContinue
+  })

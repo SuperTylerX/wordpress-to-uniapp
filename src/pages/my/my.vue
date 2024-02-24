@@ -17,9 +17,12 @@
           <view v-if="isLogin" class="role">{{ userInfo.role }}</view>
           <view v-else class="role">登录</view>
         </view>
+
+        <!-- #ifndef H5 -->
         <view v-if="isLogin" class="scan" @click.stop="scanQR">
           <u-icon name="scan" color="#aaaaaa" size="30"></u-icon>
         </view>
+        <!-- #endif -->
       </view>
     </view>
 
@@ -150,7 +153,7 @@ const scanQR = async () => {
 
     const { token } = code
     uni.navigateTo({
-      url: '/pages/my/confirm?token=' + token
+      url: '/pages/login/confirm?token=' + token
     })
   } catch (e) {
     console.error(e)
