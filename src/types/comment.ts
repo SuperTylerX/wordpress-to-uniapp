@@ -13,12 +13,12 @@ export interface PostMyCommentParams {
 }
 
 export interface Comment {
-  id: string
+  id: number
   author_name: string
-  author_url: string
+  author_avatar: string
   date: string
   content: string
-  userid: string
+  userid: number
   location?: Location
   child: Comment[]
 }

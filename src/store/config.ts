@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { getHomeConfig } from '@/api/setting'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import type { Config } from '@/types/config'
+import { getPlatform } from '@/utils'
 
 export const useConfigStore = defineStore(
   'config',
@@ -41,9 +42,28 @@ export const useConfigStore = defineStore(
       return res
     }
 
+    const isCommentEnabled = computed(() => {
+      const platform = getPlatform()
+      switch (platform) {
+        case 'MP-WEIXIN':
+          return config.wf_enable_comment_option === '1'
+        case 'MP-QQ':
+          return config.wf_enable_qq_comment_option === '1'
+        case 'MP-BAIDU':
+          return config.uni_enable_baidu_comment_option
+        case 'MP-TOUTIAO':
+          return config.uni_enable_bytedance_comment_option
+        case 'H5':
+          return config.uni_enable_h5_comment_option
+        default:
+          return true
+      }
+    })
+
     return {
       config,
-      getConfig
+      getConfig,
+      isCommentEnabled
     }
   },
   {

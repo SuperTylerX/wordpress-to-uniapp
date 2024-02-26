@@ -109,7 +109,7 @@
               <!-- 回复标题 -->
               <view class="comment-user" @tap.stop="replyTo(item)">
                 <view class="comment-user-avatar">
-                  <image :src="item.author_url" class="avatarImg"></image>
+                  <image :src="item.author_avatar" class="avatarImg"></image>
                 </view>
                 <view class="comment-meta">
                   <view class="comment-user-meta">

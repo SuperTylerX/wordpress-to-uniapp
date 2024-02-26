@@ -10,10 +10,7 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页"
-      }
+      "path": "pages/index/index"
     },
     {
       "path": "pages/category/category",
@@ -24,7 +21,17 @@
     {
       "path": "pages/forum/index",
       "style": {
-        "navigationBarTitleText": "论坛"
+        "navigationBarTitleText": "圈子",
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom", // 隐藏系统导航栏
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "app-plus": {
+          "pullToRefresh": {
+            "support": true,
+            "color": "#118fff",
+            "style": "circle"
+          }
+        }
       }
     },
     {
@@ -102,6 +109,32 @@
         "navigationBarTitleText": "确认登录",
         "enablePullDownRefresh": true
       }
+    },
+    {
+      "path": "pages/forum/post",
+      "style": {
+        "navigationBarTitleText": "动态",
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom", // 隐藏系统导航栏
+        "app-plus": {
+          "pullToRefresh": {
+            "support": true,
+            "color": "#118fff",
+            "style": "circle"
+          },
+          "softinputMode": "adjustResize"
+        }
+      }
+    },
+    {
+      "path": "pages/forum/publish",
+      "style": {
+        "navigationBarTitleText": "发布话题",
+        "navigationStyle": "custom", // 隐藏系统导航栏
+        "app-plus": {
+          "softinputMode": "adjustResize"
+        }
+      }
     }
   ],
   "tabBar": {
@@ -138,7 +171,7 @@
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "前端茶会",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   }
