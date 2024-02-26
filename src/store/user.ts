@@ -1,6 +1,12 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getUserInfo, login as httpLogin, qqMiniAppLoginHttp, wxMiniAppLoginHttp } from '@/api/user'
+import {
+  getUserInfo,
+  login as httpLogin,
+  qqAppLoginHttp,
+  qqMiniAppLoginHttp,
+  wxMiniAppLoginHttp
+} from '@/api/user'
 import type { GetTokenResponse, User } from '@/types/user'
 import type { ResponseObj } from '@/types/http'
 import { DEFAULT_AVATAR_URL } from '@/config'
@@ -83,6 +89,16 @@ export const useUserStore = defineStore(
       // decodeUserInfo()
     }
 
+    // QQ App登录
+    const qqAppLogin = async (access_token: string, nickName: string, avatarUrl: string) => {
+      const res = await qqAppLoginHttp({
+        access_token,
+        nickname: nickName,
+        avatarUrl
+      })
+      token.value = res.token
+    }
+
     // 重置Store
     const resetStore = () => {
       token.value = ''
@@ -97,6 +113,7 @@ export const useUserStore = defineStore(
       getUserMetaInfo,
       wxMiniAppLogin,
       qqMiniAppLogin,
+      qqAppLogin,
       resetStore
     }
   },

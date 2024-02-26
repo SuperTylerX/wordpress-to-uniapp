@@ -130,7 +130,34 @@ const qqMinAppLoginHandler = async (res: GetUserInfo) => {
 }
 
 const qqAppLoginHandler = async () => {
-  console.error('qqAppLogin')
+  try {
+    const res1 = await uni.login({
+      provider: 'qq'
+    })
+    const res2 = await uni.getUserInfo({
+      provider: 'qq'
+    })
+
+    const access_token = (res1.authResult as unknown as AnyObject).access_token
+    const { avatarUrl, nickName } = res2.userInfo
+
+    const userStore = useUserStore()
+    await userStore.qqAppLogin(access_token, nickName, avatarUrl)
+
+    // 验证通过，获取用户信息
+    await userStore.getUserMetaInfo()
+
+    // 登录成功，返回上一页
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success'
+    })
+
+    uni.hideLoading()
+    uni.navigateBack()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const bdMiniAppLoginHandler = () => {

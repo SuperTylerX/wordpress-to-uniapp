@@ -1,6 +1,12 @@
 import { postJSON } from '@/api/utils'
 import { JWT_REST_API_URL, PLUGIN_REST_API_URL, WORDPRESS_REST_API_URL } from '@/config'
-import type { GetMiniAppUserToken, GetTokenResponse, miniAppLoginArgs, User } from '@/types/user'
+import type {
+  GetMiniAppUserToken,
+  GetTokenResponse,
+  miniAppLoginArgs,
+  qqAppLoginArgs,
+  User
+} from '@/types/user'
 import type { ResponseObj, ResponseStructure } from '@/types/http'
 
 export const login = (username: string, password: string) =>
@@ -23,7 +29,10 @@ export const wxMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/weixin/miniAppLogin`, loginOption)
 
 export const qqMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
-  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/miniAppLogin`, loginOption)
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/appLogin`, loginOption)
+
+export const qqAppLoginHttp = (loginOption: qqAppLoginArgs) =>
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/appLogin`, loginOption)
 
 export const getQRInfo = (token: string) =>
   postJSON<{ expire_time: number; status: number }>(`${PLUGIN_REST_API_URL}/login/getQRInfo`, {

@@ -34,8 +34,14 @@ export interface SocialConnect {
 
 export interface miniAppLoginArgs {
   avatarUrl: string
-  js_code: string
   nickname: string
+  js_code: string
+}
+
+export interface qqAppLoginArgs {
+  avatarUrl: string
+  nickname: string
+  access_token: string
 }
 
 export interface GetMiniAppUserToken {
