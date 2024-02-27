@@ -5,6 +5,7 @@ import type {
   GetTokenResponse,
   miniAppLoginArgs,
   qqAppLoginArgs,
+  qqWebLoginArgs,
   User
 } from '@/types/user'
 import type { ResponseObj, ResponseStructure } from '@/types/http'
@@ -33,6 +34,9 @@ export const qqMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
 
 export const qqAppLoginHttp = (loginOption: qqAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/appLogin`, loginOption)
+
+export const qqWebLoginHttp = (loginOption: qqWebLoginArgs) =>
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/h5Login`, loginOption)
 
 export const getQRInfo = (token: string) =>
   postJSON<{ expire_time: number; status: number }>(`${PLUGIN_REST_API_URL}/login/getQRInfo`, {

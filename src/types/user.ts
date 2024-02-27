@@ -44,6 +44,10 @@ export interface qqAppLoginArgs {
   access_token: string
 }
 
+export interface qqWebLoginArgs {
+  access_token: string
+}
+
 export interface GetMiniAppUserToken {
   token: string
   openid: string

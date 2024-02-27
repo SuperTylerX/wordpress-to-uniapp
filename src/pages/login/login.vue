@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
+import { onLoad } from '@dcloudio/uni-app'
+import { useConfigStore } from '@/store/config'
 
 interface GetUserInfo {
   type: string
@@ -30,6 +32,7 @@ const loginInput = reactive({
 const isPassFocus = ref(false)
 
 const userStore = useUserStore()
+const configStore = useConfigStore()
 
 const loginHandler = async () => {
   if (loginInput.username === '') {
@@ -57,13 +60,14 @@ const loginHandler = async () => {
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
 
+    uni.hideLoading()
+
     // 登录成功，返回上一页
     uni.showToast({
       title: '登录成功',
       icon: 'success'
     })
 
-    uni.hideLoading()
     uni.navigateBack()
   } catch (e) {
     uni.hideLoading()
@@ -88,13 +92,14 @@ const wxMiniAppLoginHandler = async () => {
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
 
+    uni.hideLoading()
+
     // 登录成功，返回上一页
     uni.showToast({
       title: '登录成功',
       icon: 'success'
     })
 
-    uni.hideLoading()
     uni.navigateBack()
   } catch (e) {
     console.error(e)
@@ -116,13 +121,14 @@ const qqMinAppLoginHandler = async (res: GetUserInfo) => {
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
 
+    uni.hideLoading()
+
     // 登录成功，返回上一页
     uni.showToast({
       title: '登录成功',
       icon: 'success'
     })
 
-    uni.hideLoading()
     uni.navigateBack()
   } catch (e) {
     console.error(e)
@@ -141,11 +147,17 @@ const qqAppLoginHandler = async () => {
     const access_token = (res1.authResult as unknown as AnyObject).access_token
     const { avatarUrl, nickName } = res2.userInfo
 
-    const userStore = useUserStore()
+    uni.showLoading({
+      title: '登录中',
+      mask: true
+    })
+
     await userStore.qqAppLogin(access_token, nickName, avatarUrl)
 
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
+
+    uni.hideLoading()
 
     // 登录成功，返回上一页
     uni.showToast({
@@ -153,12 +165,63 @@ const qqAppLoginHandler = async () => {
       icon: 'success'
     })
 
-    uni.hideLoading()
     uni.navigateBack()
   } catch (e) {
     console.error(e)
   }
 }
+
+const qqH5LoginHandler = async () => {
+  // QQ H5登录
+  const clientId = configStore.config.uni_h5_qq_client_id
+  const redirectUri = configStore.config.uni_h5_qq_callback_url
+  const scope = 'get_user_info' // 权限范围，根据需要修改
+
+  const authUrl = 'https://graph.qq.com/oauth2.0/authorize'
+  const responseType = 'token'
+
+  // 构造授权链接
+  window.location.href = `${authUrl}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${scope}`
+}
+
+onLoad(async () => {
+  const hash = window.location.hash.replace(/^#\/[^#]*#/, '')
+  const hashParams = new Map<string, string>()
+  const params = hash.split('&')
+
+  for (let i = 0; i < params.length; i++) {
+    const param = params[i].split('=')
+    const key = decodeURIComponent(param[0])
+    const value = decodeURIComponent(param[1])
+    hashParams.set(key, value)
+  }
+
+  if (hashParams.has('access_token')) {
+    const access_token = hashParams.get('access_token') as string
+
+    uni.showLoading({
+      title: '登录中',
+      mask: true
+    })
+
+    await userStore.qqWebLogin(access_token)
+
+    // 验证通过，获取用户信息
+    await userStore.getUserMetaInfo()
+
+    uni.hideLoading()
+
+    // 登录成功，返回上一页
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success'
+    })
+
+    uni.switchTab({
+      url: '/pages/index/index'
+    })
+  }
+})
 
 const bdMiniAppLoginHandler = () => {
   console.error('baiduAppLogin')
@@ -244,6 +307,13 @@ const forgetPassOrRegister = (type: 1 | 2) => {
 
       <!-- #ifdef APP-PLUS -->
       <view class="third-login" @tap="qqAppLoginHandler">
+        <u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
+        <text class="disc">QQ登录</text>
+      </view>
+      <!-- #endif -->
+
+      <!-- #ifdef H5 -->
+      <view class="third-login" @tap="qqH5LoginHandler">
         <u-icon class="icon" size="30" name="qq-fill" color="#4BC1E8"></u-icon>
         <text class="disc">QQ登录</text>
       </view>

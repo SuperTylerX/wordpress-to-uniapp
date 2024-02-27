@@ -22,6 +22,8 @@ export interface Config {
   enable_comments_interstitial_ad: string
   enable_live_interstitial_ad: string
   is_user_registration_enable: boolean
+  uni_h5_qq_client_id: string
+  uni_h5_qq_callback_url: string
 }
 
 export interface Expand {

@@ -5,6 +5,7 @@ import {
   login as httpLogin,
   qqAppLoginHttp,
   qqMiniAppLoginHttp,
+  qqWebLoginHttp,
   wxMiniAppLoginHttp
 } from '@/api/user'
 import type { GetTokenResponse, User } from '@/types/user'
@@ -99,6 +100,14 @@ export const useUserStore = defineStore(
       token.value = res.token
     }
 
+    // QQ Web登录
+    const qqWebLogin = async (access_token: string) => {
+      const res = await qqWebLoginHttp({
+        access_token
+      })
+      token.value = res.token
+    }
+
     // 重置Store
     const resetStore = () => {
       token.value = ''
@@ -114,6 +123,7 @@ export const useUserStore = defineStore(
       wxMiniAppLogin,
       qqMiniAppLogin,
       qqAppLogin,
+      qqWebLogin,
       resetStore
     }
   },

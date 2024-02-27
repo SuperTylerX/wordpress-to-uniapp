@@ -33,7 +33,9 @@ export const useConfigStore = defineStore(
       enable_hot_interstitial_ad: '',
       enable_comments_interstitial_ad: '',
       enable_live_interstitial_ad: '',
-      is_user_registration_enable: false
+      is_user_registration_enable: false,
+      uni_h5_qq_client_id: '',
+      uni_h5_qq_callback_url: ''
     })
 
     const getConfig = async () => {
