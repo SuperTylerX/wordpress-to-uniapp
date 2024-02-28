@@ -99,7 +99,7 @@ const userInfo = userStore.userInfo
 const isLogin = computed(() => !!userStore.token)
 const login = () => {
   uni.navigateTo({
-    url: isLogin.value ? '/pages/my/center' : '/pages/login/login'
+    url: isLogin.value ? '/pages/user/profile?userId=' + userInfo.id : '/pages/login/login'
   })
 }
 const logout = () => {

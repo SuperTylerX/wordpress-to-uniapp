@@ -135,6 +135,12 @@
           "softinputMode": "adjustResize"
         }
       }
+    },
+    {
+      "path": "pages/user/profile",
+      "style": {
+        "navigationStyle": "custom"
+      }
     }
   ],
   "tabBar": {

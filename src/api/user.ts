@@ -1,4 +1,4 @@
-import { postJSON } from '@/api/utils'
+import { get, postJSON } from '@/api/utils'
 import { JWT_REST_API_URL, PLUGIN_REST_API_URL, WORDPRESS_REST_API_URL } from '@/config'
 import type {
   GetMiniAppUserToken,
@@ -6,7 +6,8 @@ import type {
   miniAppLoginArgs,
   qqAppLoginArgs,
   qqWebLoginArgs,
-  User
+  User,
+  UserProfile
 } from '@/types/user'
 import type { ResponseObj, ResponseStructure } from '@/types/http'
 
@@ -48,3 +49,6 @@ export const confirmQRLogin = (token: string, isContinue: boolean) =>
     token,
     isContinue
   })
+
+export const getWebsiteUserProfile = (userId: number) =>
+  get<UserProfile>(`${PLUGIN_REST_API_URL}/profile/getUserProfile`, { userId })

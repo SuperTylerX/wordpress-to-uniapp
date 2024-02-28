@@ -53,3 +53,19 @@ export interface GetMiniAppUserToken {
   openid: string
   unionid: string
 }
+
+export interface UserProfile {
+  nickname: string
+  userId: number
+  avatarUrl: string
+  registered: string
+  description: string
+  location: Location
+  role: string
+}
+
+export interface Location {
+  country_name: string
+  region_name: string
+  city_name: string
+}
