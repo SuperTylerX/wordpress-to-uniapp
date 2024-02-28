@@ -29,15 +29,13 @@ export const redirect = <T extends RedirectType>(
 ) => {
   switch (option.type) {
     case 'apppage':
-      uni.navigateTo({
+      return uni.navigateTo({
         url: option.path
       })
-      break
     case 'webpage':
-      uni.navigateTo({
+      return uni.navigateTo({
         url: '/pages/webpage/webpage' + '?url=' + option.url
       })
-      break
   }
 }
 
