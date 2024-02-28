@@ -184,6 +184,7 @@ const qqH5LoginHandler = async () => {
   window.location.href = `${authUrl}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${scope}`
 }
 
+// #ifdef H5
 onLoad(async () => {
   const hash = window.location.hash.replace(/^#\/[^#]*#/, '')
   const hashParams = new Map<string, string>()
@@ -222,9 +223,35 @@ onLoad(async () => {
     })
   }
 })
+// #endif
 
-const bdMiniAppLoginHandler = () => {
-  console.error('baiduAppLogin')
+const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
+  const { avatarUrl, nickName } = res.detail.userInfo
+  try {
+    uni.showLoading({
+      title: '登录中',
+      mask: true
+    })
+
+    const res = await uni.login()
+
+    await userStore.baiduMiniAppLogin(res.code, nickName, avatarUrl)
+
+    // 验证通过，获取用户信息
+    await userStore.getUserMetaInfo()
+
+    uni.hideLoading()
+
+    // 登录成功，返回上一页
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success'
+    })
+
+    uni.navigateBack()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const forgetPassOrRegister = (type: 1 | 2) => {
@@ -327,10 +354,16 @@ const forgetPassOrRegister = (type: 1 | 2) => {
       <!-- #endif -->
 
       <!-- #ifdef MP-BAIDU -->
-      <view type="default" plain="true" class="third-login" @tap="bdMiniAppLoginHandler">
+      <button
+        type="default"
+        plain="true"
+        class="third-login"
+        open-type="getUserInfo"
+        @getuserinfo="bdMiniAppLoginHandler"
+      >
         <u-icon class="icon" size="30" name="/static/icon-baidu.png" color="#4BC1E8"></u-icon>
         <text class="disc">快捷登录</text>
-      </view>
+      </button>
       <!-- #endif -->
     </view>
 

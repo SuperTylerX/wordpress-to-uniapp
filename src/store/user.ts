@@ -1,6 +1,7 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
+  baiduMiniAppLoginHttp,
   getUserInfo,
   login as httpLogin,
   qqAppLoginHttp,
@@ -108,6 +109,16 @@ export const useUserStore = defineStore(
       token.value = res.token
     }
 
+    // 百度小程序登录
+    const baiduMiniAppLogin = async (js_code: string, nickName: string, avatarUrl: string) => {
+      const res = await baiduMiniAppLoginHttp({
+        js_code,
+        nickname: nickName,
+        avatarUrl
+      })
+      token.value = res.token
+    }
+
     // 重置Store
     const resetStore = () => {
       token.value = ''
@@ -124,6 +135,7 @@ export const useUserStore = defineStore(
       qqMiniAppLogin,
       qqAppLogin,
       qqWebLogin,
+      baiduMiniAppLogin,
       resetStore
     }
   },

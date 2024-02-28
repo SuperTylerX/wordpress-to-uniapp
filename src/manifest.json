@@ -92,6 +92,10 @@
     "usingComponents": true,
     "uniStatistics": {
       "enable": true
+    },
+    "appid": "24923805",
+    "setting": {
+      "urlCheck": false
     }
   },
   "mp-toutiao": {
