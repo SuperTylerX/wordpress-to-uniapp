@@ -261,6 +261,9 @@ const style = {
 
 // 文章加载完毕回调
 const articleReady = () => {
+  if (article.id !== id) {
+    return
+  }
   isLoading.value = false
 }
 
@@ -357,6 +360,8 @@ const goToTop = () => {
   })
 }
 
+let id = 0
+
 onLoad(option => {
   if (!option) {
     return
@@ -364,6 +369,8 @@ onLoad(option => {
   if (!option.id) {
     return
   }
+  id = Number(option.id)
+
   isLoading.value = true
   postId.value = Number(option.id)
 
