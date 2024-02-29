@@ -75,7 +75,8 @@
     "appid": "wx54637ceed7a6fc6e",
     "setting": {
       "urlCheck": false,
-      "minified": true
+      "minified": true,
+      "postcss": true
     },
     "usingComponents": true,
     "uniStatistics": {
@@ -102,6 +103,12 @@
     "usingComponents": true,
     "uniStatistics": {
       "enable": true
+    },
+    "appid": "tt182e6e938715b87c",
+    "setting": {
+      "urlCheck": false,
+      "minified": true,
+      "postcss": true
     }
   },
   "uniStatistics": {
@@ -114,7 +121,9 @@
   "mp-qq": {
     "appid": "1112052934",
     "setting": {
-      "urlCheck": false
+      "urlCheck": false,
+      "postcss": true,
+      "minified": true
     },
     "uniStatistics": {
       "enable": true

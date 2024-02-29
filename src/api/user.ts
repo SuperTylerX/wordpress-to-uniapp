@@ -42,6 +42,9 @@ export const qqWebLoginHttp = (loginOption: qqWebLoginArgs) =>
 export const baiduMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/baidu/miniAppLogin`, loginOption)
 
+export const bytedanceMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/bytedance/miniAppLogin`, loginOption)
+
 export const getQRInfo = (token: string) =>
   postJSON<{ expire_time: number; status: number }>(`${PLUGIN_REST_API_URL}/login/getQRInfo`, {
     token

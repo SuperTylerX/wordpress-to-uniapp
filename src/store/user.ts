@@ -2,6 +2,7 @@ import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   baiduMiniAppLoginHttp,
+  bytedanceMiniAppLoginHttp,
   getUserInfo,
   login as httpLogin,
   qqAppLoginHttp,
@@ -119,6 +120,16 @@ export const useUserStore = defineStore(
       token.value = res.token
     }
 
+    // 字节跳动小程序登录
+    const bytedanceMiniAppLogin = async (js_code: string, nickName: string, avatarUrl: string) => {
+      const res = await bytedanceMiniAppLoginHttp({
+        js_code,
+        nickname: nickName,
+        avatarUrl
+      })
+      token.value = res.token
+    }
+
     // 重置Store
     const resetStore = () => {
       token.value = ''
@@ -136,6 +147,7 @@ export const useUserStore = defineStore(
       qqAppLogin,
       qqWebLogin,
       baiduMiniAppLogin,
+      bytedanceMiniAppLogin,
       resetStore
     }
   },
