@@ -1,6 +1,7 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
+  alipayMiniAppLoginHttp,
   baiduMiniAppLoginHttp,
   bytedanceMiniAppLoginHttp,
   getUserInfo,
@@ -130,6 +131,16 @@ export const useUserStore = defineStore(
       token.value = res.token
     }
 
+    // 支付宝小程序登录
+    const alipayMiniAppLogin = async (js_code: string, nickName: string, avatarUrl: string) => {
+      const res = await alipayMiniAppLoginHttp({
+        js_code,
+        nickname: nickName,
+        avatarUrl
+      })
+      token.value = res.token
+    }
+
     // 重置Store
     const resetStore = () => {
       token.value = ''
@@ -148,6 +159,7 @@ export const useUserStore = defineStore(
       qqWebLogin,
       baiduMiniAppLogin,
       bytedanceMiniAppLogin,
+      alipayMiniAppLogin,
       resetStore
     }
   },

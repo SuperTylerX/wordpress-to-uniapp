@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
+import { DEFAULT_AVATAR_URL } from '@/config'
 
 interface GetUserInfo {
   type: string
@@ -283,6 +284,48 @@ const ttMiniAppLoginHandler = async (res: GetUserInfo) => {
   }
 }
 
+const aliMiniAppLoginHandler = async (res: {
+  detail: { code: string; avatar: string; nickName: string }
+}) => {
+  const { code } = res.detail
+  let { avatar, nickName } = res.detail
+
+  if (code !== '10000') {
+    // 个人小程序无法获取到用户信息, 使用默认头像和昵称
+    avatar = DEFAULT_AVATAR_URL
+    nickName = '支付宝用户'
+  }
+
+  try {
+    uni.showLoading({
+      title: '登录中',
+      mask: true
+    })
+
+    // @ts-expect-error my is not defined
+    const { authCode } = await my.getAuthCode({
+      scopes: 'auth_user'
+    })
+
+    await userStore.alipayMiniAppLogin(authCode, nickName, avatar)
+
+    // 验证通过，获取用户信息
+    await userStore.getUserMetaInfo()
+
+    uni.hideLoading()
+
+    // 登录成功，返回上一页
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success'
+    })
+
+    uni.navigateBack()
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 const forgetPassOrRegister = (type: 1 | 2) => {
   switch (type) {
     case 1:
@@ -323,7 +366,8 @@ const forgetPassOrRegister = (type: 1 | 2) => {
             <input
               v-model="loginInput.password"
               class="input"
-              type="password"
+              :password="true"
+              type="safe-password	"
               confirm-type="done"
               placeholder="请输入密码"
               :focus="isPassFocus"
@@ -400,6 +444,21 @@ const forgetPassOrRegister = (type: 1 | 2) => {
         <text class="disc">快捷登录</text>
       </button>
       <!-- #endif -->
+
+      <!-- #ifdef MP-ALIPAY -->
+      <button
+        type="default"
+        plain="true"
+        class="third-login"
+        open-type="getAuthorize"
+        scope="userInfo"
+        style="height: 150rpx"
+        @getUserInfo="aliMiniAppLoginHandler"
+      >
+        <u-icon class="icon" size="30" name="zhifubao" color="#1977FD"></u-icon>
+        <text class="disc">快捷登录</text>
+      </button>
+      <!-- #endif -->
     </view>
 
     <view class="footer">
@@ -408,12 +467,14 @@ const forgetPassOrRegister = (type: 1 | 2) => {
   </view>
 </template>
 
-<style lang="scss" scoped>
+<style>
 page {
-  height: 100%;
+  height: 100vh;
   background-color: #ffffff;
 }
+</style>
 
+<style lang="scss" scoped>
 .wrap {
   margin: 0 30rpx;
   display: flex;

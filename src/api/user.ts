@@ -45,6 +45,9 @@ export const baiduMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
 export const bytedanceMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/bytedance/miniAppLogin`, loginOption)
 
+export const alipayMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/alipay/miniAppLogin`, loginOption)
+
 export const getQRInfo = (token: string) =>
   postJSON<{ expire_time: number; status: number }>(`${PLUGIN_REST_API_URL}/login/getQRInfo`, {
     token

@@ -87,7 +87,8 @@
     "usingComponents": true,
     "uniStatistics": {
       "enable": true
-    }
+    },
+    "appid": "2021002162617376"
   },
   "mp-baidu": {
     "usingComponents": true,

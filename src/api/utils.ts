@@ -66,6 +66,38 @@ export const http = async <T>(options: RequestOptions, extraOptions?: ExtraReque
         }
       })
       .catch(err => {
+        // #ifdef MP-ALIPAY
+        // 支付宝小程序Http状态码错误请求也会进入这里
+        if (err.errMsg === 'request:fail http status error') {
+          if (isHandleError) {
+            if (isHttpSuccess(err.statusCode)) {
+              resolve(err.data as T)
+            } else {
+              // 判断是否是Token过期或者是错误
+              if ((err.data as ResponseObj<AnyObject>).code === 'jwt_auth_invalid_token') {
+                uni.showToast({
+                  title: '登录过期，请重新登录',
+                  icon: 'none'
+                })
+                // 清除token
+                const userStore = useUserStore()
+                userStore.resetStore()
+                reject(err)
+              } else {
+                uni.showToast({
+                  title: (err.data as ResponseObj<AnyObject>).message,
+                  icon: 'none'
+                })
+                reject(err)
+              }
+            }
+          } else {
+            resolve(err as T)
+          }
+
+          return
+        }
+        // #endif
         uni.showToast({
           title: '请检查网络连接',
           icon: 'error'
@@ -143,7 +175,10 @@ export const get = <T>(
       method: 'GET',
       ...options
     },
-    extraOptions
+    {
+      useToken: false, // 默认GET请求不需要传token
+      ...extraOptions
+    }
   )
 export const postJSON = <T>(
   url: string,
