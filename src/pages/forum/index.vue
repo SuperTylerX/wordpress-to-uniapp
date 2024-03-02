@@ -42,12 +42,12 @@
           mode="aspectFill"
           class="image"
         ></image>
-        <div class="title">
+        <view class="title">
           <view style="display: inline-flex">
             <u-tag text="置顶" type="error" plain plain-fill size="mini"></u-tag>
           </view>
           <text style="margin-left: 20rpx">{{ item.title }}</text>
-        </div>
+        </view>
       </view>
 
       <!-- 普通帖子 -->
@@ -70,8 +70,8 @@
             ></app-album>
           </view>
           <view class="buttons" @tap.stop="">
-            <div class="item">
-              <u-button type="default" @tap="likeTopic(item)">
+            <view class="item">
+              <u-button :custom-style="{ border: 'none' }" plain @click="likeTopic(item)">
                 <u-icon
                   :name="item.is_user_favorite ? 'heart-fill' : 'heart'"
                   :color="item.is_user_favorite ? '#D54529' : '#636363'"
@@ -81,19 +81,19 @@
                   item.like_count
                 }}</text>
               </u-button>
-            </div>
-            <div class="item">
-              <u-button type="default" @tap="readComment(item)">
+            </view>
+            <view class="item">
+              <u-button :custom-style="{ border: 'none' }" plain @click="readComment(item)">
                 <u-icon name="chat" color="#636363" size="18"></u-icon>
                 <text>{{ item.reply_count }}</text>
               </u-button>
-            </div>
-            <div class="item">
+            </view>
+            <view class="item">
               <button type="default" open-type="share" :data-item="item" @tap="forwardTopic(item)">
                 <u-icon name="share-square" color="#636363" size="18"></u-icon>
                 <text>分享</text>
               </button>
-            </div>
+            </view>
           </view>
         </view>
       </view>

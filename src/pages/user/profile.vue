@@ -26,7 +26,7 @@
               type="primary"
               icon="edit-pen"
               shape="circle"
-              @tap="goToEditPage"
+              @click="goToEditPage"
             >
               修改
             </u-button>
@@ -60,8 +60,7 @@
           <app-list :posts-list="postsList"></app-list>
 
           <view v-if="postsList.length === 0" class="empty">
-            <image class="img" src="/static/images/no-data.png" mode="aspectFit"></image>
-            <view class="desc">暂无投稿</view>
+            <u-empty icon="/static/no-data.png" text="暂无投稿"></u-empty>
           </view>
 
           <app-footer></app-footer>
@@ -72,8 +71,7 @@
           <app-comment :comment-list="commentsList"></app-comment>
 
           <view v-if="commentsList.length === 0" class="empty">
-            <image class="img" src="/static/images/no-data.png" mode="aspectFit"></image>
-            <view class="desc">暂无评论</view>
+            <u-empty icon="/static/no-data.png" text="暂无评论"></u-empty>
           </view>
           <app-footer></app-footer>
         </scroll-view>

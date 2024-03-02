@@ -9,7 +9,7 @@
     >
       <!-- #ifndef MP -->
       <template #right>
-        <u-button type="default" style="padding: 0" :disabled="!canSubmit" @tap="submit"
+        <u-button type="default" style="padding: 0" :disabled="!canSubmit" @click="submit"
           ><text class="publish-btn">发布</text></u-button
         >
       </template>

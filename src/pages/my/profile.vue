@@ -5,7 +5,7 @@
     </view>
     <view class="cell-wrap">
       <u-cell-group>
-        <u-cell size="large" title="头像" is-link @tap="selectAvatar">
+        <u-cell size="large" title="头像" is-link @click="selectAvatar">
           <template #value>
             <button class="avatar-wrapper" open-type="chooseAvatar" @chooseavatar="wxSelectAvatar">
               <u-avatar :src="userInfo.avatar"></u-avatar>
@@ -17,7 +17,7 @@
           title="昵称"
           is-link
           :value="userInfo.nickname"
-          @tap="changeItem('nickname')"
+          @click="changeItem('nickname')"
         ></u-cell>
         <u-cell size="large" title="UID" :value="userInfo.id"></u-cell>
         <u-cell size="large" title="用户等级" :value="userInfo.role"></u-cell>
@@ -26,7 +26,7 @@
           title="邮箱"
           :value="userInfo.email ? userInfo.email : '未设置'"
           is-link
-          @tap="changeItem('email')"
+          @click="changeItem('email')"
         ></u-cell>
       </u-cell-group>
     </view>

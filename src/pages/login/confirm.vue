@@ -1,8 +1,8 @@
 <template>
   <view>
-    <div class="monitor_img">
+    <view class="monitor_img">
       <image src="/static/monitor.svg"></image>
-    </div>
+    </view>
 
     <view class="p1">电脑端登录确认</view>
     <view class="p2">为确保账号安全，请确认是您本人操作</view>

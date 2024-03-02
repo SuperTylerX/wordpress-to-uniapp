@@ -21,7 +21,7 @@
     {
       "path": "pages/forum/index",
       "style": {
-        "navigationBarTitleText": "圈子",
+        "navigationBarTitleText": "",
         "enablePullDownRefresh": true,
         "navigationStyle": "custom", // 隐藏系统导航栏
         "navigationBarBackgroundColor": "#FFFFFF",
@@ -31,6 +31,10 @@
             "color": "#118fff",
             "style": "circle"
           }
+        },
+        "mp-alipay": {
+          "transparentTitle": "always",
+          "titlePenetrate": "YES"
         }
       }
     },
@@ -113,7 +117,7 @@
     {
       "path": "pages/forum/post",
       "style": {
-        "navigationBarTitleText": "动态",
+        "navigationBarTitleText": "",
         "enablePullDownRefresh": true,
         "navigationStyle": "custom", // 隐藏系统导航栏
         "app-plus": {
@@ -123,6 +127,10 @@
             "style": "circle"
           },
           "softinputMode": "adjustResize"
+        },
+        "mp-alipay": {
+          "transparentTitle": "always",
+          "titlePenetrate": "YES"
         }
       }
     },
@@ -133,13 +141,22 @@
         "navigationStyle": "custom", // 隐藏系统导航栏
         "app-plus": {
           "softinputMode": "adjustResize"
+        },
+        "mp-alipay": {
+          "transparentTitle": "always",
+          "titlePenetrate": "YES"
         }
       }
     },
     {
       "path": "pages/user/profile",
       "style": {
-        "navigationStyle": "custom"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "",
+        "mp-alipay": {
+          "transparentTitle": "always",
+          "titlePenetrate": "YES"
+        }
       }
     }
   ],
@@ -178,7 +195,12 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "前端茶会",
+    // #ifndef MP-ALIPAY
     "navigationBarBackgroundColor": "#F8F8F8",
+    // #endif
+    // #ifdef APP-ALIPAY
+    "navigationBarBackgroundColor": "#FFFFFF",
+    // #endif
     "backgroundColor": "#F8F8F8"
   }
 }

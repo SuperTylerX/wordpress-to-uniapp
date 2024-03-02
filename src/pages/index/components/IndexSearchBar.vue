@@ -52,6 +52,9 @@ const formSubmit = () => {
     border: none;
     background-color: #fff;
     border-radius: 0 4px 4px 0;
+    // #ifdef MP-ALIPAY
+    height: 112rpx;
+    // #endif
 
     &::after {
       border: none;

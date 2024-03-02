@@ -35,7 +35,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @tap="goTo('history')"
+          @click="goTo('history')"
         ></u-cell>
         <u-cell
           class="menu-cell"
@@ -44,7 +44,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @tap="goTo('like')"
+          @click="goTo('like')"
         >
         </u-cell>
         <u-cell
@@ -54,7 +54,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @tap="goTo('comment')"
+          @click="goTo('comment')"
         ></u-cell>
         <u-cell
           class="menu-cell"
@@ -63,7 +63,7 @@
           :clickable="true"
           icon="edit-pen-fill"
           title="我的资料"
-          @tap="goTo('profile')"
+          @click="goTo('profile')"
         ></u-cell>
       </u-cell-group>
     </view>
@@ -78,7 +78,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @tap="logout"
+          @click="logout"
         ></u-cell>
       </u-cell-group>
     </view>

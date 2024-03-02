@@ -11,7 +11,7 @@
           :y="y"
           :scale-value="scale"
           :scale-min="1"
-          :scale-max="maxScale ?? 3"
+          :scale-max="maxScale ? maxScale : 3"
           scale
           :animation="false"
           @change="handleChange"
