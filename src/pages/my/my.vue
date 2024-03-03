@@ -87,7 +87,6 @@
 
 <script setup lang="ts">
 import { DEFAULT_AVATAR_URL, WEBSITE_NAME } from '@/config'
-import { scanCode } from '@/utils'
 import { useUserStore } from '@/store/user'
 import { computed } from 'vue'
 import { onLoad, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
@@ -145,7 +144,7 @@ const goTo = (option: redirectPageType) => {
 }
 const scanQR = async () => {
   try {
-    const { result } = await scanCode({})
+    const { result } = await uni.scanCode({})
     const code = JSON.parse(result)
     if (!code.token) {
       throw new Error('无法识别的二维码')

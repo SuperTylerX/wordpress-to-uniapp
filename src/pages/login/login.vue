@@ -4,6 +4,7 @@ import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
 import { DEFAULT_AVATAR_URL } from '@/config'
+import { getLoginCode } from '@/utils'
 
 interface GetUserInfo {
   type: string
@@ -234,7 +235,7 @@ const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
       mask: true
     })
 
-    const res = await uni.login()
+    const res = await getLoginCode({})
 
     await userStore.baiduMiniAppLogin(res.code, nickName, avatarUrl)
 

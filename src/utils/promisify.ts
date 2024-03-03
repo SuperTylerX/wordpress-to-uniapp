@@ -13,11 +13,7 @@ export function promisify<RequestType, SuccessReturnType>(fn: Function) {
   }
 }
 
-type RequestSuccessCallbackResult = UniNamespace.RequestSuccessCallbackResult
-type RequestOptions = UniNamespace.RequestOptions
-
-export const request = promisify<RequestOptions, RequestSuccessCallbackResult>(uni.request)
-export const scanCode = promisify<UniNamespace.ScanCodeOptions, UniNamespace.ScanCodeSuccessRes>(
-  uni.scanCode
+export const getLoginCode = promisify<UniNamespace.LoginOptions, UniNamespace.LoginRes>(
+  // @ts-expect-error 无法找到swan的类型定义
+  swan.getLoginCode
 )
-export const login = promisify<UniNamespace.LoginOptions, UniNamespace.LoginRes>(uni.login)

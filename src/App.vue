@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
-import { useSystemStore } from '@/store/systemStore'
+import { useSystemStore } from '@/store/system'
 
 onLaunch(() => {
   const configStore = useConfigStore()

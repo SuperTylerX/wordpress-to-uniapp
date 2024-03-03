@@ -89,7 +89,7 @@ import type { Post } from '@/types/post'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/store/user'
 import { useConfigStore } from '@/store/config'
-import { useSystemStore } from '@/store/systemStore'
+import { useSystemStore } from '@/store/system'
 import { WEBSITE_NAME } from '@/config'
 
 const pageList = [1, 1]
