@@ -31,7 +31,7 @@ export const wxMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/weixin/miniAppLogin`, loginOption)
 
 export const qqMiniAppLoginHttp = (loginOption: miniAppLoginArgs) =>
-  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/appLogin`, loginOption)
+  postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/miniAppLogin`, loginOption)
 
 export const qqAppLoginHttp = (loginOption: qqAppLoginArgs) =>
   postJSON<GetMiniAppUserToken>(`${PLUGIN_REST_API_URL}/qq/appLogin`, loginOption)

@@ -227,6 +227,7 @@ onLoad(async () => {
 })
 // #endif
 
+// #ifdef MP-BAIDU
 const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
   const { avatarUrl, nickName } = res.detail.userInfo
   try {
@@ -255,6 +256,7 @@ const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
     console.error(e)
   }
 }
+// #endif
 
 const ttMiniAppLoginHandler = async (res: GetUserInfo) => {
   const { avatarUrl, nickName } = res.detail.userInfo

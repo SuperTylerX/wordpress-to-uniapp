@@ -13,7 +13,9 @@ export function promisify<RequestType, SuccessReturnType>(fn: Function) {
   }
 }
 
+// #ifdef MP-BAIDU
 export const getLoginCode = promisify<UniNamespace.LoginOptions, UniNamespace.LoginRes>(
   // @ts-expect-error 无法找到swan的类型定义
   swan.getLoginCode
 )
+// #endif
