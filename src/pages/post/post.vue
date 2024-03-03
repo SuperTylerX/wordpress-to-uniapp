@@ -398,7 +398,7 @@ const myComment = reactive({
 })
 const order = ref<'desc' | 'asc'>('desc')
 const isLoadingComment = ref(false)
-const isCommentEnabled = computed(() => configStore.config.wf_enable_comment_option)
+const isCommentEnabled = computed(() => configStore.isCommentEnabled)
 
 // 拉取评论
 const fetchComments = async () => {

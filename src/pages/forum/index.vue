@@ -309,18 +309,20 @@ export default {
     uni.stopPullDownRefresh()
   },
   onShareAppMessage(options) {
+    const configStore = useConfigStore()
     if (options.from === 'button') {
       const topic = options.target.dataset.item as Topic
 
       return {
         title: topic?.title,
         path: `/pages/forum/post?id=${topic?.id}`,
-        imageUrl: topic?.all_img[0]
+        imageUrl: topic?.all_img[0] || configStore.config.shareImageUrl
       }
     }
     return {
       title: `来「${WEBSITE_NAME}」圈子看看有什么新鲜事吧`,
-      path: '/pages/forum/index'
+      path: '/pages/forum/index',
+      imageUrl: configStore.config.shareImageUrl
     }
   },
   onShareTimeline() {

@@ -90,6 +90,7 @@ import { mapState } from 'pinia'
 import { useUserStore } from '@/store/user'
 import { useConfigStore } from '@/store/config'
 import { useSystemStore } from '@/store/systemStore'
+import { WEBSITE_NAME } from '@/config'
 
 const pageList = [1, 1]
 export default {
@@ -227,6 +228,19 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    }
+  },
+  onShareAppMessage() {
+    return {
+      title: `${this.user.nickname}的个人主页 - ${WEBSITE_NAME}`,
+      path: `/pages/user/profile?userId=${this.user.userId}`,
+      imageUrl: this.user.avatarUrl
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: `${this.user.nickname}的个人主页 - ${WEBSITE_NAME}`,
+      imageUrl: this.user.avatarUrl
     }
   }
 }

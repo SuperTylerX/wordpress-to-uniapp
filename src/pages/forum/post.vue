@@ -428,6 +428,19 @@ export default {
   },
   onReachBottom() {
     this.fetchPostReply()
+  },
+  onShareAppMessage() {
+    const configStore = useConfigStore()
+    return {
+      title: this.post.title,
+      path: `/pages/forum/post?id=${this.id}`,
+      imageUrl: this.post.all_img[0] || configStore.config.shareImageUrl
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: this.post.title
+    }
   }
 }
 </script>

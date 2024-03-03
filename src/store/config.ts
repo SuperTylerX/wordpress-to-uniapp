@@ -8,31 +8,21 @@ export const useConfigStore = defineStore(
   'config',
   () => {
     const config = reactive<Config>({
-      downloadfileDomain: '',
-      businessDomain: '',
-      posterImageUrl: '',
-      zanImageUrl: '',
-      logoImageUrl: false,
+      logoImageUrl: '',
       shareImageUrl: '',
+      blogDescription: '',
       expand: {
         swipe_nav: [],
         selected_nav: []
       },
-      wf_enable_comment_option: '',
-      wf_enable_qq_comment_option: '',
+      uni_enable_weixin_comment_option: false,
+      uni_enable_qq_comment_option: false,
       uni_enable_bytedance_comment_option: false,
       uni_enable_baidu_comment_option: false,
       uni_enable_h5_comment_option: false,
-      wf_weixin_enterprise_minapp: '',
-      wf_qq_enterprise_minapp: '',
-      interstitialAdId: '',
-      enable_index_interstitial_ad: '',
-      enable_detail_interstitial_ad: '',
-      enable_topic_interstitial_ad: '',
-      enable_list_interstitial_ad: '',
-      enable_hot_interstitial_ad: '',
-      enable_comments_interstitial_ad: '',
-      enable_live_interstitial_ad: '',
+      uni_enable_alipay_comment_option: false,
+      uni_weixin_enterprise_minapp: false,
+      uni_qq_enterprise_minapp: false,
       is_user_registration_enable: false,
       uni_h5_qq_client_id: '',
       uni_h5_qq_callback_url: ''
@@ -48,13 +38,15 @@ export const useConfigStore = defineStore(
       const platform = getPlatform()
       switch (platform) {
         case 'MP-WEIXIN':
-          return config.wf_enable_comment_option === '1'
+          return config.uni_enable_weixin_comment_option
         case 'MP-QQ':
-          return config.wf_enable_qq_comment_option === '1'
+          return config.uni_enable_qq_comment_option
         case 'MP-BAIDU':
           return config.uni_enable_baidu_comment_option
         case 'MP-TOUTIAO':
           return config.uni_enable_bytedance_comment_option
+        case 'MP-ALIPAY':
+          return config.uni_enable_alipay_comment_option
         case 'H5':
           return config.uni_enable_h5_comment_option
         default:

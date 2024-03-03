@@ -118,6 +118,7 @@ import { defineComponent } from 'vue'
 import type { GetPostListParams, Post } from '@/types/post'
 import { getCategory } from '@/api/category'
 import { getTag } from '@/api/tag'
+import { WEBSITE_NAME } from '@/config'
 
 let page = 1
 
@@ -291,6 +292,72 @@ export default defineComponent({
         }
       } catch (e) {
         console.error(e)
+      }
+    }
+  },
+  onShareAppMessage() {
+    if (this.isSearchPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 关于“${this.searchKey}”的搜索结果`,
+        path: `/pages/list/list?search=${this.searchKey}`,
+        imageUrl: this.cover
+      }
+    } else if (this.isCategoryPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - ${this.category.name}`,
+        path: `/pages/list/list?categoryID=${this.categoryID}`,
+        imageUrl: this.cover
+      }
+    } else if (this.isTagPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - #${this.tag.name}`,
+        path: `/pages/list/list?tagID=${this.tagID}`,
+        imageUrl: this.cover
+      }
+    } else if (this.isHistoryPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 阅读历史`,
+        path: '/pages/list/list?history=1',
+        imageUrl: this.cover
+      }
+    } else if (this.isLikePage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 点赞文章`,
+        path: '/pages/list/list?like=1',
+        imageUrl: this.cover
+      }
+    } else {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序`,
+        path: '/pages/index/index',
+        imageUrl: this.cover
+      }
+    }
+  },
+  onShareTimeline() {
+    if (this.isSearchPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 关于“${this.searchKey}”的搜索结果`
+      }
+    } else if (this.isCategoryPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - ${this.category.name}`
+      }
+    } else if (this.isTagPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - #${this.tag.name}`
+      }
+    } else if (this.isHistoryPage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 阅读历史`
+      }
+    } else if (this.isLikePage) {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序 - 点赞文章`
+      }
+    } else {
+      return {
+        title: `分享「${WEBSITE_NAME}」小程序`
       }
     }
   }
