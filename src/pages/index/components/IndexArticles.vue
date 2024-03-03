@@ -43,6 +43,17 @@ onReachBottom(() => {
     fetchArticles()
   }
 })
+
+const refresh = () => {
+  page = 1
+  postsList.value = []
+  isLastPage.value = false
+  fetchArticles()
+}
+
+defineExpose({
+  refresh
+})
 </script>
 
 <template>

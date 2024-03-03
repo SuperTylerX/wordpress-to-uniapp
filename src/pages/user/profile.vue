@@ -288,9 +288,9 @@ export default {
 }
 
 .tab {
-  border-bottom: 1rpx solid #a1b2c3;
-  // 下方加上阴影
+  border-bottom: 1px solid #dedede;
 }
+
 .fixedTab {
   position: fixed;
   top: calc(var(--status-bar-height) + 100rpx);

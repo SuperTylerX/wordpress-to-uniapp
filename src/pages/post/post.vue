@@ -634,11 +634,7 @@ page {
     display: flex;
     flex-wrap: wrap;
     margin-top: 80rpx;
-
-    .tag-item {
-      margin-right: 20rpx;
-      margin-bottom: 20rpx;
-    }
+    gap: 10rpx;
   }
 
   // 点赞样式

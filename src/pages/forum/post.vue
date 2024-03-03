@@ -507,10 +507,7 @@ page {
     flex-wrap: wrap;
     margin-top: 20rpx;
     padding: 0 30rpx;
-
-    .tag-item {
-      margin-right: 15rpx;
-    }
+    gap: 10rpx;
   }
 
   .operation {

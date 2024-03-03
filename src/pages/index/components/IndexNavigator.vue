@@ -57,8 +57,8 @@ const selected_nav = computed(() => configStore.config.expand.selected_nav)
 
   .nav-content {
     display: flex;
-    margin: 20rpx;
     flex-wrap: nowrap;
+    padding: 20rpx 0;
 
     .nav-item {
       display: flex;
@@ -73,7 +73,7 @@ const selected_nav = computed(() => configStore.config.expand.selected_nav)
       }
 
       text {
-        height: 80rpx;
+        height: 50rpx;
         font-size: 25rpx;
         display: flex;
         align-items: center;

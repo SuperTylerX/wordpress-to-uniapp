@@ -4,7 +4,7 @@
     <index-search-bar></index-search-bar>
     <index-navigator></index-navigator>
     <u-gap bg-color="#F5F7F7" height="10"></u-gap>
-    <index-articles></index-articles>
+    <index-articles ref="indexArticlesRef"></index-articles>
     <app-footer></app-footer>
   </view>
 </template>
@@ -14,12 +14,22 @@ import IndexSwiper from '@/pages/index/components/IndexSwiper.vue'
 import IndexSearchBar from '@/pages/index/components/IndexSearchBar.vue'
 import IndexNavigator from '@/pages/index/components/IndexNavigator.vue'
 import IndexArticles from '@/pages/index/components/IndexArticles.vue'
-import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
+import { onPullDownRefresh, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { WEBSITE_NAME } from '@/config'
+import { ref } from 'vue'
 
 import { useConfigStore } from '@/store/config'
 
 const configStore = useConfigStore()
+
+const indexArticlesRef = ref<InstanceType<typeof IndexArticles>>()
+onPullDownRefresh(() => {
+  indexArticlesRef.value?.refresh()
+  configStore.getConfig()
+  setTimeout(() => {
+    uni.stopPullDownRefresh()
+  }, 1000)
+})
 
 onShareAppMessage(() => {
   return {
