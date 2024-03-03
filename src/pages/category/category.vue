@@ -22,7 +22,7 @@
           "
         >
           <view>
-            <image :src="item.category_thumbnail_image" class="cover" mode="aspectFill"></image>
+            <image :src="item.cover_image" class="cover" mode="aspectFill"></image>
           </view>
           <view class="content-title">
             <view class="topic-name">
@@ -70,8 +70,8 @@ export default defineComponent({
         const parentCategory = [] as Category[]
         const childrenCategory = {} as Record<number, Category[]>
         categories.forEach(item => {
-          if (!item.category_thumbnail_image) {
-            item.category_thumbnail_image = '/static/bg-list.jpg'
+          if (!item.cover_image) {
+            item.cover_image = '/static/bg-list.jpg'
           }
           if (item.parent === 0) {
             parentCategory.push(item)

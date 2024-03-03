@@ -63,7 +63,7 @@
           type="error"
           plain
           plain-fill
-          @tap="redirect({ type: 'apppage', path: '/pages/list/list?tagID=' + item.id })"
+          @click="redirect({ type: 'apppage', path: '/pages/list/list?tagID=' + item.id })"
         >
         </u-tag>
       </view>

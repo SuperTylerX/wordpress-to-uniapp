@@ -8,4 +8,5 @@ export interface Tag {
   slug: string
   taxonomy: string
   _links: AnyObject
+  cover_image: string
 }

@@ -261,8 +261,8 @@ export default defineComponent({
         this.category.description = res.description
         this.category.name = res.name
         this.category.count = res.count
-        if (res.category_thumbnail_image) {
-          this.cover = res.category_thumbnail_image
+        if (res.cover_image) {
+          this.cover = res.cover_image
         }
 
         uni.setNavigationBarTitle({
@@ -276,9 +276,9 @@ export default defineComponent({
       const res = await getTag(this.tagID)
       this.tag.name = res.name
       this.tag.count = res.count
-      // 	if (res.category_thumbnail_image) {
-      // 		this.cover = res.category_thumbnail_image
-      // 	}
+      if (res.cover_image) {
+        this.cover = res.cover_image
+      }
       uni.setNavigationBarTitle({
         title: this.tag.name
       })

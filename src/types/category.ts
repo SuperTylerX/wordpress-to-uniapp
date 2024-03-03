@@ -22,5 +22,5 @@ export interface Category {
   slug: string
   taxonomy: string
   parent: number
-  category_thumbnail_image: string
+  cover_image: string
 }
