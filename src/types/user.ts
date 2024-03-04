@@ -30,6 +30,7 @@ export interface SocialConnect {
   wechat: string
   baidu: string
   bytedance: string
+  alipay: string
 }
 
 export interface miniAppLoginArgs {

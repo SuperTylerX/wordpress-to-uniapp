@@ -3,7 +3,6 @@ import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
-import { DEFAULT_AVATAR_URL } from '@/config'
 import { getLoginCode } from '@/utils'
 
 interface GetUserInfo {
@@ -287,18 +286,7 @@ const ttMiniAppLoginHandler = async (res: GetUserInfo) => {
   }
 }
 
-const aliMiniAppLoginHandler = async (res: {
-  detail: { code: string; avatar: string; nickName: string }
-}) => {
-  const { code } = res.detail
-  let { avatar, nickName } = res.detail
-
-  if (code !== '10000') {
-    // 个人小程序无法获取到用户信息, 使用默认头像和昵称
-    avatar = DEFAULT_AVATAR_URL
-    nickName = '支付宝用户'
-  }
-
+const aliMiniAppLoginHandler = async () => {
   try {
     uni.showLoading({
       title: '登录中',
@@ -310,7 +298,7 @@ const aliMiniAppLoginHandler = async (res: {
       scopes: 'auth_user'
     })
 
-    await userStore.alipayMiniAppLogin(authCode, nickName, avatar)
+    await userStore.alipayMiniAppLogin(authCode, '', '')
 
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
@@ -453,10 +441,8 @@ const forgetPassOrRegister = (type: 1 | 2) => {
         type="default"
         plain="true"
         class="third-login"
-        open-type="getAuthorize"
-        scope="userInfo"
         style="height: 150rpx"
-        @getUserInfo="aliMiniAppLoginHandler"
+        @tap="aliMiniAppLoginHandler"
       >
         <u-icon class="icon" size="30" name="zhifubao" color="#1977FD"></u-icon>
         <text class="disc">快捷登录</text>

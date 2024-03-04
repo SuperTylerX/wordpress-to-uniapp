@@ -37,62 +37,104 @@
         <u-cell
           size="large"
           title="微信"
-          icon="/static/icon-wechat.png"
+          icon="weixin-fill"
           :label="socialWechat"
           :icon-style="{ marginRight: '20rpx' }"
         >
-          <template #value>
-            <u-tag
-              :text="socialWechat ? '已绑定' : '绑定'"
-              plain
-              color="#909193"
-              border-color="#909193"
-              shape="circle"
-              size="large"
-              @click="bindSocial('wechat')"
-            >
-            </u-tag>
-          </template>
+          <!--          <template #value>-->
+          <!--            <u-tag-->
+          <!--              :text="socialWechat ? '已绑定' : '绑定'"-->
+          <!--              plain-->
+          <!--              color="#909193"-->
+          <!--              border-color="#909193"-->
+          <!--              shape="circle"-->
+          <!--              size="large"-->
+          <!--              @click="bindSocial('wechat')"-->
+          <!--            >-->
+          <!--            </u-tag>-->
+          <!--          </template>-->
         </u-cell>
         <u-cell
           size="large"
           title="QQ"
-          icon="/static/icon-qq.png"
+          icon="qq-fill"
           :label="socialQQ"
           :icon-style="{ marginRight: '20rpx' }"
         >
-          <template #value>
-            <u-tag
-              :text="socialQQ ? '已绑定' : '绑定'"
-              plain
-              color="#909193"
-              border-color="#909193"
-              shape="circle"
-              size="large"
-              @click="bindSocial('qq')"
-            >
-            </u-tag>
-          </template>
+          <!--          <template #value>-->
+          <!--            <u-tag-->
+          <!--              :text="socialQQ ? '已绑定' : '绑定'"-->
+          <!--              plain-->
+          <!--              color="#909193"-->
+          <!--              border-color="#909193"-->
+          <!--              shape="circle"-->
+          <!--              size="large"-->
+          <!--              @click="bindSocial('qq')"-->
+          <!--            >-->
+          <!--            </u-tag>-->
+          <!--          </template>-->
         </u-cell>
+        <!--        <u-cell-->
+        <!--          size="large"-->
+        <!--          title="字节跳动"-->
+        <!--          icon="/static/icon-toutiao.png"-->
+        <!--          :label="socialBytedance"-->
+        <!--          :icon-style="{ marginRight: '20rpx' }"-->
+        <!--        >-->
+        <!--          <template #value>-->
+        <!--            <u-tag-->
+        <!--              :text="socialBytedance ? '已绑定' : '绑定'"-->
+        <!--              plain-->
+        <!--              color="#909193"-->
+        <!--              border-color="#909193"-->
+        <!--              shape="circle"-->
+        <!--              size="large"-->
+        <!--              @click="bindSocial('byteDance')"-->
+        <!--            >-->
+        <!--            </u-tag>-->
+        <!--          </template>-->
+        <!--        </u-cell>-->
+
         <u-cell
           size="large"
-          title="字节跳动"
-          icon="/static/icon-toutiao.png"
-          :label="socialBytedance"
+          title="百度"
+          icon="baidu"
+          :label="socialBaidu"
           :icon-style="{ marginRight: '20rpx' }"
         >
-          <template #value>
-            <u-tag
-              :text="socialBytedance ? '已绑定' : '绑定'"
-              plain
-              color="#909193"
-              border-color="#909193"
-              shape="circle"
-              size="large"
-              @click="bindSocial('byteDance')"
-            >
-            </u-tag>
-          </template>
+          <!--          <template #value>-->
+          <!--            <u-tag-->
+          <!--              :text="socialBaidu ? '已绑定' : '绑定'"-->
+          <!--              plain-->
+          <!--              color="#909193"-->
+          <!--              border-color="#909193"-->
+          <!--              shape="circle"-->
+          <!--              size="large"-->
+          <!--              @click="bindSocial('byteDance')"-->
+          <!--            >-->
+          <!--            </u-tag>-->
+          <!--          </template>-->
+        </u-cell>
+
+        <u-cell
+          size="large"
+          title="支付宝"
+          icon="zhifubao"
+          :label="socialAlipay"
+          :icon-style="{ marginRight: '20rpx' }"
+        >
+          <!--          <template #value>-->
+          <!--            <u-tag-->
+          <!--              :text="socialAlipay ? '已绑定' : '绑定'"-->
+          <!--              plain-->
+          <!--              color="#909193"-->
+          <!--              border-color="#909193"-->
+          <!--              shape="circle"-->
+          <!--              size="large"-->
+          <!--              @click="bindSocial('byteDance')"-->
+          <!--            >-->
+          <!--            </u-tag>-->
+          <!--          </template>-->
         </u-cell>
       </u-cell-group>
     </view>
@@ -236,6 +278,20 @@ export default defineComponent({
     socialBytedance() {
       if (this.userInfo.social_connect) {
         return this.userInfo.social_connect.bytedance
+      } else {
+        return ''
+      }
+    },
+    socialBaidu() {
+      if (this.userInfo.social_connect) {
+        return this.userInfo.social_connect.baidu
+      } else {
+        return ''
+      }
+    },
+    socialAlipay() {
+      if (this.userInfo.social_connect) {
+        return this.userInfo.social_connect.alipay
       } else {
         return ''
       }
@@ -506,7 +562,7 @@ export default defineComponent({
         console.error(e)
       }
     },
-    async bindSocial(type: 'wechat' | 'qq' | 'byteDance') {
+    async bindSocial(type: 'wechat' | 'qq' | 'byteDance' | 'baidu' | 'alipay') {
       switch (type) {
         case 'wechat':
           if (!this.userInfo.email) {
@@ -624,6 +680,7 @@ page {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    gap: 20rpx;
 
     .cancel,
     .confirm {
