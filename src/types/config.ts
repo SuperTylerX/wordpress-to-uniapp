@@ -28,3 +28,12 @@ export interface Nav {
   url: string
   title: string
 }
+
+export interface AppUpdatedVersion {
+  updatedVersion: string
+  updatedVersionCode: number
+  downloadLink: string
+  iosDownloadLink: string
+  isForceUpdate: boolean
+  updateLog: string
+}

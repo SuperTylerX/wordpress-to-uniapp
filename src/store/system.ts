@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import type { AppUpdatedVersion } from '@/types/config'
+import { getAppUpdatedVersion } from '@/api/setting'
 
 type GetSystemInfoResult = UniNamespace.GetSystemInfoResult
 export const useSystemStore = defineStore(
@@ -38,16 +40,36 @@ export const useSystemStore = defineStore(
         right: 0,
         top: 0,
         width: 0
-      }
+      },
+      // APP 端特有的属性
+      appVersion: '', // manifest 中应用版本名称。
+      appVersionCode: '' // manifest 中应用版本名号。
+    })
+
+    const appUpdatedVersion = reactive<AppUpdatedVersion>({
+      updatedVersion: '',
+      updatedVersionCode: 0,
+      downloadLink: '',
+      iosDownloadLink: '',
+      isForceUpdate: false,
+      updateLog: ''
     })
 
     const updateSystemInfo = async () => {
       const res = await uni.getSystemInfo()
       Object.assign(systemInfo, res)
     }
+
+    const updateAppUpdatedVersion = async () => {
+      const res = await getAppUpdatedVersion()
+      Object.assign(appUpdatedVersion, res)
+    }
+
     return {
       systemInfo,
-      updateSystemInfo
+      updateSystemInfo,
+      appUpdatedVersion,
+      updateAppUpdatedVersion
     }
   },
   {

@@ -168,7 +168,21 @@
           "titlePenetrate": "YES"
         }
       }
+    },
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/app-update/app-update",
+      "style": {
+        "navigationBarTitleText": "APP更新",
+        "navigationStyle": "custom",
+        "app-plus": {
+          "background": "transparent",
+          "webviewBGTransparent": true,
+          "popGesture": "none"
+        }
+      }
     }
+    // #endif
   ],
   "tabBar": {
     "color": "#959595",

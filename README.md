@@ -95,7 +95,6 @@ pnpm run type:check
 ## TODO
 
 - 暗黑主题色适配
-- APP端更新提示
 - 小程序特殊能力适配
 - 文章发布管理
 - Q&A

@@ -3,7 +3,9 @@ import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
+// #ifdef MP-BAIDU
 import { getLoginCode } from '@/utils'
+// #endif
 
 interface GetUserInfo {
   type: string
