@@ -14,7 +14,7 @@ export async function checkUpdate() {
 
   if (!needUpdate) {
     //不需要更新
-    return
+    return false
   }
 
   //弹出更新
@@ -26,4 +26,6 @@ export async function checkUpdate() {
   } catch (e) {
     console.error(e)
   }
+
+  return true
 }

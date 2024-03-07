@@ -128,7 +128,8 @@
     },
     "uniStatistics": {
       "enable": true
-    }
+    },
+    "groupIdList": ["144945542"]
   },
   "h5": {
     "uniStatistics": {

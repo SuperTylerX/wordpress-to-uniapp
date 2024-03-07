@@ -181,8 +181,20 @@
           "popGesture": "none"
         }
       }
-    }
+    },
     // #endif
+    {
+      "path": "pages/setting/setting",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/setting/about",
+      "style": {
+        "navigationBarTitleText": "关于"
+      }
+    }
   ],
   "tabBar": {
     "color": "#959595",

@@ -35,7 +35,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @click="goTo('history')"
+          @click="redirectTo('history')"
         ></u-cell>
         <u-cell
           class="menu-cell"
@@ -44,7 +44,7 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @click="goTo('like')"
+          @click="redirectTo('like')"
         >
         </u-cell>
         <u-cell
@@ -54,31 +54,30 @@
           :is-link="true"
           size="large"
           :clickable="true"
-          @click="goTo('comment')"
-        ></u-cell>
-        <u-cell
-          class="menu-cell"
-          :is-link="true"
-          size="large"
-          :clickable="true"
-          icon="edit-pen-fill"
-          title="我的资料"
-          @click="goTo('profile')"
+          @click="redirectTo('comment')"
         ></u-cell>
       </u-cell-group>
     </view>
 
     <view class="menus-2">
       <u-cell-group>
-        <!-- <u-cell icon="setting-fill" title="关于我们"></u-cell> -->
         <u-cell
           class="menu-cell"
-          icon="person-delete-fill"
-          title="退出登录"
+          icon="info-circle-fill"
+          title="关于"
           :is-link="true"
           size="large"
           :clickable="true"
-          @click="logout"
+          @click="redirectTo('about')"
+        ></u-cell>
+        <u-cell
+          class="menu-cell"
+          icon="setting-fill"
+          title="设置"
+          :is-link="true"
+          size="large"
+          :clickable="true"
+          @click="redirectTo('setting')"
         ></u-cell>
       </u-cell-group>
     </view>
@@ -101,20 +100,25 @@ const login = () => {
     url: isLogin.value ? '/pages/user/profile?userId=' + userInfo.id : '/pages/login/login'
   })
 }
-const logout = () => {
-  uni.showToast({
-    title: '退出成功'
-  })
-  userStore.resetStore()
-}
 
-type redirectPageType = 'like' | 'comment' | 'profile' | 'history'
-const goTo = (option: redirectPageType) => {
-  if (option === 'history') {
-    uni.navigateTo({
-      url: '/pages/list/list?history=true'
-    })
-    return
+type redirectPageType = 'like' | 'comment' | 'profile' | 'history' | 'setting' | 'about'
+const redirectTo = (option: redirectPageType) => {
+  switch (option) {
+    case 'history':
+      uni.navigateTo({
+        url: '/pages/list/list?history=true'
+      })
+      return
+    case 'setting':
+      uni.navigateTo({
+        url: '/pages/setting/setting'
+      })
+      return
+    case 'about':
+      uni.navigateTo({
+        url: '/pages/setting/about'
+      })
+      return
   }
 
   if (!isLogin.value) {
@@ -142,6 +146,7 @@ const goTo = (option: redirectPageType) => {
       break
   }
 }
+
 const scanQR = async () => {
   try {
     const { result } = await uni.scanCode({})
