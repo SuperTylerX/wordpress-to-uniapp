@@ -194,6 +194,17 @@
       "style": {
         "navigationBarTitleText": "关于"
       }
+    },
+    {
+      "path": "pages/editor/editor",
+      "style": {
+        "navigationBarTitleText": "文章编辑",
+        "mp-baidu": {
+          "usingSwanComponents": {
+            "editor": "dynamicLib://editorLib/editor"
+          }
+        }
+      }
     }
   ],
   "tabBar": {

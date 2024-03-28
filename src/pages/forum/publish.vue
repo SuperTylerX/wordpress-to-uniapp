@@ -52,6 +52,7 @@
           @change="changeCategory"
         >
           <u-cell
+            :stop="false"
             title="话题分类"
             size="large"
             :is-link="true"

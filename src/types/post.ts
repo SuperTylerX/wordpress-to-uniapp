@@ -58,7 +58,7 @@ export interface Post {
   format: string
   meta: Meta
   categories: number[]
-  tags: string[]
+  tags: number[]
   post_first_image: string
   post_thumbnail_image: string
   post_medium_image: string
@@ -111,4 +111,61 @@ export interface HistoryPostItem {
   total_comments: number
   like_count: number
   pageviews: number
+}
+
+// 提交的Post数据
+/**
+ * date           The date the post was published, in the site's timezone.
+ * date_gmt       The date the post was published, as GMT.
+ * slug           An alphanumeric identifier for the post unique to its type.
+ * status         A named status for the post.
+ *                One of: publish, future, draft, pending, private
+ * password       A password to protect access to the content and excerpt.
+ * title          The title for the post.
+ * content        The content for the post.
+ * author         The ID for the author of the post.
+ * excerpt        The excerpt for the post.
+ * featured_media	The ID of the featured media for the post.
+ * comment_status Whether or not comments are open on the post.
+ *                One of: open, closed
+ * ping_status    Whether or not the post can be pinged.
+ *                One of: open, closed
+ * format         The format for the post.
+ *                One of: standard, aside, chat, gallery, link, image, quote, status, video, audio
+ * meta           Meta fields.
+ * sticky         Whether or not the post should be treated as sticky.
+ * template       The theme file to use to display the post.
+ * categories     The terms assigned to the post in the category taxonomy.
+ * tags           The terms assigned to the post in the post_tag taxonomy.
+ */
+export interface PostData {
+  id?: number
+  date?: string
+  date_gmt?: string
+  slug?: string
+  status?: 'publish' | 'future' | 'draft' | 'pending' | 'private'
+  password?: string
+  title?: string
+  content?: string
+  author?: number
+  excerpt?: string
+  featured_media?: number
+  comment_status?: 'open' | 'closed'
+  ping_status?: 'open' | 'closed'
+  format?:
+    | 'standard'
+    | 'aside'
+    | 'chat'
+    | 'gallery'
+    | 'link'
+    | 'image'
+    | 'quote'
+    | 'status'
+    | 'video'
+    | 'audio'
+  meta?: Meta
+  sticky?: boolean
+  template?: string
+  categories?: number[]
+  tags?: number[]
 }

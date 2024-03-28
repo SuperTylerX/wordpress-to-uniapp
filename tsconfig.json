@@ -17,6 +17,9 @@
   "exclude": [
     "src/components/mp-html/**/*",
     "src/components/image-crop/image-crop.vue",
-    "src/components/app-album/app-album.vue"
+    "src/components/app-album/app-album.vue",
+    "src/components/sp-editor/*",
+    "src/components/uni-data-picker/*",
+    "src/components/uni-data-pickerview/*"
   ]
 }

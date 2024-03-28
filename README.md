@@ -2,8 +2,6 @@
 
 本项目以 WordPress RestFul API为基础，实现了一款对接WordPress网站的UniApp，可被编译为 Android APP、iOS APP、微信小程序 和 H5手机网站。项目借鉴了 jianbo 开发的 [微信小程序开源版](https://github.com/iamxjb/winxin-app-watch-life.net) 的部分设计，在UniApp的加持下，使用`Vue 3`的语法进行了完全重构，因此可以被编译到更多的平台，实现一套代码，多端运行。本套程序额外增加了对 WordPress原生用户系统登录的支持，增加了可扩展性，支持进行二次开发对接任意的WordPress主题。
 
-
-
 ## 平台兼容性
 
 | Uni-APP JSCore |   UniApp X   |     快应用     |       H5       |                  |
@@ -11,8 +9,6 @@
 |       √        |      ×       |       ×        |       √        |                  |
 | **微信小程序** | **QQ小程序** | **抖音小程序** | **百度小程序** | **支付宝小程序** |
 |       √        |      √       |       √        |       √        |        √         |
-
-
 
 ## 项目依赖
 
@@ -30,9 +26,7 @@
 
 这款插件实现了WordPress JWT 登录，为原生用户登录做支持。
 
-注意：安装完需要对配置文件进行额外设置，具体操作步骤请阅读[官方指导](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api )，或者搜寻相关配置指引。
-
-
+注意：安装完需要对配置文件进行额外设置，具体操作步骤请阅读[官方指导](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)，或者搜寻相关配置指引。
 
 ## 开发
 
@@ -44,17 +38,43 @@ pnpm install
 
 2. 运行
 
+- H5开发环境
+
+```
+pnpm run dev:h5
+```
+
+运行成功后，浏览器打开http://localhost:5173/即可预览。
+
+- 微信小程序开发环境
+
 ```
 pnpm run dev:mp-weixin
 ```
 
-`运行成功后，使用微信开发者工具，选择mp-weixin目录并打开（路径：dist/dev/mp-weixin），即可预览。`
+运行成功后，使用微信开发者工具，选择mp-weixin目录并打开（路径：dist/dev/mp-weixin），即可预览。
 
+其他小程序平台同理。
 
+- APP开发环境
+
+```
+pnpm run dev:app-plus
+```
+
+运行成功后，使用HBuilderX导入 dist\dev\app 运行，选择运行到手机或模拟器即可预览。
 
 ## 多环境打包
 
-生产环境打包
+- H5打包
+
+```
+pnpm run build:h5
+```
+
+打包完成后，将dist目录下的build文件夹内的文件上传到服务器即可。
+
+- 微信小程序打包
 
 ```
 pnpm run build:mp-weixin
@@ -62,7 +82,13 @@ pnpm run build:mp-weixin
 
 打包完成后，使用微信开发者工具，选择mp-weixin目录并打开，目录路径：dist/build/mp-weixin，在微信开发者工具中点击上传即可。
 
+- APP打包
 
+```
+pnpm run build:app-plus
+```
+
+打包完成后，使用HBuilderX导入 dist\build\app ，使用云打包进行打包。
 
 ## 代码检查修复
 
@@ -73,27 +99,24 @@ pnpm run lint:fix
 pnpm run type:check
 ```
 
-
 ## Demo
 
-| ![cover](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd4pcly7j608c08cwep02.jpg) | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1gstazqepndj608c08caaa02.jpg) | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1h9diqcqkatj308c08c0tl.jpg) | <img src="https://tva1.sinaimg.cn/large/006RKGBpgy1h8jyrzftp4j30rs0rsjy6.jpg" style="zoom:30%;" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|                          微信小程序                          |                           QQ小程序                           |                          百度小程序                          |                          头条小程序                          |
+| ![cover](https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd4pcly7j608c08cwep02.jpg) | ![](https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1gstazqepndj608c08caaa02.jpg) | ![](https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1h9diqcqkatj308c08c0tl.jpg) | <img src="https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1h8jyrzftp4j30rs0rsjy6.jpg" style="zoom:30%;" /> |
+| :----------------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
+|                                   微信小程序                                   |                                 QQ小程序                                  |                               百度小程序                                |                                             头条小程序                                             |
 
-| ![](https://tva1.sinaimg.cn/large/006RKGBpgy1gsmd9enffgj608c08c3z502.jpg) | ![](https://tva1.sinaimg.cn/large/006RKGBpgy1h8jz1boxjxj308c08cwf5.jpg) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| H5                                                           | 安卓APP                                                      |
-
-
+| ![](https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1ho74xjcfiwj308c08cmyt.jpg) | ![](https://s2.loli.net/2024/03/28/oO42TLpyNGZkMVm.jpg) | ![](https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1h8jz1boxjxj308c08cwf5.jpg) |
+| ------------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------------ |
+| 支付宝小程序                                                 | H5                                                      | 安卓APP                                                      |
 
 ## 交流反馈群
 
-<img src="https://tva1.sinaimg.cn/large/006RKGBpgy1h8jtjasufqj30ep0hqtc5.jpg" alt="cover" style="zoom:50%;" />
-
-
+<img src="https://image.baidu.com/search/down?url=https://tva1.sinaimg.cn/large/006RKGBpgy1h8jtjasufqj30ep0hqtc5.jpg" alt="cover" style="zoom:50%;" />
 
 ## TODO
 
+- 增加文章管理
+- 增加订阅关注功能
 - 暗黑主题色适配
 - 小程序特殊能力适配
 - 文章发布管理
@@ -104,7 +127,7 @@ pnpm run type:check
 ## 特别感谢
 
 - 微信小程序开源程序：[微慕小程序开源版](https://github.com/iamxjb/winxin-app-watch-life.net)
-- WordPress Restful API增强插件：[WordpPress rest api 定制化插件](https://github.com/iamxjb/rest-api-to-miniprogram)
+- WordPress Restful API增强插件：[WordPress rest api 定制化插件](https://github.com/iamxjb/rest-api-to-miniprogram)
 - WordPress JWT认证插件：[JWT Authentication for WP-API](https://cn.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)
 - UniApp UI库：[uView UI](https://www.uviewui.com/)
 - Html解析库：[mp-html](https://github.com/jin-yufeng/mp-html)

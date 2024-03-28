@@ -56,6 +56,15 @@
           :clickable="true"
           @click="redirectTo('comment')"
         ></u-cell>
+        <u-cell
+          class="menu-cell"
+          icon="edit-pen-fill"
+          title="我要投稿"
+          :is-link="true"
+          size="large"
+          :clickable="true"
+          @click="redirectTo('post')"
+        ></u-cell>
       </u-cell-group>
     </view>
 
@@ -101,7 +110,7 @@ const login = () => {
   })
 }
 
-type redirectPageType = 'like' | 'comment' | 'profile' | 'history' | 'setting' | 'about'
+type redirectPageType = 'like' | 'comment' | 'profile' | 'history' | 'setting' | 'about' | 'post'
 const redirectTo = (option: redirectPageType) => {
   switch (option) {
     case 'history':
@@ -142,6 +151,11 @@ const redirectTo = (option: redirectPageType) => {
     case 'profile':
       uni.navigateTo({
         url: '/pages/my/profile'
+      })
+      break
+    case 'post':
+      uni.navigateTo({
+        url: '/pages/editor/editor'
       })
       break
   }
