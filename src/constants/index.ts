@@ -60,7 +60,9 @@ export const DefaultPost: Post = {
     _bbp_reply_count_hidden: 0,
     _bbp_forum_subforum_count: 0,
     footnotes: ''
-  }
+  },
+  author_avatar: '',
+  author_name: ''
 }
 
 export enum Platform {

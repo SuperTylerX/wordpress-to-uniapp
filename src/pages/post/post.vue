@@ -3,8 +3,8 @@
     <view v-show="!isLoading" class="wrap" @tap="resetComment">
       <view class="title">{{ article.title.rendered }}</view>
       <view class="info">
-        <u-icon class="icon" name="calendar" size="14"></u-icon>
-        <text class="text">{{ article.date.slice(0, 10) }}</text>
+        <!--        <u-icon class="icon" name="calendar" size="14"></u-icon>-->
+        <!--        <text class="text">{{ article.date.slice(0, 10) }}</text>-->
 
         <u-icon class="icon" name="list-dot" size="14"></u-icon>
         <text class="text">{{ article.category_name }}</text>
@@ -17,6 +17,16 @@
 
         <u-icon class="icon" name="eye" size="14"></u-icon>
         <text class="text">{{ article.pageviews }}</text>
+      </view>
+
+      <!-- 投稿者信息 -->
+      <view class="author-info" @tap="redirectToProfile(article.author)">
+        <u-avatar :src="article.author_avatar"></u-avatar>
+
+        <view class="author-name-wrapper">
+          <view class="author">{{ article.author_name }}</view>
+          <view class="date-info">{{ article.post_date }} 投递</view>
+        </view>
       </view>
 
       <!-- 文章内容 -->
@@ -109,7 +119,11 @@
               <!-- 回复标题 -->
               <view class="comment-user" @tap.stop="replyTo(item)">
                 <view class="comment-user-avatar">
-                  <image :src="item.author_avatar" class="avatarImg"></image>
+                  <image
+                    :src="item.author_avatar"
+                    class="avatarImg"
+                    @click="redirectToProfile(item.userid)"
+                  ></image>
                 </view>
                 <view class="comment-meta">
                   <view class="comment-user-meta">
@@ -579,6 +593,10 @@ const shareApp = () => {
   })
   //#endif
 }
+
+const redirectToProfile = (author: number) => {
+  redirect({ type: 'apppage', path: '/pages/user/profile?userId=' + author })
+}
 </script>
 
 <style>
@@ -756,7 +774,6 @@ page {
             line-height: 1.2;
             font-weight: normal;
             outline: none;
-            color: #959595;
             width: 150rpx;
             text-align: right;
           }
@@ -851,7 +868,7 @@ page {
         background-color: #0082ff;
         color: #ffffff;
         position: relative;
-        border: 0px;
+        border: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -938,7 +955,6 @@ page {
       width: 50rpx;
       height: 4rpx;
       background: #959595;
-      position: absolute;
       top: -5rpx;
       left: 0;
     }
@@ -968,6 +984,30 @@ page {
     justify-content: center;
     align-items: center;
     margin-top: 30rpx;
+  }
+}
+
+.author-info {
+  display: flex;
+  gap: 30rpx;
+  align-items: center;
+  margin: 30rpx 0;
+
+  .author-name-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10rpx;
+
+    .author {
+      font-size: 30rpx;
+      color: #3c9cff;
+      font-weight: bold;
+    }
+
+    .date-info {
+      font-size: 24rpx;
+      color: #959595;
+    }
   }
 }
 </style>

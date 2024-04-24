@@ -2,6 +2,7 @@
 import type { CommentListItem } from '@/types/comment'
 import { redirect } from '@/utils'
 import { deleteMyComment } from '@/api/comment'
+import { useUserStore } from '@/store/user'
 
 withDefaults(
   defineProps<{
@@ -14,7 +15,13 @@ withDefaults(
 
 const emit = defineEmits(['refresh'])
 
-const popDelete = (id: number) => {
+const popDelete = (id: number, author_id: number) => {
+  // 判断当前用户是否为评论作者，不是则不显示删除选项
+  const userStore = useUserStore()
+  if (author_id !== userStore.userInfo.id) {
+    return
+  }
+
   uni
     .showActionSheet({
       itemList: ['删除评论']
@@ -47,7 +54,7 @@ const popDelete = (id: number) => {
       :key="index"
       class="comment-item"
       hover-class="u-cell-hover"
-      @longpress="popDelete(item.id)"
+      @longpress="popDelete(item.id, item.author_id)"
       @tap="
         redirect({
           type: 'apppage',

@@ -460,7 +460,7 @@ const forgetPassOrRegister = (type: 1 | 2) => {
 
 <style>
 page {
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
 }
 </style>

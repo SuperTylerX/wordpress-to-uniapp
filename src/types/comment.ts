@@ -37,6 +37,7 @@ export interface CommentListItem {
   date: string
   author_name: string
   author_avatar: string
+  author_id: number
 }
 
 export interface GetCommentListByUserIdParams {

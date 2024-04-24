@@ -50,6 +50,8 @@ export interface Post {
   content: Content
   excerpt: Content
   author: number
+  author_avatar: string
+  author_name: string
   featured_media: number
   comment_status: string
   ping_status: string
