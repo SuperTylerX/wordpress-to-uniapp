@@ -28,6 +28,7 @@
           is-link
           @click="changeItem('email')"
         ></u-cell>
+        <u-cell size="large" title="个性签名" is-link @click="changeItem('description')"></u-cell>
       </u-cell-group>
     </view>
     <view class="separator"><text class="title">社交绑定</text></view>
@@ -157,13 +158,40 @@
             placeholder="请输入新昵称"
             border="bottom"
             clearable
-            type="nickname"
           ></up-input>
         </view>
 
         <view class="buttons">
           <button class="cancel" @tap="closeUsernamePopup">取消</button>
           <button class="confirm" @tap="updateUsername">确认</button>
+        </view>
+      </view>
+    </u-popup>
+
+    <u-popup
+      :show="isChangeDescriptionPopupShow"
+      mode="center"
+      :safe-area-inset-bottom="false"
+      closeable
+      :custom-style="{
+        height: '200px'
+      }"
+      @close="isChangeDescriptionPopupShow = false"
+    >
+      <view class="pop-box">
+        <view class="title">更新个性签名</view>
+        <view class="item">
+          <up-textarea
+            v-model="newDescription"
+            placeholder="请输入个性签名"
+            border="bottom"
+            clearable
+          ></up-textarea>
+        </view>
+
+        <view class="buttons">
+          <button class="cancel" @tap="closeDescriptionPopup">取消</button>
+          <button class="confirm" @tap="updateDescription">确认</button>
         </view>
       </view>
     </u-popup>
@@ -256,7 +284,9 @@ export default defineComponent({
       token: '',
       isChangeNicknamePopupShow: false,
       newNickname: '',
-      chooseAvatarUrl: ''
+      chooseAvatarUrl: '',
+      isChangeDescriptionPopupShow: false,
+      newDescription: ''
     }
   },
   computed: {
@@ -515,7 +545,7 @@ export default defineComponent({
       this.getUserMetaInfo()
       this.closeEmailPopup()
     },
-    changeItem(item: 'email' | 'nickname') {
+    changeItem(item: 'email' | 'nickname' | 'description') {
       switch (item) {
         case 'email': {
           this.isChangeEmailPopupShow = true
@@ -524,6 +554,10 @@ export default defineComponent({
         }
         case 'nickname': {
           this.isChangeNicknamePopupShow = true
+          break
+        }
+        case 'description': {
+          this.isChangeDescriptionPopupShow = true
           break
         }
       }
@@ -539,6 +573,10 @@ export default defineComponent({
     closeUsernamePopup() {
       this.isChangeNicknamePopupShow = false
       this.newNickname = ''
+    },
+    closeDescriptionPopup() {
+      this.isChangeDescriptionPopupShow = false
+      this.newDescription = ''
     },
     async updateUsername() {
       try {
@@ -557,6 +595,28 @@ export default defineComponent({
         const userStore = useUserStore()
         userStore.userInfo.nickname = res.nickname
         this.closeUsernamePopup()
+      } catch (e) {
+        uni.hideLoading()
+        console.error(e)
+      }
+    },
+    async updateDescription() {
+      try {
+        uni.showLoading({
+          title: '更新中',
+          mask: true
+        })
+        const res = await updateUserInfo({
+          description: this.newDescription
+        })
+        uni.hideLoading()
+        uni.showToast({
+          title: '修改成功',
+          icon: 'success'
+        })
+        const userStore = useUserStore()
+        userStore.userInfo.description = res.description
+        this.closeDescriptionPopup()
       } catch (e) {
         uni.hideLoading()
         console.error(e)
