@@ -547,7 +547,7 @@ export default defineComponent({
           mask: true
         })
         const res = await updateUserInfo({
-          name: this.newNickname
+          nickname: this.newNickname
         })
         uni.hideLoading()
         uni.showToast({
