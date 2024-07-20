@@ -61,7 +61,6 @@ export const useConfigStore = defineStore(
     }
   },
   {
-    // @ts-expect-error 增加持久化
     unistorage: true
   }
 )

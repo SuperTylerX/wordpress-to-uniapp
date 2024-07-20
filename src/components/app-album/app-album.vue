@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import props from 'uview-plus/components/u-album/props.js'
+import { props } from 'uview-plus/components/u-album/props.js'
 import mpMixin from 'uview-plus/libs/mixin/mpMixin.js'
 import mixin from 'uview-plus/libs/mixin/mixin.js'
 // #ifdef APP-NVUE

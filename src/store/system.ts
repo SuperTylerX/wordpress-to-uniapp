@@ -73,7 +73,6 @@ export const useSystemStore = defineStore(
     }
   },
   {
-    // @ts-expect-error 增加持久化
     unistorage: true
   }
 )
