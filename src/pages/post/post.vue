@@ -171,8 +171,8 @@
           <input
             v-model="myComment.content"
             class="solid-bottom"
-            maxlength="300"
-            cursor-spacing="10"
+            :maxlength="300"
+            :cursor-spacing="10"
             type="text"
             confirm-type="send"
             :placeholder="myComment.placeholder"
@@ -193,7 +193,7 @@
     </view>
 
     <view class="fixed-btns">
-      <button class="btn" open-type="share" type="default" plain="true" @tap="shareApp">
+      <button class="btn" open-type="share" type="default" :plain="true" @tap="shareApp">
         <u-icon name="share"></u-icon>
       </button>
 

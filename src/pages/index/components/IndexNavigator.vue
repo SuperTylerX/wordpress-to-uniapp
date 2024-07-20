@@ -15,7 +15,7 @@ const selected_nav = computed(() => configStore.config.expand.selected_nav)
       <view class="left">精选栏目</view>
       <view class="right">滑动查看</view>
     </view>
-    <scroll-view scroll-x="true">
+    <scroll-view :scroll-x="true">
       <view class="nav-content">
         <view
           v-for="(item, index) in selected_nav"

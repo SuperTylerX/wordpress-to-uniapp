@@ -1,6 +1,6 @@
 <template>
   <view class="category-wrap">
-    <scroll-view class="left" scroll-y="true">
+    <scroll-view class="left" :scroll-y="true">
       <view
         v-for="(item, index) in parentCategory"
         :key="index"
@@ -10,7 +10,7 @@
         >{{ item.name }}</view
       >
     </scroll-view>
-    <scroll-view class="right" scroll-y="true">
+    <scroll-view class="right" :scroll-y="true">
       <block v-for="(item, index) in childrenCategory[currentParentId]" :key="index">
         <view
           class="list-item"

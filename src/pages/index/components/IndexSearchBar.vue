@@ -29,8 +29,8 @@ const formSubmit = () => {
         placeholder="搜索你感兴趣的内容..."
         @confirm="formSubmit"
       />
-      <button class="search-button" form-type="submit" size="mini" plain="true">
-        <icon type="search" color="#959595" size="16"></icon>
+      <button class="search-button" form-type="submit" size="mini" :plain="true">
+        <icon type="search" color="#959595" :size="16"></icon>
       </button>
     </view>
   </form>

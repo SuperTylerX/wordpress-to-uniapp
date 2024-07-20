@@ -5,6 +5,7 @@ import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
 // #ifdef MP-BAIDU
 import { getLoginCode } from '@/utils'
+import type { AnyFn } from '@/types/typescript'
 // #endif
 
 interface GetUserInfo {
@@ -109,7 +110,7 @@ const wxMiniAppLoginHandler = async () => {
   }
 }
 
-const qqMinAppLoginHandler = async (res: GetUserInfo) => {
+const qqMinAppLoginHandler: AnyFn = async (res: GetUserInfo) => {
   const { avatarUrl, nickName } = res.detail.userInfo
   try {
     uni.showLoading({
@@ -229,7 +230,7 @@ onLoad(async () => {
 // #endif
 
 // #ifdef MP-BAIDU
-const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
+const bdMiniAppLoginHandler: AnyFn = async (res: GetUserInfo) => {
   const { avatarUrl, nickName } = res.detail.userInfo
   try {
     uni.showLoading({
@@ -259,7 +260,7 @@ const bdMiniAppLoginHandler = async (res: GetUserInfo) => {
 }
 // #endif
 
-const ttMiniAppLoginHandler = async (res: GetUserInfo) => {
+const ttMiniAppLoginHandler: AnyFn = async (res: GetUserInfo) => {
   const { avatarUrl, nickName } = res.detail.userInfo
   try {
     uni.showLoading({
@@ -360,7 +361,6 @@ const forgetPassOrRegister = (type: 1 | 2) => {
               v-model="loginInput.password"
               class="input"
               :password="true"
-              type="safe-password	"
               confirm-type="done"
               placeholder="请输入密码"
               :focus="isPassFocus"
@@ -415,7 +415,7 @@ const forgetPassOrRegister = (type: 1 | 2) => {
       <!-- #ifdef MP-TOUTIAO -->
       <button
         type="default"
-        plain="true"
+        :plain="true"
         class="third-login"
         open-type="getUserInfo"
         @getuserinfo="ttMiniAppLoginHandler"
@@ -428,7 +428,7 @@ const forgetPassOrRegister = (type: 1 | 2) => {
       <!-- #ifdef MP-BAIDU -->
       <button
         type="default"
-        plain="true"
+        :plain="true"
         class="third-login"
         open-type="getUserInfo"
         @getuserinfo="bdMiniAppLoginHandler"
@@ -441,7 +441,7 @@ const forgetPassOrRegister = (type: 1 | 2) => {
       <!-- #ifdef MP-ALIPAY -->
       <button
         type="default"
-        plain="true"
+        :plain="true"
         class="third-login"
         style="height: 150rpx"
         @tap="aliMiniAppLoginHandler"

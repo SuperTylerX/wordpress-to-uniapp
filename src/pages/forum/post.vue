@@ -122,8 +122,8 @@
           <input
             v-model="myComment.content"
             class="solid-bottom"
-            maxlength="300"
-            cursor-spacing="10"
+            :maxlength="300"
+            :cursor-spacing="10"
             type="text"
             confirm-type="send"
             :placeholder="myComment.placeholder"

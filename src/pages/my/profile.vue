@@ -267,6 +267,7 @@ import { getEmailCaptcha, getGraphicCaptcha, updateUserEmail, uploadAvatar } fro
 import { getPlatform, localImgToBase64, sleep } from '@/utils'
 import { mapState, mapActions } from 'pinia'
 import { updateUserInfo } from '@/api/user'
+import type { ButtonOnChooseavatarEvent } from '@uni-helper/uni-app-types'
 
 export default defineComponent({
   data() {
@@ -358,7 +359,7 @@ export default defineComponent({
         console.error()
       }
     },
-    async wxSelectAvatar(e: { detail: { avatarUrl: string } }) {
+    async wxSelectAvatar(e: ButtonOnChooseavatarEvent) {
       const avatarUrl = e.detail.avatarUrl
       const avatar = await localImgToBase64(avatarUrl)
       this.uploadAvatar(avatar)

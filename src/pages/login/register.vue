@@ -14,7 +14,7 @@
               confirm-type="next"
               placeholder="请输入昵称"
               name="nickname"
-              maxlength="20"
+              :maxlength="20"
             />
           </view>
           <view class="email input-item">
@@ -33,11 +33,11 @@
             <input
               v-model="form.password"
               class="input"
-              type="password"
+              :password="true"
               confirm-type="next"
               placeholder="请输入密码"
               name="password"
-              maxlength="20"
+              :maxlength="20"
             />
           </view>
           <view class="password input-item">
@@ -45,11 +45,11 @@
             <input
               v-model="form.repassword"
               class="input"
-              type="password"
+              :password="true"
               confirm-type="next"
               placeholder="请重复密码"
               name="repassword"
-              maxlength="20"
+              :maxlength="20"
             />
           </view>
 
@@ -62,7 +62,7 @@
               confirm-type="next"
               placeholder="请输入图形验证码"
               name="code"
-              maxlength="4"
+              :maxlength="4"
             />
             <image
               :src="captchaImg"
@@ -82,7 +82,7 @@
               confirm-type="done"
               placeholder="请输入邮箱验证码"
               name="code"
-              maxlength="6"
+              :maxlength="6"
               @confirm="register"
             />
             <view v-if="showFetchMailCaptcha" class="fetch-btn" @click="getEmailCaptcha"
