@@ -11,3 +11,5 @@ node_modules
 /src/uni_modules
 /src/components/mp-html
 /src/components/image-crop/image-crop.vue
+/src/env.d.ts
+/src/shime-uni.d.ts

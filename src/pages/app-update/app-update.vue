@@ -104,9 +104,11 @@ export default {
     // 当点击更新时
     onUpdate() {
       // 判断是Android还是IOS
-      useSystemStore().systemInfo.platform === 'android'
-        ? this.openAndroidUpdate()
-        : this.openIosUpdate()
+      if (useSystemStore().systemInfo.platform === 'android') {
+        this.openAndroidUpdate()
+      } else {
+        this.openIosUpdate()
+      }
     },
     openIosUpdate() {
       plus.runtime.openURL(this.downloadLink, () => {

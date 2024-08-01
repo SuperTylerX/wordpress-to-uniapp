@@ -150,7 +150,9 @@ export default {
     deleteImg(event: { index: number; file: ImgListItem }) {
       this.imgList.splice(event.index, 1)
       const id = event.file.id
-      id && deleteMedia({ id }) // 静默删除，不显示结果
+      if (id) {
+        deleteMedia({ id }) // 静默删除，不显示结果
+      }
     },
     // 新增图片
     async afterRead(event: { file: ImgListItem[] }) {

@@ -207,10 +207,11 @@ export default {
       // #ifdef APP-NVUE
       // 这里ref="u-album__row"所在的标签为通过for循环出来，导致this.$refs['u-album__row']是一个数组
       const ref = this.$refs['u-album__row'][0]
-      ref &&
+      if (ref) {
         dom.getComponentRect(ref, res => {
           this.singleWidth = res.size.width * this.singlePercent
         })
+      }
       // #endif
     }
   }

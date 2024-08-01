@@ -52,7 +52,9 @@ module.exports = defineConfig({
         ignoreRestSiblings: true,
         // function foo(a, b) {};
         // 使用了 b, a 没有使用不会报错
-        args: 'after-used'
+        args: 'after-used',
+        // try catch 里面的 error 可以不使用
+        caughtErrors: 'none'
       }
     ]
   }

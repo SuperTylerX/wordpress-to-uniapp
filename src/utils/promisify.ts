@@ -1,7 +1,8 @@
 // Promisify 工具
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function promisify<RequestType, SuccessReturnType>(fn: Function) {
+import type { AnyFn } from '@/types/typescript'
+
+export function promisify<RequestType, SuccessReturnType>(fn: AnyFn) {
   return function (args: RequestType) {
     return new Promise<SuccessReturnType>((resolve, reject) => {
       fn({
