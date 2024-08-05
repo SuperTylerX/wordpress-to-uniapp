@@ -74,6 +74,7 @@
     "@dcloudio/uni-cli-shared": "3.0.0-4020420240722002",
     "@dcloudio/uni-stacktracey": "3.0.0-4020420240722002",
     "@dcloudio/vite-plugin-uni": "3.0.0-4020420240722002",
+    "@mini-types/alipay": "^3.0.14",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.0.2",
     "@typescript-eslint/eslint-plugin": "^8.0.0",

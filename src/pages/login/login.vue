@@ -296,7 +296,6 @@ const aliMiniAppLoginHandler = async () => {
       mask: true
     })
 
-    // @ts-expect-error my is not defined
     const { authCode } = await my.getAuthCode({
       scopes: 'auth_user'
     })

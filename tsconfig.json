@@ -9,7 +9,8 @@
     "lib": ["esnext", "dom"],
     "types": [
       "@dcloudio/types", // uni-app API 类型
-      "miniprogram-api-typings", // 原生微信小程序类型
+      "miniprogram-api-typings", // 微信小程序类型
+      "@mini-types/alipay", // 支付宝小程序类型
       "@uni-helper/uni-app-types" // uni-app 组件类型
     ]
   },
@@ -20,7 +21,6 @@
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": [
     "src/components/mp-html/**/*",
-    "src/components/image-crop/image-crop.vue",
     "src/components/app-album/app-album.vue",
     "src/components/sp-editor/*",
     "src/components/uni-data-picker/*",

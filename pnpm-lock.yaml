@@ -91,6 +91,9 @@ devDependencies:
   '@dcloudio/vite-plugin-uni':
     specifier: 3.0.0-4020420240722002
     version: 3.0.0-4020420240722002(postcss@8.4.40)(vite@5.2.8)(vue@3.4.35)
+  '@mini-types/alipay':
+    specifier: ^3.0.14
+    version: 3.0.14
   '@types/lodash-es':
     specifier: ^4.17.12
     version: 4.17.12
@@ -3073,6 +3076,21 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@mini-types/alipay@3.0.14:
+    resolution: {integrity: sha512-FakzSsKvybtWlEIVTIRlr89kuQFn+XY86Ho9VUFFaKLplhW6Wx8FUxTDE7IzV7B9rT8DP/Icy637vUHlXPsw1g==}
+    dependencies:
+      '@mini-types/global': 3.0.14
+      '@mini-types/my': 3.0.14
+    dev: true
+
+  /@mini-types/global@3.0.14:
+    resolution: {integrity: sha512-St2ucFRfKRskposOqV/9iNJTKn1MbyqDypQiy/0DaVJjEm2MFi82RJjX9sBz1uWhQIqzu741PgTjGSy7L/Qj9g==}
+    dev: true
+
+  /@mini-types/my@3.0.14:
+    resolution: {integrity: sha512-aEgmM+rbEvEzTvqltCFRAg/h6KKs14M1y+FrOkz+hn2EyNpOVPesUzTjbRhSiFFsE3WdfBh54lHNYBahAmHq7w==}
+    dev: true
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
