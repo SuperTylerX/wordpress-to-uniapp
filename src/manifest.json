@@ -19,7 +19,11 @@
     /* 模块配置 */
     "modules": {
       "Share": {},
-      "OAuth": {}
+      "OAuth": {},
+      "Barcode": {},
+      "VideoPlayer": {},
+      "Push": {},
+      "Camera": {}
     },
     /* 应用发布信息 */
     "distribute": {
@@ -41,10 +45,13 @@
           "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
           "<uses-feature android:name=\"android.hardware.camera\"/>",
           "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-        ]
+        ],
+        "minSdkVersion": 21
       },
       /* ios打包配置 */
-      "ios": {},
+      "ios": {
+        "dSYMs": false
+      },
       /* SDK配置 */
       "sdkConfigs": {
         "share": {
@@ -58,6 +65,11 @@
             "appid": "101960915",
             "UniversalLinks": ""
           }
+        },
+        "ad": {},
+        "statics": {},
+        "push": {
+          "unipush": {}
         }
       },
       "splashscreen": {

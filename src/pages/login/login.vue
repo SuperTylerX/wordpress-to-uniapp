@@ -1,12 +1,14 @@
 <script setup lang="ts">
+// #ifdef MP-BAIDU
+import { getLoginCode } from '@/utils'
+// #endif
+
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { useConfigStore } from '@/store/config'
-// #ifdef MP-BAIDU
-import { getLoginCode } from '@/utils'
+import { registerCid } from '@/api/unipush'
 import type { AnyFn } from '@/types/typescript'
-// #endif
 
 interface GetUserInfo {
   type: string
@@ -63,6 +65,19 @@ const loginHandler = async () => {
 
     // 验证通过，获取用户信息
     await userStore.getUserMetaInfo()
+
+    // #ifdef APP-PLUS
+    // 如果是APP环境，注册UniPush ClientId
+    plus.push.getClientInfoAsync(async info => {
+      const cid = info['clientid']
+      if (!cid) return
+      try {
+        await registerCid(cid)
+      } catch (e) {
+        console.error(e)
+      }
+    }, console.error)
+    // #endif
 
     uni.hideLoading()
 
