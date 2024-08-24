@@ -15,10 +15,9 @@
     ]
   },
   "vueCompilerOptions": {
-    "experimentalRuntimeMode": "runtime-uni-app",
-    "nativeTags": ["block", "component", "template", "slot"]
+    "plugins": ["@uni-helper/uni-app-types/volar-plugin"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "*.d.ts"],
   "exclude": [
     "src/components/mp-html/**/*",
     "src/components/app-album/app-album.vue",

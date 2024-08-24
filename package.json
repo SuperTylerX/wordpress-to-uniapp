@@ -79,10 +79,9 @@
     "@types/node": "^22.4.1",
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.2.0",
-    "@uni-helper/uni-app-types": "^0.5.13",
+    "@uni-helper/uni-app-types": "1.0.0-alpha.3",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/language-server": "1.8.27",
     "@vue/runtime-core": "^3.4.38",
     "@vue/tsconfig": "^0.5.1",
     "chalk": "^5.3.0",
@@ -97,9 +96,9 @@
     "pinia-plugin-unistorage": "^0.1.2",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "vite": "^5.2.8",
     "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^2.0.29"
   }
 }
