@@ -14,6 +14,9 @@ export interface Config {
   uni_weixin_enterprise_minapp: boolean
   uni_qq_enterprise_minapp: boolean
   is_user_registration_enable: boolean
+  uni_enable_weixin_push: boolean
+  uni_weixin_comment_template_id: string
+  uni_weixin_comment_reply_template_id: string
 }
 export interface Expand {
   swipe_nav: Nav[]

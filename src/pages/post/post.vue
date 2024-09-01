@@ -461,6 +461,7 @@ const resetComment = () => {
     content: ''
   })
 }
+
 // 提交评论
 const reply = async () => {
   // 如果未登录，重定向至登录界面
@@ -506,6 +507,14 @@ const reply = async () => {
       commentsList.value = []
       isLastPage.value = false
       fetchComments()
+
+      // #ifdef MP-WEIXIN
+      await requestSubscribeMessageWx()
+      // #endif
+
+      // #ifdef MP-QQ
+      await requestSubscribeMessageQQ()
+      // #endif
     } else {
       uni.showToast({
         title: '留言失败',
@@ -519,6 +528,39 @@ const reply = async () => {
     uni.hideLoading()
   }
 }
+
+// 微信申请一次性订阅消息
+const requestSubscribeMessageWx = async () => {
+  try {
+    if (configStore.config.uni_enable_weixin_push) {
+      await wx.requestSubscribeMessage({
+        tmplIds: [configStore.config.uni_weixin_comment_reply_template_id]
+      })
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+// QQ申请一次性订阅消息
+const requestSubscribeMessageQQ = async () => {
+  // #ifdef MP-QQ
+  // eslint-disable-next-line no-undef
+  // @ts-expect-error qq is not defined
+  // TODO: 申请一次性模版
+  qq.subscribeAppMsg({
+    tmplIds: [],
+    subscribe: true,
+    success() {
+      //
+    },
+    fail(e: unknown) {
+      console.error(e)
+    }
+  })
+  // #endif
+}
+
 const changeOrder = (_order: 'desc' | 'asc') => {
   order.value = _order
   resetComment()

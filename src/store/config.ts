@@ -25,7 +25,10 @@ export const useConfigStore = defineStore(
       uni_qq_enterprise_minapp: false,
       is_user_registration_enable: false,
       uni_h5_qq_client_id: '',
-      uni_h5_qq_callback_url: ''
+      uni_h5_qq_callback_url: '',
+      uni_enable_weixin_push: false,
+      uni_weixin_comment_template_id: '',
+      uni_weixin_comment_reply_template_id: ''
     })
 
     const getConfig = async () => {

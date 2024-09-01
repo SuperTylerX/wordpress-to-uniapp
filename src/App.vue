@@ -15,7 +15,6 @@ onLaunch(async () => {
   // #ifdef APP-PLUS
   // APP检查更新
   checkUpdate()
-  // #endif
 
   // 添加监听从系统消息中心点击某条消息启动应用事件
   plus.push.addEventListener(
@@ -41,6 +40,8 @@ onLaunch(async () => {
     },
     false
   )
+
+  // #endif
 })
 onShow(() => {
   // console.log('App Show')
