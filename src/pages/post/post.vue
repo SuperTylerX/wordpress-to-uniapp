@@ -544,21 +544,16 @@ const requestSubscribeMessageWx = async () => {
 
 // QQ申请一次性订阅消息
 const requestSubscribeMessageQQ = async () => {
-  // #ifdef MP-QQ
-  // eslint-disable-next-line no-undef
-  // @ts-expect-error qq is not defined
-  // TODO: 申请一次性模版
   qq.subscribeAppMsg({
-    tmplIds: [],
+    tmplIds: [configStore.config.uni_qq_comment_reply_template_id],
     subscribe: true,
     success() {
-      //
+      // Keep Silence
     },
     fail(e: unknown) {
       console.error(e)
     }
   })
-  // #endif
 }
 
 const changeOrder = (_order: 'desc' | 'asc') => {
@@ -581,8 +576,6 @@ onReachBottom(() => {
 /************************* 分享代码此处开始 ***************************/
 onLoad(() => {
   // #ifdef MP-QQ
-  // eslint-disable-next-line no-undef
-  // @ts-expect-error qq is not defined
   qq.showShareMenu({
     showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
   })

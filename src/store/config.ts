@@ -28,7 +28,9 @@ export const useConfigStore = defineStore(
       uni_h5_qq_callback_url: '',
       uni_enable_weixin_push: false,
       uni_weixin_comment_template_id: '',
-      uni_weixin_comment_reply_template_id: ''
+      uni_weixin_comment_reply_template_id: '',
+      uni_qq_comment_template_id: '',
+      uni_qq_comment_reply_template_id: ''
     })
 
     const getConfig = async () => {

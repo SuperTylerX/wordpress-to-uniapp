@@ -80,7 +80,6 @@ export default defineComponent({
       return
     }
     // #ifdef MP-QQ
-    // @ts-expect-error qq未定义
     qq.showShareMenu({
       showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
     })
