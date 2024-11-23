@@ -2,10 +2,6 @@
   "name": "uni-preset-vue",
   "version": "0.0.0",
   "scripts": {
-    "lint": "cross-env NODE_ENV=production eslint src/**/*.{ts,tsx,vue}",
-    "lint:fix": "cross-env NODE_ENV=production eslint --fix src/**/*.{ts,tsx,vue}",
-    "type:check": "vue-tsc --noEmit",
-    "format": "prettier --write --cache .",
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
     "dev:app-ios": "uni -p app-ios",
@@ -41,7 +37,13 @@
     "build:quickapp-webview-huawei": "uni build -p quickapp-webview-huawei",
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "prepare": "husky",
-    "upgrade": "npx @dcloudio/uvm@latest"
+    "upgrade": "npx @dcloudio/uvm@latest",
+    "lint": "cross-env NODE_ENV=production eslint src/**/*.{ts,tsx,vue}",
+    "lint:fix": "cross-env NODE_ENV=production eslint --fix src/**/*.{ts,tsx,vue}",
+    "type:check": "vue-tsc --noEmit",
+    "format": "prettier --write --cache .",
+    "lint-staged": "lint-staged",
+    "check": "run-p type:check lint:fix"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-4020920240930001",
@@ -93,6 +95,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "miniprogram-api-typings": "^4.0.2",
+    "npm-run-all": "^4.1.5",
     "pinia-plugin-unistorage": "^0.1.2",
     "prettier": "^3.3.3",
     "sass": "^1.78.0",
