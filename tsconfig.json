@@ -8,6 +8,7 @@
     },
     "lib": ["esnext", "dom"],
     "types": [
+      "vite/client", // uni-app + Vue 3 使用 Vite 构建，需要安装 vite
       "@dcloudio/types", // uni-app API 类型
       "miniprogram-api-typings", // 微信小程序类型
       "@mini-types/alipay", // 支付宝小程序类型

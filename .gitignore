@@ -21,3 +21,4 @@ dist
 *.sw?
 
 .hbuilderx
+.vscode
