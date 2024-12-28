@@ -23,8 +23,9 @@
 
 <script lang="ts">
 import { getCommentListByUserId } from '@/api/comment'
-import type { CommentListItem } from '@/types/comment'
 import { useUserStore } from '@/store/user'
+import type { CommentListItem } from '@/types/comment'
+
 let page = 1
 
 export default {

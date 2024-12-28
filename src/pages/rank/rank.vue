@@ -52,11 +52,12 @@
 </template>
 
 <script lang="ts">
-import { WEBSITE_NAME } from '@/config'
-import { getHotCommentPosts, getHotLikePosts, getHotViewPosts } from '@/api/post'
-import type { Post } from '@/types/post'
 import { mapState } from 'pinia'
+
+import { getHotCommentPosts, getHotLikePosts, getHotViewPosts } from '@/api/post'
+import { WEBSITE_NAME } from '@/config'
 import { useConfigStore } from '@/store/config'
+import type { Post } from '@/types/post'
 
 export default {
   data() {

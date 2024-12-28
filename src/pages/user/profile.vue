@@ -81,16 +81,17 @@
 </template>
 
 <script lang="ts">
-import { getWebsiteUserProfile } from '@/api/user'
+import { mapState } from 'pinia'
+
 import { getCommentListByUserId } from '@/api/comment'
 import { getPostList } from '@/api/post'
-import type { CommentListItem } from '@/types/comment'
-import type { Post } from '@/types/post'
-import { mapState } from 'pinia'
-import { useUserStore } from '@/store/user'
+import { getWebsiteUserProfile } from '@/api/user'
+import { WEBSITE_NAME } from '@/config'
 import { useConfigStore } from '@/store/config'
 import { useSystemStore } from '@/store/system'
-import { WEBSITE_NAME } from '@/config'
+import { useUserStore } from '@/store/user'
+import type { CommentListItem } from '@/types/comment'
+import type { Post } from '@/types/post'
 
 const pageList = [1, 1]
 export default {

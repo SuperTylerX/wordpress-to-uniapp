@@ -1,6 +1,6 @@
 import { postJSON } from '@/api/utils'
-import type { ResponseObj } from '@/types/http'
 import { PLUGIN_REST_API_URL } from '@/config'
+import type { ResponseObj } from '@/types/http'
 
 export const getGraphicCaptcha = ({
   email,

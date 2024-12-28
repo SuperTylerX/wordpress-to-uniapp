@@ -1,5 +1,6 @@
 import { get, postJSON } from '@/api/utils'
 import { JWT_REST_API_URL, PLUGIN_REST_API_URL, WORDPRESS_REST_API_URL } from '@/config'
+import type { ResponseObj, ResponseStructure } from '@/types/http'
 import type {
   GetMiniAppUserToken,
   GetTokenResponse,
@@ -9,7 +10,6 @@ import type {
   User,
   UserProfile
 } from '@/types/user'
-import type { ResponseObj, ResponseStructure } from '@/types/http'
 
 export const login = (username: string, password: string) =>
   postJSON<ResponseStructure<GetTokenResponse | ResponseObj<AnyObject>>>(

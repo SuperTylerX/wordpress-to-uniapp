@@ -1,5 +1,6 @@
-import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { reactive, ref } from 'vue'
+
 import {
   alipayMiniAppLoginHttp,
   baiduMiniAppLoginHttp,
@@ -11,9 +12,9 @@ import {
   qqWebLoginHttp,
   wxMiniAppLoginHttp
 } from '@/api/user'
-import type { GetTokenResponse, User } from '@/types/user'
-import type { ResponseObj } from '@/types/http'
 import { DEFAULT_AVATAR_URL } from '@/config'
+import type { ResponseObj } from '@/types/http'
+import type { GetTokenResponse, User } from '@/types/user'
 // import { decodeJwt } from '@/utils'
 
 export const useUserStore = defineStore(

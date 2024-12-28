@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+
+import { checkUpdate } from '@/pages/app-update/app-update-check'
 import { useConfigStore } from '@/store/config'
 import { useSystemStore } from '@/store/system'
-import { checkUpdate } from '@/pages/app-update/app-update-check'
-import type { AnyType } from '@/types/typescript'
 import type { PushData } from '@/types/push'
+import type { AnyType } from '@/types/typescript'
 
 const configStore = useConfigStore()
 const systemStore = useSystemStore()

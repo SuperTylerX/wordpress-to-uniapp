@@ -94,11 +94,12 @@
 </template>
 
 <script setup lang="ts">
-import { DEFAULT_AVATAR_URL, WEBSITE_NAME } from '@/config'
-import { useUserStore } from '@/store/user'
-import { computed } from 'vue'
 import { onLoad, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
+import { computed } from 'vue'
+
+import { DEFAULT_AVATAR_URL, WEBSITE_NAME } from '@/config'
 import { useConfigStore } from '@/store/config'
+import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
 const userInfo = userStore.userInfo

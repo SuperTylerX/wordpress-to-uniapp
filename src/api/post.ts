@@ -1,7 +1,7 @@
-import { PLUGIN_REST_API_URL, WORDPRESS_REST_API_URL } from '@/config'
 import { get, postJSON } from '@/api/utils'
-import type { GetPostListParams, Post, PostData } from '@/types/post'
+import { PLUGIN_REST_API_URL, WORDPRESS_REST_API_URL } from '@/config'
 import type { ResponseObj } from '@/types/http'
+import type { GetPostListParams, Post, PostData } from '@/types/post'
 
 /** 获取文章列表 */
 export const getPostList = (params: GetPostListParams) =>

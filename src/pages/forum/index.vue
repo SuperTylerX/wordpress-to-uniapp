@@ -141,13 +141,14 @@
 </template>
 
 <script lang="ts">
-import { getPlatform, redirect } from '@/utils'
 import { mapState } from 'pinia'
-import { useUserStore } from '@/store/user'
+
 import { forumPostLike, getForumCategories, getForumTopicList } from '@/api/forum'
-import { useConfigStore } from '@/store/config'
-import type { ForumCategory, Topic } from '@/types/forum'
 import { WEBSITE_NAME } from '@/config'
+import { useConfigStore } from '@/store/config'
+import { useUserStore } from '@/store/user'
+import type { ForumCategory, Topic } from '@/types/forum'
+import { getPlatform, redirect } from '@/utils'
 
 let tempTopic: Topic | null = null
 export default {

@@ -1,8 +1,8 @@
 import { get, postJSON } from '@/api/utils'
 import { PLUGIN_REST_API_URL } from '@/config'
+import type { Comment } from '@/types/comment'
 import type { Forum, ForumCategory, TopicDetail } from '@/types/forum'
 import type { ResponseObj } from '@/types/http'
-import type { Comment } from '@/types/comment'
 
 export const getForumCategories = () => get<ForumCategory[]>(`${PLUGIN_REST_API_URL}/forums`)
 

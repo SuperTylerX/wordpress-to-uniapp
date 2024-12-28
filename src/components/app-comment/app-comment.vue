@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CommentListItem } from '@/types/comment'
-import { redirect } from '@/utils'
 import { deleteMyComment } from '@/api/comment'
 import { useUserStore } from '@/store/user'
+import type { CommentListItem } from '@/types/comment'
+import { redirect } from '@/utils'
 
 withDefaults(
   defineProps<{

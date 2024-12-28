@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import type { AppUpdatedVersion } from '@/types/config'
+
 import { getAppUpdatedVersion } from '@/api/setting'
+import type { AppUpdatedVersion } from '@/types/config'
 
 type GetSystemInfoResult = UniNamespace.GetSystemInfoResult
 export const useSystemStore = defineStore(

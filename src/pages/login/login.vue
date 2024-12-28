@@ -1,14 +1,15 @@
 <script setup lang="ts">
 // #ifdef MP-BAIDU
-import { getLoginCode } from '@/utils'
 // #endif
 
-import { reactive, ref } from 'vue'
-import { useUserStore } from '@/store/user'
 import { onLoad } from '@dcloudio/uni-app'
-import { useConfigStore } from '@/store/config'
+import { reactive, ref } from 'vue'
+
 import { registerCid } from '@/api/unipush'
+import { useConfigStore } from '@/store/config'
+import { useUserStore } from '@/store/user'
 import type { AnyFn } from '@/types/typescript'
+import { getLoginCode } from '@/utils'
 
 interface GetUserInfo {
   type: string

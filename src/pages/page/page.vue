@@ -29,8 +29,9 @@
 </template>
 
 <script lang="ts">
-import { getPage } from '@/api/post'
 import { defineComponent } from 'vue'
+
+import { getPage } from '@/api/post'
 import { DefaultPost } from '@/constants'
 
 export default defineComponent({

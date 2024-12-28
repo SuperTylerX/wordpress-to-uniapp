@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { defineConfig } = require('eslint-define-config')
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -16,6 +17,14 @@ module.exports = defineConfig({
     App: true,
     Page: true
   },
+  plugins: ['vue', '@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:vue/vue3-recommended',
+    '@vue/eslint-config-typescript/recommended',
+    '@vue/eslint-config-prettier'
+  ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -26,14 +35,22 @@ module.exports = defineConfig({
       jsx: true
     }
   },
-  extends: [
-    'plugin:vue/vue3-recommended',
-    'eslint:recommended',
-    '@vue/eslint-config-typescript/recommended',
-    '@vue/eslint-config-prettier'
-  ],
-  plugins: ['vue', '@typescript-eslint'],
   rules: {
+    // == 下面规则是基于 eslint-plugin-import 插件的 ==
+    // import 后面必须有空行
+    'import/newline-after-import': 'error',
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true
+        }
+      }
+    ],
+    // ==
     'prettier/prettier': 'warn',
     'vue/multi-word-component-names': 'off',
     'no-console': isProduction
@@ -56,6 +73,20 @@ module.exports = defineConfig({
         // try catch 里面的 error 可以不使用
         caughtErrors: 'none'
       }
+    ],
+    // ts type必须使用type类型导入
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        disallowTypeAnnotations: false
+      }
     ]
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true
+      }
+    }
   }
 })

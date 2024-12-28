@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { redirect } from '@/utils'
 import type { Post } from '@/types/post'
+import { redirect } from '@/utils'
 
 withDefaults(
   defineProps<{

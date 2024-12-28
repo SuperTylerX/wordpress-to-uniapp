@@ -206,19 +206,20 @@
 
 <script setup lang="ts">
 // 评论页数
-import { computed, reactive, ref } from 'vue'
-import { useUserStore } from '@/store/user'
-import { DEFAULT_AVATAR_URL } from '@/config'
-import { useConfigStore } from '@/store/config'
 import { onLoad, onReachBottom, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
-import { getPost, getPostList, postLike } from '@/api/post'
-import type { HistoryPostItem, Post } from '@/types/post'
-import { getTagList } from '@/api/tag'
+import { computed, reactive, ref } from 'vue'
+
 import { getCommentList, postMyComment } from '@/api/comment'
-import { getPlatform, redirect } from '@/utils'
-import type { Tag } from '@/types/tag'
-import type { Comment } from '@/types/comment'
+import { getPost, getPostList, postLike } from '@/api/post'
+import { getTagList } from '@/api/tag'
+import { DEFAULT_AVATAR_URL } from '@/config'
 import { DefaultPost } from '@/constants'
+import { useConfigStore } from '@/store/config'
+import { useUserStore } from '@/store/user'
+import type { Comment } from '@/types/comment'
+import type { HistoryPostItem, Post } from '@/types/post'
+import type { Tag } from '@/types/tag'
+import { getPlatform, redirect } from '@/utils'
 
 const isLoading = ref(false)
 

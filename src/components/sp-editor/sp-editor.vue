@@ -297,10 +297,12 @@
 </template>
 
 <script>
+import { uploadMedia } from '@/api/media'
+
 import ColorPicker from './color-picker.vue'
 import LinkEdit from './link-edit.vue'
+
 import { addLink, linkFlag } from './index.js'
-import { uploadMedia } from '@/api/media'
 
 export default {
   components: {

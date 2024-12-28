@@ -125,10 +125,11 @@
 </template>
 
 <script lang="ts">
-import { getGraphicCaptcha, getEmailCaptcha, userRegister } from '@/api/register'
-import { redirect, sleep } from '@/utils'
-import { useUserStore } from '@/store/user'
 import { defineComponent } from 'vue'
+
+import { getGraphicCaptcha, getEmailCaptcha, userRegister } from '@/api/register'
+import { useUserStore } from '@/store/user'
+import { redirect, sleep } from '@/utils'
 
 export default defineComponent({
   data() {

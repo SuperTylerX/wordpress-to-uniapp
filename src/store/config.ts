@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { getHomeConfig } from '@/api/setting'
 import { computed, reactive } from 'vue'
+
+import { getHomeConfig } from '@/api/setting'
 import type { Config } from '@/types/config'
 import { getPlatform } from '@/utils'
 

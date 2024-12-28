@@ -1,15 +1,16 @@
-import { createSSRApp } from 'vue'
-import App from './App.vue'
 import * as Pinia from 'pinia'
 import { createUnistorage } from 'pinia-plugin-unistorage'
+// @ts-expect-error 未找到声明
+import Quill from 'quill'
+// @ts-expect-error 未找到声明
+import ImageResize from 'quill-image-resize-mp'
 // @ts-expect-error 未找到声明
 import uviewPlus from 'uview-plus'
 // h5 依赖 quill 依赖，这里引入依赖，挂在全局避免去远程引入
 // #ifdef H5
-// @ts-expect-error 未找到声明
-import ImageResize from 'quill-image-resize-mp'
-// @ts-expect-error 未找到声明
-import Quill from 'quill'
+import { createSSRApp } from 'vue'
+
+import App from './App.vue'
 
 window.Quill = Quill
 window.ImageResize = { default: ImageResize }

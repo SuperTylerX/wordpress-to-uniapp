@@ -1,5 +1,5 @@
-import { WORDPRESS_REST_API_URL } from '@/config'
 import { get, postJSON } from '@/api/utils'
+import { WORDPRESS_REST_API_URL } from '@/config'
 import type { Tag } from '@/types/tag'
 
 // 获取标签列表

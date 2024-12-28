@@ -1,5 +1,5 @@
-import { PLUGIN_REST_API_URL } from '@/config'
 import { deleteJSON, get, postJSON } from '@/api/utils'
+import { PLUGIN_REST_API_URL } from '@/config'
 import type {
   Comment,
   CommentListItem,

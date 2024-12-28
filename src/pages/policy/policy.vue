@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 import { agreement } from '@/pages/policy/agreement'
 import { privacy } from '@/pages/policy/privacy'
 

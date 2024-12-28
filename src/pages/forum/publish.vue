@@ -91,12 +91,13 @@
 </template>
 
 <script lang="ts">
-import { getPlatform } from '@/utils/utils'
-import { getForumCategories, postForumPost } from '@/api/forum'
-import type { ForumCategory } from '@/types/forum'
-import { deleteMedia, uploadMedia } from '@/api/media'
 import { mapState } from 'pinia'
+
+import { getForumCategories, postForumPost } from '@/api/forum'
+import { deleteMedia, uploadMedia } from '@/api/media'
 import { useUserStore } from '@/store/user'
+import type { ForumCategory } from '@/types/forum'
+import { getPlatform } from '@/utils/utils'
 
 interface ImgListItem {
   type: string

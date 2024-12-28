@@ -1,6 +1,7 @@
-import type { ResponseObj } from '@/types/http'
 import { merge } from 'lodash-es'
+
 import { useUserStore } from '@/store/user'
+import type { ResponseObj } from '@/types/http'
 
 type RequestOptions = UniNamespace.RequestOptions
 type UploadFileOption = UniNamespace.UploadFileOption

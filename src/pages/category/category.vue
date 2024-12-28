@@ -39,13 +39,14 @@
 </template>
 
 <script lang="ts">
+import { mapState } from 'pinia'
+import { defineComponent } from 'vue'
+
 import { getCategoryList } from '@/api/category'
 import { WEBSITE_NAME } from '@/config'
-import { redirect } from '@/utils'
-import type { Category } from '@/types/category'
-import { defineComponent } from 'vue'
-import { mapState } from 'pinia'
 import { useConfigStore } from '@/store/config'
+import type { Category } from '@/types/category'
+import { redirect } from '@/utils'
 
 export default defineComponent({
   data() {

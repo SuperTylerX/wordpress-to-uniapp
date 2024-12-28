@@ -91,11 +91,11 @@
 </template>
 
 <script lang="ts">
-import { getGraphicCaptcha, getEmailCaptcha, userResetPassword } from '@/api/register'
-
 import { defineComponent } from 'vue'
-import { sleep } from '@/utils'
+
+import { getGraphicCaptcha, getEmailCaptcha, userResetPassword } from '@/api/register'
 import { useUserStore } from '@/store/user'
+import { sleep } from '@/utils'
 
 export default defineComponent({
   data() {

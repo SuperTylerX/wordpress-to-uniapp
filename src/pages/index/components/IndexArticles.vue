@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { onReachBottom } from '@dcloudio/uni-app'
 import { ref } from 'vue'
+
 import { getPostList } from '@/api/post'
 import type { Post } from '@/types/post'
-import { onReachBottom } from '@dcloudio/uni-app'
 
 const postsList = ref<Post[]>([])
 const isLoading = ref(false)

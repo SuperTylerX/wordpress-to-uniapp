@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useConfigStore } from '@/store/config'
 import { computed } from 'vue'
+
+import { useConfigStore } from '@/store/config'
 import { redirect } from '@/utils'
 
 const configStore = useConfigStore()

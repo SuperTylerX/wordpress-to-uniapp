@@ -113,12 +113,13 @@
 </template>
 
 <script lang="ts">
-import { getMyFavoritePosts, getPostList } from '@/api/post'
 import { defineComponent } from 'vue'
-import type { GetPostListParams, Post } from '@/types/post'
+
 import { getCategory } from '@/api/category'
+import { getMyFavoritePosts, getPostList } from '@/api/post'
 import { getTag } from '@/api/tag'
 import { WEBSITE_NAME } from '@/config'
+import type { GetPostListParams, Post } from '@/types/post'
 
 let page = 1
 

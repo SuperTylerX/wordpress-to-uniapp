@@ -141,19 +141,20 @@
 </template>
 
 <script lang="ts">
+import { mapState } from 'pinia'
+
 import {
   getForumTopicDetail,
   getForumTopicComment,
   postForumReply,
   forumPostLike
 } from '@/api/forum'
-import { getPlatform } from '@/utils/utils'
-import { mapState } from 'pinia'
-import { useUserStore } from '@/store/user'
-import { useConfigStore } from '@/store/config'
 import { DEFAULT_AVATAR_URL } from '@/config'
-import type { TopicDetail } from '@/types/forum'
+import { useConfigStore } from '@/store/config'
+import { useUserStore } from '@/store/user'
 import type { Comment } from '@/types/comment'
+import type { TopicDetail } from '@/types/forum'
+import { getPlatform } from '@/utils/utils'
 
 let page = 1
 

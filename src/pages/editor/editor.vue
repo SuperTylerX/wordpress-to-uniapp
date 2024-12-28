@@ -121,16 +121,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { createPost, getPost, updatePost } from '@/api/post'
-import { getCategoryList } from '@/api/category'
-import type { Category } from '@/types/category'
-import UniDataPicker from '@/components/uni-data-picker/uni-data-picker.vue'
-import { createTag, getTagList } from '@/api/tag'
-import type { Tag } from '@/types/tag'
 import { throttle } from 'lodash-es'
+import { computed, nextTick, ref } from 'vue'
+
+import { getCategoryList } from '@/api/category'
+import { createPost, getPost, updatePost } from '@/api/post'
+import { createTag, getTagList } from '@/api/tag'
+import UniDataPicker from '@/components/uni-data-picker/uni-data-picker.vue'
 import { useUserStore } from '@/store/user'
+import type { Category } from '@/types/category'
+import type { Tag } from '@/types/tag'
 
 const userStore = useUserStore()
 

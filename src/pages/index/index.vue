@@ -10,14 +10,14 @@
 </template>
 
 <script setup lang="ts">
-import IndexSwiper from '@/pages/index/components/IndexSwiper.vue'
-import IndexSearchBar from '@/pages/index/components/IndexSearchBar.vue'
-import IndexNavigator from '@/pages/index/components/IndexNavigator.vue'
-import IndexArticles from '@/pages/index/components/IndexArticles.vue'
 import { onPullDownRefresh, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
-import { WEBSITE_NAME } from '@/config'
 import { ref } from 'vue'
 
+import { WEBSITE_NAME } from '@/config'
+import IndexArticles from '@/pages/index/components/IndexArticles.vue'
+import IndexNavigator from '@/pages/index/components/IndexNavigator.vue'
+import IndexSearchBar from '@/pages/index/components/IndexSearchBar.vue'
+import IndexSwiper from '@/pages/index/components/IndexSwiper.vue'
 import { useConfigStore } from '@/store/config'
 
 const configStore = useConfigStore()

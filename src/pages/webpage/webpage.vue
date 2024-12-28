@@ -3,8 +3,9 @@
 </template>
 
 <script lang="ts">
-import { BASE_URL } from '@/config'
 import { defineComponent } from 'vue'
+
+import { BASE_URL } from '@/config'
 
 export default defineComponent({
   data() {

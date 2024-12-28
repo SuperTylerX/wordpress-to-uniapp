@@ -261,13 +261,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useUserStore } from '@/store/user'
-import { getEmailCaptcha, getGraphicCaptcha, updateUserEmail, uploadAvatar } from '@/api/register'
-import { getPlatform, localImgToBase64, sleep } from '@/utils'
-import { mapState, mapActions } from 'pinia'
-import { updateUserInfo } from '@/api/user'
 import type { ButtonOnChooseavatarEvent } from '@uni-helper/uni-app-types'
+import { mapState, mapActions } from 'pinia'
+import { defineComponent } from 'vue'
+
+import { getEmailCaptcha, getGraphicCaptcha, updateUserEmail, uploadAvatar } from '@/api/register'
+import { updateUserInfo } from '@/api/user'
+import { useUserStore } from '@/store/user'
+import { getPlatform, localImgToBase64, sleep } from '@/utils'
 
 export default defineComponent({
   data() {

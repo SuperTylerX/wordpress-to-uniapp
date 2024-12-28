@@ -1,5 +1,5 @@
-import { WORDPRESS_REST_API_URL } from '@/config'
 import { deleteJSON, postUpload } from '@/api/utils'
+import { WORDPRESS_REST_API_URL } from '@/config'
 import type { Media } from '@/types/media'
 
 export const uploadMedia = ({ filePath }: { filePath: string }) =>

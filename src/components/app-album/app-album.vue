@@ -48,8 +48,10 @@
 
 <script>
 import { props } from 'uview-plus/components/u-album/props.js'
-import mpMixin from 'uview-plus/libs/mixin/mpMixin.js'
+// eslint-disable-next-line import/no-named-as-default
 import mixin from 'uview-plus/libs/mixin/mixin.js'
+// eslint-disable-next-line import/no-named-as-default
+import mpMixin from 'uview-plus/libs/mixin/mpMixin.js'
 // #ifdef APP-NVUE
 // 由于weex为阿里的KPI业绩考核的产物，所以不支持百分比单位，这里需要通过dom查询组件的宽度
 const dom = uni.requireNativePlugin('dom')
